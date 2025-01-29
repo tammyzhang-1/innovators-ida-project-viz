@@ -11,6 +11,7 @@
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
     crossorigin=""></script>
     <script src="leaflet-side-by-side.js"></script>
+    <script src="d3.v7.min.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,13 +19,55 @@
 </head>
 <body>
     <div id="visualization-prompt">
-        <h2>What might storm surge flood damages look like for people of different incomes under a severe emissions scenario in 2071?</h2>
+        <h2 class="poppins-light">What might 
+
+            <div class="dropdown">
+                <button class="dropdown-button">
+                  <span id="environmental-dropdown-value" class="dropdown-value">storm surge flood damages</span>
+                  <span class="arrow"></span>
+                </button>
+                <div class="environmental dropdown-content">
+                    <span id="wind-damages">wind damages</span>
+                    <span class="selected-option" id="storm-surge">storm surge flood damages</span>
+                </div>
+            </div>
+            
+        look like for people of different 
+        
+            <div class="dropdown">
+                <button class="dropdown-button">
+                <span id="social-dropdown-value" class="dropdown-value">incomes</span>
+                <span class="arrow"></span>
+                </button>
+                <div class="social dropdown-content">
+                    <span id="racial-groups">racial groups</span>
+                    <span id="education-levels">education levels</span>
+                    <span id="poverty-levels">poverty levels</span>
+                    <span class="selected-option" id="incomes">incomes</span>
+                </div>
+            </div>
+            
+            under a
+
+            <div class="dropdown">
+                <button class="dropdown-button">
+                <span id="scenario-dropdown-value" class="dropdown-value">severe emissions scenario in 2071</span>
+                <span class="arrow"></span>
+                </button>
+                <div class="scenario dropdown-content">
+                    <span id="moderate-scenario">moderate emissions scenario in 2071</span>
+                    <span class="selected-option" id="severe-scenario">severe emissions scenario in 2071</span>
+                </div>
+            </div>
+            ?
+        </h2>
     </div>
     <div id="map"></div>
 </body>
 </html>
 
 <script>
+    // ------------ MAP SETUP ------------
     var map = L.map('map', {
         minZoom: 6,
         maxZoom: 12,
@@ -50,40 +93,127 @@
     map.createPane("right")
     map.createPane("labels")
 
+    let socialLayer = null;
+
     // placeholders
     palette1 = ['#f7fcf0', '#e0f3db', '#ccebc5', '#a8ddb5', '#7bccc4', '#4eb3d3', '#2b8cbe', '#08589e']
     palette2 = ['#ffffe5', '#fff7bc', '#fee391', '#fec44f', '#fe9929', '#ec7014', '#cc4c02', '#8c2d04']
 
-    async function loadTracts() {
-        // loading in and drawing census tract boundaries
-        const response = await fetch("census_tracts.geojson");
-        const data = await response.json();
+    const environmentalDropdown = document.querySelector('.environmental');
+    const socialDropdown = document.querySelector('.social');
+    const scenarioDropdown = document.querySelector('.scenario');
 
-        const environmentalLayer = L.geoJSON(data, 
+    // let environmentalOptions = {"wind-damages" : "wind_damages", "storm-surge" : "flood_damages"};
+    let socialOptions = {"racial-groups" : "", "education-levels" : "college_de", "poverty-levels" : "poverty_tr", "incomes" : "median_inc"}
+    // let scenarioOptions = {"moderate-scenario" : "", "severe-scenario" : ""};
+
+
+    map.on('popupopen', function(e) {
+        const popup = e.popup;
+        popup.getElement().style.zIndex = 99999; // Force popup to the top
+    });
+
+    var socialLegend;
+    var environmentalLegend;
+
+    // ------------ DATA LAYER SETUP ------------
+    async function loadTracts() {
+        // loading in and drawing census tract boundaries      
+        var currentSelectedLayer = null;
+        const data = await d3.json("census_tracts_joined.geojson", d3.autoType);
+        let features = data.features;
+
+        const selectedEnvironmental = environmentalDropdown.querySelector('.selected-option').id;
+        const selectedSocial = socialDropdown.querySelector('.selected-option').id;
+        const selectedScenario = scenarioDropdown.querySelector('.selected-option').id;
+
+        const selectedSocialProperty = socialOptions[selectedSocial];
+
+        let socialExtent = d3.extent(features, d => {if (d.properties[selectedSocialProperty]) return Number(d.properties[selectedSocialProperty])});
+
+        let socialColors = d3.scaleQuantile().domain(socialExtent).range(d3.schemeYlOrBr[8])
+
+        function highlightFeature(e) {
+            var layer = e.target;
+
+            if (currentSelectedLayer) {
+                if (currentSelectedLayer.defaultOptions.pane == 'left') {
+                    currentSelectedLayer.setStyle(environmentalStyle(currentSelectedLayer.feature));
+                } else {
+                    currentSelectedLayer.setStyle(socialStyle(currentSelectedLayer.feature));
+                }
+            }
+
+            layer.setStyle({
+                weight: 5,             
+                color: "#FF0000",    
+                fillOpacity: 0.5 
+            });
+
+            currentSelectedLayer = layer;
+
+            layer.on('popupclose', function() {
+ 
+        if (layer.defaultOptions.pane == 'left') {
+            layer.setStyle(environmentalStyle(layer.feature));
+        } else {
+            layer.setStyle(socialStyle(layer.feature));
+        }
+    });
+        }
+
+        function onEachFeature(feature, layer) {
+            console.log(feature.properties)
+
+            layer.bindPopup("<h3>" + 
+                feature.properties.NAMELSADCO + 
+                "</h3><p>Population: " + feature.properties.total_popu + 
+                    "</p><p> Median Income: " + feature.properties.median_inc + 
+                    "</p><p> College Educated: " + Math.round(feature.properties.college_de * 100) / 100 + 
+                    "</p><p> Poverty Rate: " + Math.round(feature.properties.poverty_tr * 100) / 100 + 
+                    "</p><p> White: " + Math.round(feature.properties.nhwhite_tr * 100) / 100 + 
+                    "</p><p> Black: " + Math.round(feature.properties.nhblack_tr * 100) / 100 + 
+                    "</p><p> Asian: " + Math.round(feature.properties.nhasian_tr * 100) / 100 +
+                    "</p><p> Hispanic: " + Math.round(feature.properties.hispanic_t * 100) / 100 + "</p>"
+
+            );
+            layer.on({
+                click: highlightFeature
+            });
+        }
+
+        // function for styling social data layer
+        function socialStyle(feature) {
+            return {
+                color: 'white',
+                weight: 0.5,
+                fillOpacity: 0.95,
+                fillColor: socialColors(feature.properties[selectedSocialProperty])
+            };
+        }
+
+        function environmentalStyle(feature) {
+            return {
+                color: 'white',
+                weight: 0.5,
+                fillOpacity: 0.65,
+                fillColor: palette1[Math.floor(Math.random() * palette1.length)]
+            };
+        }
+
+        socialLayer = L.geoJSON(data, 
             { 
-                style: function() {
-                    return {
-                        color: 'white',
-                        weight: 0.5,
-                        fillOpacity: 0.65,
-                        fillColor: palette2[Math.floor(Math.random() * palette2.length)]
-                    };
-                },
-                pane: 'left' 
+                style: socialStyle,
+                onEachFeature: onEachFeature,
+                pane: 'right' 
             }
         ).addTo(this.map);
 
-        const socialLayer = L.geoJSON(data, 
+        const environmentalLayer = L.geoJSON(data, 
             { 
-                style: function() {
-                    return {
-                        color: 'white',
-                        weight: 0.5,
-                        fillOpacity: 0.65,
-                        fillColor: palette1[Math.floor(Math.random() * palette1.length)]
-                    };
-                },
-                pane: 'right' 
+                style: environmentalStyle,
+                onEachFeature: onEachFeature,
+                pane: 'left' 
             }
         ).addTo(this.map);
         
@@ -91,6 +221,53 @@
         
         comparator.setLeftLayers(environmentalLayer);
         comparator.setRightLayers(socialLayer)  
+
+        // ------------ LEGEND SETUP -----------
+        if (socialLegend) {
+            map.removeControl(socialLegend);
+        };
+
+        if (environmentalLegend) {
+            map.removeControl(environmentalLegend);
+        };
+        
+        socialLegend = L.control({position: 'bottomright'});
+        environmentalLegend = L.control({position: 'bottomleft'});
+
+        socialLegend.onAdd = function (map) {
+            var div = L.DomUtil.create('div', 'info legend'),
+                classes = socialColors.quantiles(),
+                labels = [];
+            
+            div.innerHTML += '<p class="legend-title">Legend</p>'
+
+            for (var i = 0; i < classes.length; i++) {
+                var start = classes[i].toFixed(2);
+            var end = classes[i + 1] ? classes[i + 1].toFixed(2) : "+";
+
+            div.innerHTML +=
+                '<i style="background:' + socialColors(classes[i]) + '"></i> ' +
+                start + (end !== "+" ? '&ndash;' + end : '') + '<br>';
+            }
+            return div;
+        };
+
+        environmentalLegend.onAdd = function (map) {
+            var div = L.DomUtil.create('div', 'info legend'),
+                grades = [0, 1, 2, 3, 4, 5, 6, 7],
+                labels = [];
+            
+            div.innerHTML += '<p class="legend-title">Legend</p>'
+            for (var i = 0; i < grades.length; i++) {
+                div.innerHTML +=
+                    '<i style="background:' + palette1[i] + '"></i> ' +
+                    grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+            }
+
+            return div;
+        };
+        socialLegend.addTo(map);
+        environmentalLegend.addTo(map);
     }
     loadTracts();
 
@@ -101,9 +278,64 @@
         pane: 'labels'
     }).addTo(map);
 
+    // ------------ DROPDOWN INTERACTION SETUP ------------
+    document.querySelectorAll('.dropdown').forEach(dropdown => {
+        const dropdownButton = dropdown.querySelector('.dropdown-button');
+        const dropdownContent = dropdown.querySelector('.dropdown-content');
+        const dropdownOptions = [...dropdown.querySelectorAll('.dropdown-content span')];
+        const dropdownArrow = dropdown.querySelector('.arrow');
+        const dropdownValue = dropdown.querySelector('.dropdown-value');
+
+        // Handling when dropdown filter chip is clicked
+        dropdownButton.addEventListener('click', (event) => {
+            const isVisible = dropdownContent.style.display === 'block';
+            dropdownContent.style.display = isVisible ? 'none' : 'block';
+            dropdownArrow.classList.toggle("active");
+        });
+
+        const setDropdownWidth = () => {
+            const buttonWidth = dropdownButton.offsetWidth;
+            dropdownContent.style.minWidth = `${buttonWidth}px`;
+            dropdownContent.style.width = `${buttonWidth}px`;
+        };
+
+        addEventListener("load", function () {
+            setDropdownWidth();
+        })
+       
+        // Handling when a dropdown option is selected
+        dropdownContent.addEventListener('click', (event) => {
+            const target = event.target;
+            if (target.tagName.toLowerCase() === 'span') {
+                let newValue = target.innerHTML;
+                dropdownValue.innerHTML = newValue;
+                dropdownOptions.forEach((option) => option.classList.remove("selected-option"));
+                target.classList.add("selected-option");
+                setDropdownWidth();
+
+                loadTracts();
+
+                // socialLayer.setStyle(function(feature) {
+                //     return socialStyle(feature, selectedProperty);
+                // });
+            }
+        });
+
+        // close dropdown if clicked outside
+        window.addEventListener('click', (event) => {
+            if (!dropdown.contains(event.target)) {
+            if (dropdownContent.style.display === 'block') {
+                dropdownContent.style.display = 'none';
+                dropdownArrow.classList.remove("active");
+            }
+            }
+        });
+    });
+
 </script>
 
 <style>
+    /* ------------ TYPOGRAPHY ------------ */
     .poppins-extralight {
         font-family: "Poppins", sans-serif;
         font-weight: 200;
@@ -176,6 +408,7 @@
         font-style: italic;
     }
 
+    /* ------------ GENERAL SITE STYLES ------------ */
     html, body {
         height: 100vh;
         width: 100%;
@@ -184,24 +417,140 @@
         font-family: "Poppins", sans-serif;
     }
 
+    /* ------------ VISUALIZATION PROMPT STYLES ------------ */
     #visualization-prompt {
-        height: 15vh;
-        display: none;
+        height: 20vh;
+        background-color: #54565C;
     }
-
-    #map { 
-        height: 100vh; 
-        width: 100%;
-    }
-/* 
-    .leaflet-sbs-divider {
-        background-color: gray;
-    } */
 
     #visualization-prompt h2 {
-        font-weight: normal;
         text-align: center;
         padding: 1em 0.15em;
-        margin: 0;
+        margin: 0; 
+        line-height: 215%;
+        width: 75%;
+        margin: auto;
+        color: #FFFFFF;
     }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    button * {
+        pointer-events: none;
+    }
+
+    .dropdown-button {
+        color: white;
+        border: solid 1px #788A96;
+        border-radius: 2em;
+        box-shadow: 0px 2px 4px 1px rgba(84, 86, 92, 0.30);
+        background-color: #63666C;
+        cursor: pointer;
+        font-family: 'Poppins';
+        font-weight: 300;
+        font-size: 1em;
+        display: flex;
+        align-items: center;
+        gap: 0.5em;
+        padding: 0 1em;
+        margin: 0 0.35em;
+    }
+
+    .arrow {
+        border: solid white;
+        border-width: 0 1px 1px 0;
+        display: inline-block;
+        padding: 0.15em;
+        transition: transform ease-in-out 0.3s;
+        display: block;
+        transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+    }
+
+    .active.arrow {
+        transform: rotate(225deg);
+    }
+
+    .dropdown-button:hover {
+        background-color: #7b7e83;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        margin-top: 0.15em;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1000;
+        border-radius: 0.75em;
+        overflow: hidden;
+        font-size: 0.75em;
+        width: auto;
+        margin: 0.25em 0.35em;
+    }
+
+    .dropdown-content span {
+        color: #63666C;
+        padding: 0.75em 1.5em;
+        text-decoration: none;
+        display: block;
+        cursor: pointer;
+        border-bottom: solid thin rgb(233, 233, 233);
+        line-height: normal;
+    }
+
+    .dropdown-content span:hover {
+        background-color: #e9e9e9;
+    }
+
+    .selected-option {
+        font-weight: 600;
+    }
+
+   /* ------------ MAP STYLES ------------ */
+   #map { 
+        height: 80vh; 
+        width: 100%;
+    }
+
+  .legend {
+    line-height: 18px;
+    color: #555;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 1em;
+  }
+
+  .legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+  }
+
+  .legend-title {
+    margin: 0;
+    padding-bottom: 0.75em;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .leaflet-popup-pane {
+    z-index: 1000;
+  }
+
+  .leaflet-popup {
+    z-index: 100000 !important;
+    position: fixed;
+  }
+
+  .leaflet-popup-content p {
+    position: relative;
+    margin: 0;
+    padding: 0.25em 0;
+  }
+
 </style>
