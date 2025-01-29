@@ -115,6 +115,7 @@
 
     var socialLegend;
     var environmentalLegend;
+    var comparator;
 
     // ------------ DATA LAYER SETUP ------------
     async function loadTracts() {
@@ -217,10 +218,12 @@
             }
         ).addTo(this.map);
         
-        const comparator = L.control.sideBySide([], []).addTo(this.map);
-        
-        comparator.setLeftLayers(environmentalLayer);
-        comparator.setRightLayers(socialLayer)  
+        if (!comparator) {
+            comparator = L.control.sideBySide([], []).addTo(this.map);
+            comparator.setLeftLayers(environmentalLayer);
+            comparator.setRightLayers(socialLayer)  
+        }
+       
 
         // ------------ LEGEND SETUP -----------
         if (socialLegend) {
