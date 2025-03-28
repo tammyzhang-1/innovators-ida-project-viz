@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LSU NCAR Ida Project</title>
+    <link rel="stylesheet" href="styles/site.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
     crossorigin=""/>
@@ -18,62 +19,160 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="visualization-prompt">
-        <h2 class="poppins-light">What might 
-
-            <div class="dropdown">
-                <button class="dropdown-button">
-                  <span id="environmental-dropdown-value" class="dropdown-value">storm surge flood damages</span>
-                  <span class="arrow"></span>
-                </button>
-                <div class="environmental dropdown-content">
-                    <span id="wind-damages">wind damages</span>
-                    <span class="selected-option" id="storm-surge">storm surge flood damages</span>
-                </div>
-            </div>
-            
-        look like for people of different 
-        
-            <div class="dropdown">
-                <button class="dropdown-button">
-                <span id="social-dropdown-value" class="dropdown-value">incomes</span>
-                <span class="arrow"></span>
-                </button>
-                <div class="social dropdown-content">
-                    <span id="racial-groups">racial groups</span>
-                    <span id="education-levels">education levels</span>
-                    <span id="poverty-levels">poverty levels</span>
-                    <span class="selected-option" id="incomes">incomes</span>
-                </div>
-            </div>
-            
-            under a
-
-            <div class="dropdown">
-                <button class="dropdown-button">
-                <span id="scenario-dropdown-value" class="dropdown-value">severe emissions scenario in 2071</span>
-                <span class="arrow"></span>
-                </button>
-                <div class="scenario dropdown-content">
-                    <span id="moderate-scenario">moderate emissions scenario in 2071</span>
-                    <span class="selected-option" id="severe-scenario">severe emissions scenario in 2071</span>
-                </div>
-            </div>
-            ?
-        </h2>
+    <div id="landing" class="textbox-background">
+        <img src="images/background-1.jpg" alt="picture of coastal louisiana" />
+        <div class="textbox-overlay">
+            <h1>Social Responses to Climate Change Attributed Flooding in South Louisiana</h1>
+            <p>Kevin Smiley, ... list contributors to study here</p>
+            <p>Louisiana State University, NSF NCAR, the Water Institute ...</p>
+        </div>
     </div>
-    <div id="map"></div>
+
+    <div id="intro" class="textbox-main">
+        <div class="text">
+            <h2>What is attribution?</h2>
+            <p>When talking about climate, attribution refers to .... [text introduction explaining what attribution is / how it works] Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo ...</p>
+            <h2>An example of attribution</h2>
+            <img src="images/placeholder-1.png" alt="example graph" />
+            <p>In the graphs above, we're looking at [explanation and context as needed]. For example, on the left, the graph expresses that in [scenario 1], we attribute [$ amount or buildings damaged] to storm surge damages ...</p>
+        </div>
+    </div>
+
+
+    <div class="textbox-background">
+        <img src="images/background-2.jpg" alt="picture of coastal louisiana" />
+        <div class="textbox-overlay">
+            <h2>Impacts across space</h2>
+            <p>One thing we can do in our study is to see how these impacts from climate change can really vary from place to place.</p>
+        </div>
+    </div>
+
+    <div class="visualization-container">
+        <div class="visualization-prompt">
+            <h2 class="poppins-light">What might 
+    
+                <div class="dropdown">
+                    <button class="dropdown-button">
+                      <span id="environmental-dropdown-value-1" class="dropdown-value">storm surge flood damages</span>
+                      <span class="arrow"></span>
+                    </button>
+                    <div id="environmental1" class="environmental dropdown-content">
+                        <span id="wind-damages-1">wind damages</span>
+                        <span class="selected-option" id="storm-surge-1">storm surge flood damages</span>
+                    </div>
+                </div>
+                
+                look like in
+            
+                <div class="dropdown">
+                    <button class="dropdown-button">
+                    <span id="years-dropdown-value-1" class="dropdown-value">1971</span>
+                    <span class="arrow"></span>
+                    </button>
+                    <div id="year1" class="dropdown-content">
+                        <span id="1971-1" class="selected-option">1971</span>
+                        <span id="2021-1">2021</span>
+                        <span id="2071-1">2071</span>
+                    </div>
+                </div>
+                
+                compared to in
+    
+                <div class="dropdown">
+                    <button class="dropdown-button">
+                    <span id="years-dropdown-value-2" class="dropdown-value">2071</span>
+                    <span class="arrow"></span>
+                    </button>
+                    <div id="year2" class="dropdown-content">
+                        <span id="1971-2">1971</span>
+                        <span id="2021-2" class="selected-option">2021</span>
+                        <span id="2071-2">2071</span>
+                    </div>
+                </div>
+                ?
+            </h2>
+        </div>
+
+        <div id="map-1" class="map">
+        </div>
+    </div>
+
+    <div class="textbox-background">
+        <img src="images/background-3.jpg" alt="picture of coastal louisiana" />
+        <div class="textbox-overlay">
+            <h2>Impacts across society</h2>
+            <p>We can also learn about the social make-up of those affected places.</p>
+        </div>
+    </div>
+
+    <div class="visualization-container">
+        <div class="visualization-prompt">
+            <h2 class="poppins-light">What might 
+    
+                <div class="dropdown">
+                    <button class="dropdown-button">
+                      <span id="environmental-dropdown-value-2" class="dropdown-value">storm surge flood damages</span>
+                      <span class="arrow"></span>
+                    </button>
+                    <div id="environmental2" class="environmental dropdown-content">
+                        <span id="wind-damages-2">wind damages</span>
+                        <span class="selected-option" id="storm-surge-2">storm surge flood damages</span>
+                    </div>
+                </div>
+                
+            look like for people of different 
+            
+                <div class="dropdown">
+                    <button class="dropdown-button">
+                    <span id="social-dropdown-value" class="dropdown-value">incomes</span>
+                    <span class="arrow"></span>
+                    </button>
+                    <div id="social2" class="social dropdown-content">
+                        <span id="education-levels">education levels</span>
+                        <span id="poverty-levels">poverty levels</span>
+                        <span class="selected-option" id="incomes">incomes</span>
+                    </div>
+                </div>
+                
+                in
+    
+                <div class="dropdown">
+                    <button class="dropdown-button">
+                    <span id="years-dropdown-value-3" class="dropdown-value">2021</span>
+                    <span class="arrow"></span>
+                    </button>
+                    <div id="year3" class="dropdown-content">
+                        <span id="1971-3">1971</span>
+                        <span id="2021-3" class="selected-option">2021</span>
+                        <span id="2071-3">2071</span>
+                    </div>
+                </div>
+                ?
+            </h2>
+        </div>
+        
+        <div id="map-2" class="map">
+        </div>
+    </div>
+
+    <div class="textbox-background">
+        <img src="images/background-4.jpg" alt="picture of coastal louisiana" />
+        <div class="textbox-overlay">
+            <h2>Conclusion</h2>
+            <p>[conclusion content here] Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim...</p>
+        </div>
+    </div>
 </body>
 </html>
 
 <script>
-    // ------------ MAP SETUP ------------
-    var map = L.map('map', {
-        minZoom: 6,
-        maxZoom: 12,
+    // ------------ SETUP FOR MAP 1: COMPARING ONE ENVIRONMENTAL VARIABLE BETWEEN YEARS ------------
+    var map = L.map('map-1', {
+        minZoom: 7,
+        maxZoom: 10,
         maxBounds: [
-            [20, -111.5],
-            [40, -71.5]
+        [26, -100.5],
+        [35, -82.5]
         ],
         maxBoundsViscosity: 1,
         bounceAtZoomLimits: false
@@ -93,96 +192,200 @@
     map.createPane("right")
     map.createPane("labels")
 
+    // add labels layer on top
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        pane: 'labels'
+    }).addTo(map);
+
+    // ------------ SETUP FOR MAP 2: COMPARING ONE ENVIRONMENTAL VARIABLE WITH ONE SOCIAL VARIABLE IN ONE YEAR ------------
+    var map2 = L.map('map-2', {
+        minZoom: 7,
+        maxZoom: 10,
+        maxBounds: [
+        [26, -100.5],
+        [35, -82.5]
+        ],
+        maxBoundsViscosity: 1,
+        bounceAtZoomLimits: false
+    }).setView([30, -91.5], 8);
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd'
+    }).addTo(map2);
+
+    // properly center and expand map tiles on load
+    setTimeout(function () {
+        map2.invalidateSize();
+    }, 100);
+
+    map2.createPane("left")
+    map2.createPane("right")
+    map2.createPane("labels")
+
+    // add labels layer on top
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        pane: 'labels'
+    }).addTo(map2);
+
+    let year1Layer = null;
+    let year2Layer = null;
     let socialLayer = null;
+    let environmentalLayer2 = null;
 
-    // placeholders
-    palette1 = ['#f7fcf0', '#e0f3db', '#ccebc5', '#a8ddb5', '#7bccc4', '#4eb3d3', '#2b8cbe', '#08589e']
-    palette2 = ['#ffffe5', '#fff7bc', '#fee391', '#fec44f', '#fe9929', '#ec7014', '#cc4c02', '#8c2d04']
+     // referring to the options selected in the first visualization prompt
+     const environmentalDropdown1 = document.querySelector('#environmental1');
+    const yearDropdown1 = document.querySelector('#year1');
+    const yearDropdown2 = document.querySelector('#year2');
 
-    const environmentalDropdown = document.querySelector('.environmental');
-    const socialDropdown = document.querySelector('.social');
-    const scenarioDropdown = document.querySelector('.scenario');
+    // let environmentalOptions1 = {"wind-damages-2" : "", "storm-surge-2" : ""};
+    let yearOptions1 = {"1971-1" : "aff_1971", "2021-1": "aff_sum21", "2071-1": ""};
+    let yearOptions2 = {"1971-2" : "aff_1971", "2021-2": "aff_sum21", "2071-2": ""};
 
-    // let environmentalOptions = {"wind-damages" : "wind_damages", "storm-surge" : "flood_damages"};
+    var yearLegend1;
+    var yearLegend2;
+    var comparator1;
+
+    // referring to the options selected in the second visualization prompt
+    const environmentalDropdown2 = document.querySelector('#environmental2');
+    const socialDropdown = document.querySelector('#social2');
+    const yearDropdown3 = document.querySelector('#year3');
+
+    // let environmentalOptions2 = {"wind-damages-2" : "", "storm-surge-2" : ""};
     let socialOptions = {"racial-groups" : "", "education-levels" : "college_de", "poverty-levels" : "poverty_tr", "incomes" : "median_inc"}
-    // let scenarioOptions = {"moderate-scenario" : "", "severe-scenario" : ""};
-
-
-    map.on('popupopen', function(e) {
-        const popup = e.popup;
-        popup.getElement().style.zIndex = 99999; // Force popup to the top
-    });
+    let yearOptions3 = {"1971-3" : "aff_1971", "2021-3": "aff_sum21", "2071-3": ""};
 
     var socialLegend;
-    var environmentalLegend;
-    var comparator;
+    var environmentalLegend2;
+    var comparator2;
 
     // ------------ DATA LAYER SETUP ------------
     async function loadTracts() {
         // loading in and drawing census tract boundaries      
         var currentSelectedLayer = null;
-        const data = await d3.json("census_tracts_joined.geojson", d3.autoType);
+        const data = await d3.json("joined.geojson", d3.autoType);
         let features = data.features;
 
-        const selectedEnvironmental = environmentalDropdown.querySelector('.selected-option').id;
+        // referring to selected options in first prompt
+        const selectedEnvironmental1 = environmentalDropdown1.querySelector('.selected-option').id;
+        const selectedYear1 = yearDropdown1.querySelector('.selected-option').id;
+        const selectedYear2 = yearDropdown2.querySelector('.selected-option').id;
+
+        const selectedYear1Property = yearOptions1[selectedYear1];
+        let year1Extent = d3.extent(features, d => {if (d.properties["aff_sum21"]) return Number(d.properties["aff_sum21"])});
+        let year1Colors = d3.scaleQuantile().domain(year1Extent).range(d3.schemeGnBu[8])
+
+        const selectedYear2Property = yearOptions2[selectedYear2];
+        let year2Extent = d3.extent(features, d => {if (d.properties["aff_sum21"]) return Number(d.properties["aff_sum21"])});
+        let year2Colors = d3.scaleQuantile().domain(year2Extent).range(d3.schemeGnBu[8])
+
+        // referring to selected options in second prompt
+        const selectedEnvironmental2 = environmentalDropdown2.querySelector('.selected-option').id;
         const selectedSocial = socialDropdown.querySelector('.selected-option').id;
-        const selectedScenario = scenarioDropdown.querySelector('.selected-option').id;
+        const selectedYear3 = yearDropdown3.querySelector('.selected-option').id;
 
         const selectedSocialProperty = socialOptions[selectedSocial];
-
         let socialExtent = d3.extent(features, d => {if (d.properties[selectedSocialProperty]) return Number(d.properties[selectedSocialProperty])});
-
         let socialColors = d3.scaleQuantile().domain(socialExtent).range(d3.schemeYlOrBr[8])
 
-        function highlightFeature(e) {
-            var layer = e.target;
+        const selectedYear3Property = yearOptions3[selectedYear3];
+        // let year3Extent = d3.extent(features, d => {if (d.properties[selectedYear3Property]) return Number(d.properties[selectedYear3Property])});
+        // let year3Colors = d3.scaleQuantile().domain(year3Extent).range(d3.schemeGnBu[8])
 
-            if (currentSelectedLayer) {
-                if (currentSelectedLayer.defaultOptions.pane == 'left') {
-                    currentSelectedLayer.setStyle(environmentalStyle(currentSelectedLayer.feature));
-                } else {
-                    currentSelectedLayer.setStyle(socialStyle(currentSelectedLayer.feature));
-                }
-            }
+        let year3Extent = d3.extent(features, d => {if (d.properties["aff_sum21"]) return Number(d.properties["aff_sum21"])});
+        let year3Colors = d3.scaleQuantile().domain(year3Extent).range(d3.schemeGnBu[8])
 
-            layer.setStyle({
-                weight: 5,             
-                color: "#FF0000",    
-                fillOpacity: 0.5 
-            });
+        // function highlightFeature(e) {
+        //     var layer = e.target;
 
-            currentSelectedLayer = layer;
+        //     if (currentSelectedLayer) {
+        //         if (currentSelectedLayer.defaultOptions.pane == 'left') {
+        //             currentSelectedLayer.setStyle(environmentalStyle(currentSelectedLayer.feature));
+        //         } else {
+        //             currentSelectedLayer.setStyle(socialStyle(currentSelectedLayer.feature));
+        //         }
+        //     }
 
-            layer.on('popupclose', function() {
+        //     layer.setStyle({
+        //         weight: 5,             
+        //         color: "#FF0000",    
+        //         fillOpacity: 0.5 
+        //     });
+
+        //     currentSelectedLayer = layer;
+
+        //     layer.on('popupclose', function() {
  
-        if (layer.defaultOptions.pane == 'left') {
-            layer.setStyle(environmentalStyle(layer.feature));
+        // if (layer.defaultOptions.pane == 'left') {
+        //     layer.setStyle(environmentalStyle(layer.feature));
+        // } else {
+        //     layer.setStyle(socialStyle(layer.feature));
+        // }
+        // });
+        // }
+
+        // function onEachFeature(feature, layer) {
+        //     console.log(feature.properties)
+
+        //     layer.bindPopup("<h3>" + 
+        //         feature.properties.NAMELSADCO + 
+        //         "</h3><p>Population: " + feature.properties.total_popu + 
+        //             "</p><p> Median Income: " + feature.properties.median_inc + 
+        //             "</p><p> College Educated: " + Math.round(feature.properties.college_de * 100) / 100 + 
+        //             "</p><p> Poverty Rate: " + Math.round(feature.properties.poverty_tr * 100) / 100 + 
+        //             "</p><p> White: " + Math.round(feature.properties.nhwhite_tr * 100) / 100 + 
+        //             "</p><p> Black: " + Math.round(feature.properties.nhblack_tr * 100) / 100 + 
+        //             "</p><p> Asian: " + Math.round(feature.properties.nhasian_tr * 100) / 100 +
+        //             "</p><p> Hispanic: " + Math.round(feature.properties.hispanic_t * 100) / 100 + "</p>"
+
+        //     );
+        //     layer.on({
+        //         click: highlightFeature
+        //     });
+        // }
+
+        // styling functions for first map
+        function year1Style(feature) {
+            if (feature.properties[selectedYear1Property] === null) {
+            return {
+                color: 'lightgray', 
+                weight: 0.5, 
+                fillOpacity: 0.95,
+                fillColor: 'lightgray' 
+            };
         } else {
-            layer.setStyle(socialStyle(layer.feature));
+        return {
+            color: 'white', 
+            weight: 0.5, 
+            fillOpacity: 0.95,
+            fillColor: year1Colors(feature.properties[selectedYear1Property])
+        };
         }
-    });
-        }
-
-        function onEachFeature(feature, layer) {
-            console.log(feature.properties)
-
-            layer.bindPopup("<h3>" + 
-                feature.properties.NAMELSADCO + 
-                "</h3><p>Population: " + feature.properties.total_popu + 
-                    "</p><p> Median Income: " + feature.properties.median_inc + 
-                    "</p><p> College Educated: " + Math.round(feature.properties.college_de * 100) / 100 + 
-                    "</p><p> Poverty Rate: " + Math.round(feature.properties.poverty_tr * 100) / 100 + 
-                    "</p><p> White: " + Math.round(feature.properties.nhwhite_tr * 100) / 100 + 
-                    "</p><p> Black: " + Math.round(feature.properties.nhblack_tr * 100) / 100 + 
-                    "</p><p> Asian: " + Math.round(feature.properties.nhasian_tr * 100) / 100 +
-                    "</p><p> Hispanic: " + Math.round(feature.properties.hispanic_t * 100) / 100 + "</p>"
-
-            );
-            layer.on({
-                click: highlightFeature
-            });
         }
 
+        function year2Style(feature) {
+            if (feature.properties[selectedYear2Property] === null) {
+            return {
+                color: 'lightgray', 
+                weight: 0.5, 
+                fillOpacity: 0.95,
+                fillColor: 'lightgray' 
+            };
+        } else {
+        return {
+            color: 'white', 
+            weight: 0.5, 
+            fillOpacity: 0.95,
+            fillColor: year2Colors(feature.properties[selectedYear2Property])
+        };
+        }
+        }
+
+        // styling functions for second map
         // function for styling social data layer
         function socialStyle(feature) {
             return {
@@ -194,53 +397,138 @@
         }
 
         function environmentalStyle(feature) {
+            if (feature.properties[selectedYear3Property] === null) {
             return {
-                color: 'white',
-                weight: 0.5,
-                fillOpacity: 0.65,
-                fillColor: palette1[Math.floor(Math.random() * palette1.length)]
+                color: 'lightgray', 
+                weight: 0.5, 
+                fillOpacity: 0.95,
+                fillColor: 'lightgray' 
             };
+        } else {
+        return {
+            color: 'white', 
+            weight: 0.5, 
+            fillOpacity: 0.95,
+            fillColor: year3Colors(feature.properties[selectedYear3Property])
+        };
+        }
         }
 
-        socialLayer = L.geoJSON(data, 
+        // adding layers of first map
+        year1Layer = L.geoJSON(data, 
             { 
-                style: socialStyle,
-                onEachFeature: onEachFeature,
+                style: year1Style,
+                // onEachFeature: onEachFeature,
+                pane: 'left' 
+            }
+        ).addTo(this.map);
+
+        year2Layer = L.geoJSON(data, 
+            { 
+                style: year2Style,
+                // onEachFeature: onEachFeature,
                 pane: 'right' 
             }
         ).addTo(this.map);
 
-        const environmentalLayer = L.geoJSON(data, 
+
+        // adding layers of second map
+        socialLayer = L.geoJSON(data, 
+            { 
+                style: socialStyle,
+                // onEachFeature: onEachFeature,
+                pane: 'right' 
+            }
+        ).addTo(this.map2);
+
+        environmentalLayer2 = L.geoJSON(data, 
             { 
                 style: environmentalStyle,
-                onEachFeature: onEachFeature,
+                // onEachFeature: onEachFeature,
                 pane: 'left' 
             }
-        ).addTo(this.map);
+        ).addTo(this.map2);
+
+        if (!comparator1) {
+            comparator1 = L.control.sideBySide([], []).addTo(this.map);
+            comparator1.setLeftLayers(year1Layer);
+            comparator1.setRightLayers(year2Layer)  
+        }
         
-        if (!comparator) {
-            comparator = L.control.sideBySide([], []).addTo(this.map);
-            comparator.setLeftLayers(environmentalLayer);
-            comparator.setRightLayers(socialLayer)  
+        if (!comparator2) {
+            comparator2 = L.control.sideBySide([], []).addTo(this.map2);
+            comparator2.setLeftLayers(environmentalLayer2);
+            comparator2.setRightLayers(socialLayer)  
         }
        
-
         // ------------ LEGEND SETUP -----------
-        if (socialLegend) {
-            map.removeControl(socialLegend);
+
+        // setup for map 1
+        if (yearLegend1) {
+            map.removeControl(yearLegend1);
         };
 
-        if (environmentalLegend) {
-            map.removeControl(environmentalLegend);
+        if (yearLegend2) {
+            map.removeControl(yearLegend2);
+        };
+
+        yearLegend1 = L.control({position: 'bottomleft'});
+        yearLegend2 = L.control({position: 'bottomright'});
+
+        yearLegend1.onAdd = function (map) {
+            var div = L.DomUtil.create('div', 'info legend'),
+            classes = year1Colors.quantiles(),
+            labels = [];
+            
+            div.innerHTML += '<p class="legend-title">Legend</p>'
+
+            for (var i = 0; i < classes.length; i++) {
+                var start = classes[i].toFixed(0);
+            var end = classes[i + 1] ? classes[i + 1].toFixed(0) : "+";
+
+            div.innerHTML +=
+                '<i style="background:' + year1Colors(classes[i]) + '"></i> ' +
+                start + (end !== "+" ? '&ndash;' + end : '') + '<br>';
+            }
+            return div;
+        };
+
+        yearLegend2.onAdd = function (map) {
+            var div = L.DomUtil.create('div', 'info legend'),
+            classes = year2Colors.quantiles(),
+            labels = [];
+            
+            div.innerHTML += '<p class="legend-title">Legend</p>'
+
+            for (var i = 0; i < classes.length; i++) {
+                var start = classes[i].toFixed(0);
+            var end = classes[i + 1] ? classes[i + 1].toFixed(0) : "+";
+
+            div.innerHTML +=
+                '<i style="background:' + year2Colors(classes[i]) + '"></i> ' +
+                start + (end !== "+" ? '&ndash;' + end : '') + '<br>';
+            }
+            return div;
+        };
+        yearLegend1.addTo(map);
+        yearLegend2.addTo(map);
+
+        // setup for map 2
+        if (socialLegend) {
+            map2.removeControl(socialLegend);
+        };
+
+        if (environmentalLegend2) {
+            map2.removeControl(environmentalLegend2);
         };
         
         socialLegend = L.control({position: 'bottomright'});
-        environmentalLegend = L.control({position: 'bottomleft'});
+        environmentalLegend2 = L.control({position: 'bottomleft'});
 
-        socialLegend.onAdd = function (map) {
+        socialLegend.onAdd = function (map2) {
             var div = L.DomUtil.create('div', 'info legend'),
-                classes = socialColors.quantiles(),
-                labels = [];
+            classes = socialColors.quantiles(),
+            labels = [];
             
             div.innerHTML += '<p class="legend-title">Legend</p>'
 
@@ -255,31 +543,28 @@
             return div;
         };
 
-        environmentalLegend.onAdd = function (map) {
+        environmentalLegend2.onAdd = function (map2) {
             var div = L.DomUtil.create('div', 'info legend'),
-                grades = [0, 1, 2, 3, 4, 5, 6, 7],
-                labels = [];
+            classes = year3Colors.quantiles(),
+            labels = [];
             
             div.innerHTML += '<p class="legend-title">Legend</p>'
-            for (var i = 0; i < grades.length; i++) {
-                div.innerHTML +=
-                    '<i style="background:' + palette1[i] + '"></i> ' +
-                    grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
-            }
 
+            for (var i = 0; i < classes.length; i++) {
+                var start = classes[i].toFixed(0);
+            var end = classes[i + 1] ? classes[i + 1].toFixed(0) : "+";
+
+            div.innerHTML +=
+                '<i style="background:' + year3Colors(classes[i]) + '"></i> ' +
+                start + (end !== "+" ? '&ndash;' + end : '') + '<br>';
+            }
             return div;
         };
-        socialLegend.addTo(map);
-        environmentalLegend.addTo(map);
+        socialLegend.addTo(map2);
+        environmentalLegend2.addTo(map2);
     }
     loadTracts();
 
-    // add labels layer on top
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-        subdomains: 'abcd',
-        pane: 'labels'
-    }).addTo(map);
 
     // ------------ DROPDOWN INTERACTION SETUP ------------
     document.querySelectorAll('.dropdown').forEach(dropdown => {
@@ -321,6 +606,10 @@
                 // socialLayer.setStyle(function(feature) {
                 //     return socialStyle(feature, selectedProperty);
                 // });
+
+                // environmentalLayer2.setStyle(function(feature) {
+                //     return environmentalStyle(feature, selectedProperty);
+                // });
             }
         });
 
@@ -334,226 +623,4 @@
             }
         });
     });
-
 </script>
-
-<style>
-    /* ------------ TYPOGRAPHY ------------ */
-    .poppins-extralight {
-        font-family: "Poppins", sans-serif;
-        font-weight: 200;
-        font-style: normal;
-    }
-
-    .poppins-light {
-        font-family: "Poppins", sans-serif;
-        font-weight: 300;
-        font-style: normal;
-    }
-
-    .poppins-regular {
-        font-family: "Poppins", sans-serif;
-        font-weight: 400;
-        font-style: normal;
-    }
-
-    .poppins-medium {
-        font-family: "Poppins", sans-serif;
-        font-weight: 500;
-        font-style: normal;
-    }
-
-    .poppins-semibold {
-        font-family: "Poppins", sans-serif;
-        font-weight: 600;
-        font-style: normal;
-    }
-
-    .poppins-bold {
-        font-family: "Poppins", sans-serif;
-        font-weight: 700;
-        font-style: normal;
-    }
-
-    .poppins-extralight-italic {
-        font-family: "Poppins", sans-serif;
-        font-weight: 200;
-        font-style: italic;
-    }
-
-    .poppins-light-italic {
-        font-family: "Poppins", sans-serif;
-        font-weight: 300;
-        font-style: italic;
-    }
-
-    .poppins-regular-italic {
-        font-family: "Poppins", sans-serif;
-        font-weight: 400;
-        font-style: italic;
-    }
-
-    .poppins-medium-italic {
-        font-family: "Poppins", sans-serif;
-        font-weight: 500;
-        font-style: italic;
-    }
-
-    .poppins-semibold-italic {
-        font-family: "Poppins", sans-serif;
-        font-weight: 600;
-        font-style: italic;
-    }
-
-    .poppins-bold-italic {
-        font-family: "Poppins", sans-serif;
-        font-weight: 700;
-        font-style: italic;
-    }
-
-    /* ------------ GENERAL SITE STYLES ------------ */
-    html, body {
-        height: 100vh;
-        width: 100%;
-        padding: 0;
-        margin: 0;
-        font-family: "Poppins", sans-serif;
-    }
-
-    /* ------------ VISUALIZATION PROMPT STYLES ------------ */
-    #visualization-prompt {
-        height: 20vh;
-        background-color: #54565C;
-    }
-
-    #visualization-prompt h2 {
-        text-align: center;
-        padding: 1em 0.15em;
-        margin: 0; 
-        line-height: 215%;
-        width: 75%;
-        margin: auto;
-        color: #FFFFFF;
-    }
-
-    .dropdown {
-        position: relative;
-        display: inline-block;
-    }
-
-    button * {
-        pointer-events: none;
-    }
-
-    .dropdown-button {
-        color: white;
-        border: solid 1px #788A96;
-        border-radius: 2em;
-        box-shadow: 0px 2px 4px 1px rgba(84, 86, 92, 0.30);
-        background-color: #63666C;
-        cursor: pointer;
-        font-family: 'Poppins';
-        font-weight: 300;
-        font-size: 1em;
-        display: flex;
-        align-items: center;
-        gap: 0.5em;
-        padding: 0 1em;
-        margin: 0 0.35em;
-    }
-
-    .arrow {
-        border: solid white;
-        border-width: 0 1px 1px 0;
-        display: inline-block;
-        padding: 0.15em;
-        transition: transform ease-in-out 0.3s;
-        display: block;
-        transform: rotate(45deg);
-        -webkit-transform: rotate(45deg);
-    }
-
-    .active.arrow {
-        transform: rotate(225deg);
-    }
-
-    .dropdown-button:hover {
-        background-color: #7b7e83;
-    }
-
-    .dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: #f9f9f9;
-        margin-top: 0.15em;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-        z-index: 1000;
-        border-radius: 0.75em;
-        overflow: hidden;
-        font-size: 0.75em;
-        width: auto;
-        margin: 0.25em 0.35em;
-    }
-
-    .dropdown-content span {
-        color: #63666C;
-        padding: 0.75em 1.5em;
-        text-decoration: none;
-        display: block;
-        cursor: pointer;
-        border-bottom: solid thin rgb(233, 233, 233);
-        line-height: normal;
-    }
-
-    .dropdown-content span:hover {
-        background-color: #e9e9e9;
-    }
-
-    .selected-option {
-        font-weight: 600;
-    }
-
-   /* ------------ MAP STYLES ------------ */
-   #map { 
-        height: 80vh; 
-        width: 100%;
-    }
-
-  .legend {
-    line-height: 18px;
-    color: #555;
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 1em;
-  }
-
-  .legend i {
-    width: 18px;
-    height: 18px;
-    float: left;
-    margin-right: 8px;
-    opacity: 0.7;
-  }
-
-  .legend-title {
-    margin: 0;
-    padding-bottom: 0.75em;
-    font-weight: 600;
-    text-align: center;
-  }
-
-  .leaflet-popup-pane {
-    z-index: 1000;
-  }
-
-  .leaflet-popup {
-    z-index: 100000 !important;
-    position: fixed;
-  }
-
-  .leaflet-popup-content p {
-    position: relative;
-    margin: 0;
-    padding: 0.25em 0;
-  }
-
-</style>
