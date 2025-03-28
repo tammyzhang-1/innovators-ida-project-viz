@@ -253,6 +253,16 @@ button * {
     }
 }
 
+@media (max-width: 890px) {
+    .visualization-prompt {
+        display: flex;
+        align-items: center;
+    }
+    .visualization-prompt h2 {
+        font-size: 1.25em;
+    }
+}
+
 @media (max-width: 800px) {
     #landing > .textbox-overlay h1 {
         font-size: 1.5em;
@@ -272,6 +282,20 @@ button * {
 
     .text p {
         font-size: 1em;
+    }
+}
+
+@media (max-width: 740px) {
+    .visualization-prompt {
+        height: 30vh;
+    }
+
+    .map {
+        height: 70%;
+    }
+
+    .visualization-prompt h2 {
+        width: 90%;
     }
 }
 
