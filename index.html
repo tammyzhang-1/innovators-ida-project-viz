@@ -354,14 +354,13 @@
             return {
                 color: 'lightgray', 
                 weight: 0.5, 
-                fillOpacity: 0.95,
-                fillColor: 'lightgray' 
+                fill: false
             };
         } else {
         return {
             color: 'white', 
-            weight: 0.5, 
-            fillOpacity: 0.95,
+            weight: 1, 
+            fillOpacity: 0.98,
             fillColor: year1Colors(feature.properties[selectedYear1Property])
         };
         }
@@ -372,14 +371,13 @@
             return {
                 color: 'lightgray', 
                 weight: 0.5, 
-                fillOpacity: 0.95,
-                fillColor: 'lightgray' 
+                fill: false 
             };
         } else {
         return {
             color: 'white', 
-            weight: 0.5, 
-            fillOpacity: 0.95,
+            weight: 1, 
+            fillOpacity: 0.98,
             fillColor: year2Colors(feature.properties[selectedYear2Property])
         };
         }
@@ -388,21 +386,27 @@
         // styling functions for second map
         // function for styling social data layer
         function socialStyle(feature) {
+            if (feature.properties[selectedSocialProperty] === null) {
+            return {
+                color: 'lightgray', 
+                weight: 0.5, 
+                fill: false 
+            };
+        } else {
             return {
                 color: 'white',
                 weight: 0.5,
                 fillOpacity: 0.95,
                 fillColor: socialColors(feature.properties[selectedSocialProperty])
             };
-        }
+        }}
 
         function environmentalStyle(feature) {
             if (feature.properties[selectedYear3Property] === null) {
             return {
                 color: 'lightgray', 
                 weight: 0.5, 
-                fillOpacity: 0.95,
-                fillColor: 'lightgray' 
+                fill: false 
             };
         } else {
         return {
