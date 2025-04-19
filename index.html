@@ -53,12 +53,12 @@
     
                 <div class="dropdown">
                     <button class="dropdown-button">
-                      <span id="environmental-dropdown-value-1" class="dropdown-value">storm surge flood damages</span>
+                      <span id="map1-environmental-value" class="dropdown-value">storm surge flood damages</span>
                       <span class="arrow"></span>
                     </button>
-                    <div id="environmental1" class="environmental dropdown-content">
-                        <span id="wind-damages-1">wind damages</span>
-                        <span class="selected-option" id="storm-surge-1">storm surge flood damages</span>
+                    <div id="map1-environmental-dropdown" class="environmental dropdown-content">
+                        <span id="map1-wind-damages">wind damages</span>
+                        <span class="selected-option" id="map1-storm-surge">storm surge flood damages</span>
                     </div>
                 </div>
                 
@@ -66,13 +66,13 @@
             
                 <div class="dropdown">
                     <button class="dropdown-button">
-                    <span id="years-dropdown-value-1" class="dropdown-value">1971</span>
+                    <span id="map1-left-year-value" class="dropdown-value">1971</span>
                     <span class="arrow"></span>
                     </button>
-                    <div id="year1" class="dropdown-content">
-                        <span id="1971-1" class="selected-option">1971</span>
-                        <span id="2021-1">2021</span>
-                        <span id="2071-1">2071</span>
+                    <div id="map1-left-year-dropdown" class="dropdown-content">
+                        <span id="map1-left-1971" class="selected-option">1971</span>
+                        <span id="map1-left-2021">2021</span>
+                        <span id="map1-left-2071">2071</span>
                     </div>
                 </div>
                 
@@ -80,20 +80,27 @@
     
                 <div class="dropdown">
                     <button class="dropdown-button">
-                    <span id="years-dropdown-value-2" class="dropdown-value">2021</span>
+                    <span id="map1-right-year-value" class="dropdown-value">2021</span>
                     <span class="arrow"></span>
                     </button>
-                    <div id="year2" class="dropdown-content">
-                        <span id="1971-2">1971</span>
-                        <span id="2021-2" class="selected-option">2021</span>
-                        <span id="2071-2">2071</span>
+                    <div id="map1-right-year-dropdown" class="dropdown-content">
+                        <span id="map1-right-1971">1971</span>
+                        <span id="map1-right-2021" class="selected-option">2021</span>
+                        <span id="map1-right-2071">2071</span>
                     </div>
                 </div>
                 ?
             </h2>
         </div>
 
-        <div id="map-1" class="map">
+        <div class="map-container">
+            <div id="map1-census-toggle">
+                <div class="map1-toggle-option active" id="map1-tract">census tract</div>
+                <div class="map1-toggle-option" id="map1-block">census block</div>
+            </div>
+
+            <div id="map1" class="map">
+            </div>
         </div>
     </div>
 
@@ -111,12 +118,12 @@
     
                 <div class="dropdown">
                     <button class="dropdown-button">
-                      <span id="environmental-dropdown-value-2" class="dropdown-value">storm surge flood damages</span>
+                      <span id="map2-environmental-dropdown-value" class="dropdown-value">storm surge flood damages</span>
                       <span class="arrow"></span>
                     </button>
-                    <div id="environmental2" class="environmental dropdown-content">
-                        <span id="wind-damages-2">wind damages</span>
-                        <span class="selected-option" id="storm-surge-2">storm surge flood damages</span>
+                    <div id="map2-environmental-dropdown" class="environmental dropdown-content">
+                        <span id="map2-wind-damages">wind damages</span>
+                        <span class="selected-option" id="map2-storm-surge">storm surge flood damages</span>
                     </div>
                 </div>
                 
@@ -124,10 +131,10 @@
             
                 <div class="dropdown">
                     <button class="dropdown-button">
-                    <span id="social-dropdown-value" class="dropdown-value">incomes</span>
+                    <span id="map2-social-dropdown-value" class="dropdown-value">incomes</span>
                     <span class="arrow"></span>
                     </button>
-                    <div id="social2" class="social dropdown-content">
+                    <div id="map2-social-dropdown" class="social dropdown-content">
                         <span id="education-levels">education levels</span>
                         <span id="poverty-levels">poverty levels</span>
                         <span class="selected-option" id="incomes">incomes</span>
@@ -138,20 +145,27 @@
     
                 <div class="dropdown">
                     <button class="dropdown-button">
-                    <span id="years-dropdown-value-3" class="dropdown-value">2021</span>
+                    <span id="map2-years-dropdown-value" class="dropdown-value">2021</span>
                     <span class="arrow"></span>
                     </button>
-                    <div id="year3" class="dropdown-content">
-                        <span id="1971-3">1971</span>
-                        <span id="2021-3" class="selected-option">2021</span>
-                        <span id="2071-3">2071</span>
+                    <div id="map2-year-dropdown" class="dropdown-content">
+                        <span id="map2-1971">1971</span>
+                        <span id="map2-2021" class="selected-option">2021</span>
+                        <span id="map2-2071">2071</span>
                     </div>
                 </div>
                 ?
             </h2>
         </div>
         
-        <div id="map-2" class="map">
+        <div class="map-container">
+            <div id="map2-census-toggle">
+                <div class="map2-toggle-option active" id="map2-tract">census tract</div>
+                <div class="map2-toggle-option" id="map2-block">census block</div>
+            </div>
+
+            <div id="map2" class="map">
+            </div>
         </div>
     </div>
 
@@ -167,7 +181,8 @@
 
 <script>
     // ------------ SETUP FOR MAP 1: COMPARING ONE ENVIRONMENTAL VARIABLE BETWEEN YEARS ------------
-    var map = L.map('map-1', {
+    // base map
+    var map1 = L.map('map1', {
         minZoom: 7,
         maxZoom: 10,
         maxBounds: [
@@ -181,26 +196,231 @@
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
         subdomains: 'abcd'
-    }).addTo(map);
+    }).addTo(map1);
 
     // properly center and expand map tiles on load
     setTimeout(function () {
-        map.invalidateSize();
+        map1.invalidateSize();
     }, 100);
 
-    map.createPane("left")
-    map.createPane("right")
-    map.createPane("labels")
+    // add comparator
+    map1.createPane("left")
+    map1.createPane("right")
+    map1.createPane("labels")
 
     // add labels layer on top
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
         subdomains: 'abcd',
         pane: 'labels'
-    }).addTo(map);
+    }).addTo(map1);
 
-    // ------------ SETUP FOR MAP 2: COMPARING ONE ENVIRONMENTAL VARIABLE WITH ONE SOCIAL VARIABLE IN ONE YEAR ------------
-    var map2 = L.map('map-2', {
+    // ------------ MAP 1: initializing user options ------------
+    let map1LeftLayer = null;
+    let map1RightLayer = null;
+
+    // referring to the options selected in the first visualization prompt
+    const map1EnvironmentalDropdown = document.querySelector('#map1-environmental-dropdown');
+    const map1LeftYearDropdown = document.querySelector('#map1-left-year-dropdown');
+    const map1RightYearDropdown = document.querySelector('#map1-right-year-dropdown');
+
+    let map1EnvironmentalOptions = {"map1-wind-damages": "wind", 
+                                    "map1-storm-surge": "storm"};
+
+    let map1LeftYearOptions = {"map1-left-1971": "1971", 
+                               "map1-left-2021": "2021", 
+                               "map1-left-2071": "2071"};
+
+    let map1RightYearOptions = {"map1-right-1971": "1971", 
+                                "map1-right-2021": "2021", 
+                                "map1-right-2071": "2071"};
+
+    let map1UserOptions = {
+        map1EnvironmentalValue: map1EnvironmentalOptions[map1EnvironmentalDropdown.querySelector('.selected-option').id],
+        map1LeftYearValue: map1LeftYearOptions[map1LeftYearDropdown.querySelector('.selected-option').id],
+        map1RightYearValue: map1RightYearOptions[map1RightYearDropdown.querySelector('.selected-option').id]
+    };
+
+    var map1ColorScale;
+    var map1LeftLegend;
+    var map1RightLegend;
+    var map1Comparator;
+
+    // ------------ MAP 1: user input event handlers ------------
+    const map1Tract = document.getElementById('map1-tract');
+    const map1Block = document.getElementById('map1-block');
+
+    function setMap1ActiveCensus(option) {
+        if (option === 'map1-tract') {
+            map1Tract.classList.add('active');
+            map1Block.classList.remove('active');
+        } else {
+            map1Block.classList.add('active');
+            map1Tract.classList.remove('active');
+        }
+    }
+
+    function getMap1SelectedCensus() {
+        const activeElement = document.querySelector('.map1-toggle-option.active');
+        return activeElement ? activeElement.id : null;
+    }
+
+    map1Tract.addEventListener('click', () => {
+        setMap1ActiveCensus('map1-tract');
+        loadMap1();
+    });
+
+    map1Block.addEventListener('click', () => {
+        setMap1ActiveCensus('map1-block');
+        loadMap1();
+    });
+
+    // ------------ MAP 1: data loading ------------
+    async function loadMap1() {
+        // fetch data file based on selected census level, then call function to render
+        let censusLevel = getMap1SelectedCensus();
+        let filePath = censusLevel === 'map1-tract' ? "storm_social_tract_cropped.geojson" : "storm_social_block_cropped.geojson";
+        let data = await d3.json(filePath, d3.autoType);
+        renderMap1GeoJSON(data);
+    }
+
+    function renderMap1GeoJSON(data) {
+        // handle calls to styling to render the map
+        let leftColumn = map1UserOptions.map1EnvironmentalValue + "_#_" + map1UserOptions.map1LeftYearValue;
+        let rightColumn = map1UserOptions.map1EnvironmentalValue + "_#_" + map1UserOptions.map1RightYearValue;
+
+        let allMap1Values = data.features.flatMap(f => [
+            Number(f.properties[leftColumn]),
+            Number(f.properties[rightColumn])
+        ]);
+
+
+        let map1Extent = d3.extent(allMap1Values);
+        
+        map1ColorScale = d3.scaleQuantile().domain(map1Extent).range(d3.schemeGnBu[8]);
+
+        if (map1LeftLayer) {
+            map1.removeLayer(map1LeftLayer);
+        }
+        if (map1RightLayer) {
+            map1.removeLayer(map1RightLayer);
+        }
+        if (map1Comparator) {
+            map1.removeControl(map1Comparator);
+        }
+        if (map1LeftLegend) {
+            map1.removeControl(map1LeftLegend);
+        };
+        if (map1RightLegend) {
+            map1.removeControl(map1RightLegend);
+        };
+
+        map1LeftLayer = L.geoJSON(data, { 
+            style: feature => getMap1LeftStyle(feature),
+            pane: 'left' 
+        }).addTo(this.map1);
+
+        map1RightLayer = L.geoJSON(data, { 
+            style: feature => getMap1RightStyle(feature),
+            pane: 'right' 
+        }).addTo(this.map1);
+
+        map1Comparator = L.control.sideBySide([], []).addTo(this.map1);
+        map1Comparator.setLeftLayers(map1LeftLayer);
+        map1Comparator.setRightLayers(map1RightLayer);  
+
+        map1LeftLegend = createMap1Legends(map1, 'left');
+        map1RightLegend = createMap1Legends(map1, 'right');
+    }
+
+    function getMap1LeftStyle(feature) {
+        let value = feature.properties[map1UserOptions.map1EnvironmentalValue + "_#_" + map1UserOptions.map1LeftYearValue];
+        
+        return {
+            color: 'white', 
+            weight: 1, 
+            fillOpacity: 0.98,
+            fillColor: map1ColorScale(value)
+        }
+    }
+
+    function getMap1RightStyle(feature) {
+        let value = feature.properties[map1UserOptions.map1EnvironmentalValue + "_#_" + map1UserOptions.map1RightYearValue];
+        
+        return {
+            color: 'white', 
+            weight: 1, 
+            fillOpacity: 0.98,
+            fillColor: map1ColorScale(value)
+        }
+    }
+
+    function createMap1Legends(map, position) {
+        let legendPosition = position === 'left' ? 'bottomleft' : 'bottomright';
+
+        const legend = L.control({ position: legendPosition });
+
+        legend.onAdd = function () {
+            const div = L.DomUtil.create('div', `info legend ${position}`);
+            div.innerHTML = generateMap1LegendHTML(position);
+            return div;
+        };
+
+        legend.update = function (position) {
+            const div = document.querySelector(`.info.legend.${position}`);
+
+            if (div) {
+                div.innerHTML = generateMap1LegendHTML(position);
+            }
+        };
+
+        legend.addTo(map);
+        return legend;
+    }
+
+    function generateMap1LegendHTML(position) {
+        let classes = map1ColorScale.quantiles(),
+        labels = [];
+
+        let innerContent = position === 'left' ? 
+            `<p class="legend-title">Estimated # of Affected Structures in ${map1UserOptions.map1LeftYearValue}</p>` : 
+            `<p class="legend-title">Estimated # of Affected Structures in ${map1UserOptions.map1RightYearValue}</p>`;
+        
+        if (classes[0] === undefined) {
+            innerContent += `<p>No data available</p>`
+        } else {
+            for (var i = 0; i < classes.length; i++) {
+                var start = classes[i].toFixed(0);
+                var end = classes[i + 1] ? classes[i + 1].toFixed(0) : "+";
+
+                innerContent += '<i style="background:' + map1ColorScale(classes[i]) + '"></i> ' +
+                    start + (end !== "+" ? '&ndash;' + end : '') + '<br>';
+            }
+        }
+        return innerContent;
+    }
+
+    function updateMap1UserOptions(newOptions) {
+        map1UserOptions = { ...map1UserOptions, ...newOptions };
+        if (map1LeftLayer) {
+            map1LeftLayer.setStyle(getMap1LeftStyle);
+        };
+        if (map1RightLayer) {
+            map1RightLayer.setStyle(getMap1RightStyle);
+        };
+
+        if (map1LeftLegend) {
+            map1LeftLegend.update('left');
+        }
+        if (map1RightLegend) {
+            map1RightLegend.update('right');
+        }
+    }
+    loadMap1();
+
+    // ------------ SETUP FOR MAP 2: COMPARING ONE ENVIRONMENTAL VARIABLE AND ONE SOCIAL VARIABLE IN ONE YEAR ------------
+    // base map
+    var map2 = L.map('map2', {
         minZoom: 7,
         maxZoom: 10,
         maxBounds: [
@@ -221,6 +441,7 @@
         map2.invalidateSize();
     }, 100);
 
+    // add comparator
     map2.createPane("left")
     map2.createPane("right")
     map2.createPane("labels")
@@ -232,344 +453,215 @@
         pane: 'labels'
     }).addTo(map2);
 
-    let year1Layer = null;
-    let year2Layer = null;
-    let socialLayer = null;
-    let environmentalLayer2 = null;
+    // ------------ MAP 2: initializing user options ------------
+    let map2LeftLayer = null;
+    let map2RightLayer = null;
 
-     // referring to the options selected in the first visualization prompt
-     const environmentalDropdown1 = document.querySelector('#environmental1');
-    const yearDropdown1 = document.querySelector('#year1');
-    const yearDropdown2 = document.querySelector('#year2');
+    // referring to the options selected in the first visualization prompt
+    const map2EnvironmentalDropdown = document.querySelector('#map2-environmental-dropdown');
+    const map2SocialDropdown = document.querySelector('#map2-social-dropdown');
+    const map2YearDropdown = document.querySelector('#map2-year-dropdown');
 
-    // let environmentalOptions1 = {"wind-damages-2" : "", "storm-surge-2" : ""};
-    let yearOptions1 = {"1971-1" : "aff_1971", "2021-1": "aff_sum21", "2071-1": ""};
-    let yearOptions2 = {"1971-2" : "aff_1971", "2021-2": "aff_sum21", "2071-2": ""};
+    let map2EnvironmentalOptions = {"map2-wind-damages": "wind", 
+                                    "map2-storm-surge": "storm"};
 
-    var yearLegend1;
-    var yearLegend2;
-    var comparator1;
+    let map2SocialOptions = {"education-levels": "college_de",
+                            "poverty-levels": "poverty_tr",
+                            "incomes": "median_inc"};
 
-    // referring to the options selected in the second visualization prompt
-    const environmentalDropdown2 = document.querySelector('#environmental2');
-    const socialDropdown = document.querySelector('#social2');
-    const yearDropdown3 = document.querySelector('#year3');
+    let map2YearOptions = {"map2-1971": "1971",
+                            "map2-2021": "2021",
+                            "map2-2071": "2071"};
 
-    // let environmentalOptions2 = {"wind-damages-2" : "", "storm-surge-2" : ""};
-    let socialOptions = {"racial-groups" : "", "education-levels" : "college_de", "poverty-levels" : "poverty_tr", "incomes" : "median_inc"}
-    let yearOptions3 = {"1971-3" : "aff_1971", "2021-3": "aff_sum21", "2071-3": ""};
+    let map2UserOptions = {
+        map2EnvironmentalValue: map2EnvironmentalOptions[map2EnvironmentalDropdown.querySelector('.selected-option').id],
+        map2SocialValue: map2SocialOptions[map2SocialDropdown.querySelector('.selected-option').id],
+        map2YearValue: map2YearOptions[map2YearDropdown.querySelector('.selected-option').id]
+    };
 
-    var socialLegend;
-    var environmentalLegend2;
-    var comparator2;
+    var map2EnvironmentalColorScale;
+    var map2SocialColorScale;
+    var map2LeftLegend;
+    var map2RightLegend;
+    var map2Comparator;
 
-    // ------------ DATA LAYER SETUP ------------
-    async function loadTracts() {
-        // loading in and drawing census tract boundaries      
-        var currentSelectedLayer = null;
-        const data = await d3.json("joined.geojson", d3.autoType);
-        let features = data.features;
+    // ------------ MAP 2: user input event handlers ------------
+    const map2Tract = document.getElementById('map2-tract');
+    const map2Block = document.getElementById('map2-block');
 
-        // referring to selected options in first prompt
-        const selectedEnvironmental1 = environmentalDropdown1.querySelector('.selected-option').id;
-        const selectedYear1 = yearDropdown1.querySelector('.selected-option').id;
-        const selectedYear2 = yearDropdown2.querySelector('.selected-option').id;
-
-        const selectedYear1Property = yearOptions1[selectedYear1];
-        let year1Extent = d3.extent(features, d => {if (d.properties["aff_sum21"]) return Number(d.properties["aff_sum21"])});
-        let year1Colors = d3.scaleQuantile().domain(year1Extent).range(d3.schemeGnBu[8])
-
-        const selectedYear2Property = yearOptions2[selectedYear2];
-        let year2Extent = d3.extent(features, d => {if (d.properties["aff_sum21"]) return Number(d.properties["aff_sum21"])});
-        let year2Colors = d3.scaleQuantile().domain(year2Extent).range(d3.schemeGnBu[8])
-
-        // referring to selected options in second prompt
-        const selectedEnvironmental2 = environmentalDropdown2.querySelector('.selected-option').id;
-        const selectedSocial = socialDropdown.querySelector('.selected-option').id;
-        const selectedYear3 = yearDropdown3.querySelector('.selected-option').id;
-
-        const selectedSocialProperty = socialOptions[selectedSocial];
-        let socialExtent = d3.extent(features, d => {if (d.properties[selectedSocialProperty]) return Number(d.properties[selectedSocialProperty])});
-        let socialColors = d3.scaleQuantile().domain(socialExtent).range(d3.schemeYlOrBr[8])
-
-        const selectedYear3Property = yearOptions3[selectedYear3];
-        // let year3Extent = d3.extent(features, d => {if (d.properties[selectedYear3Property]) return Number(d.properties[selectedYear3Property])});
-        // let year3Colors = d3.scaleQuantile().domain(year3Extent).range(d3.schemeGnBu[8])
-
-        let year3Extent = d3.extent(features, d => {if (d.properties["aff_sum21"]) return Number(d.properties["aff_sum21"])});
-        let year3Colors = d3.scaleQuantile().domain(year3Extent).range(d3.schemeGnBu[8])
-
-        // function highlightFeature(e) {
-        //     var layer = e.target;
-
-        //     if (currentSelectedLayer) {
-        //         if (currentSelectedLayer.defaultOptions.pane == 'left') {
-        //             currentSelectedLayer.setStyle(environmentalStyle(currentSelectedLayer.feature));
-        //         } else {
-        //             currentSelectedLayer.setStyle(socialStyle(currentSelectedLayer.feature));
-        //         }
-        //     }
-
-        //     layer.setStyle({
-        //         weight: 5,             
-        //         color: "#FF0000",    
-        //         fillOpacity: 0.5 
-        //     });
-
-        //     currentSelectedLayer = layer;
-
-        //     layer.on('popupclose', function() {
- 
-        // if (layer.defaultOptions.pane == 'left') {
-        //     layer.setStyle(environmentalStyle(layer.feature));
-        // } else {
-        //     layer.setStyle(socialStyle(layer.feature));
-        // }
-        // });
-        // }
-
-        // function onEachFeature(feature, layer) {
-        //     console.log(feature.properties)
-
-        //     layer.bindPopup("<h3>" + 
-        //         feature.properties.NAMELSADCO + 
-        //         "</h3><p>Population: " + feature.properties.total_popu + 
-        //             "</p><p> Median Income: " + feature.properties.median_inc + 
-        //             "</p><p> College Educated: " + Math.round(feature.properties.college_de * 100) / 100 + 
-        //             "</p><p> Poverty Rate: " + Math.round(feature.properties.poverty_tr * 100) / 100 + 
-        //             "</p><p> White: " + Math.round(feature.properties.nhwhite_tr * 100) / 100 + 
-        //             "</p><p> Black: " + Math.round(feature.properties.nhblack_tr * 100) / 100 + 
-        //             "</p><p> Asian: " + Math.round(feature.properties.nhasian_tr * 100) / 100 +
-        //             "</p><p> Hispanic: " + Math.round(feature.properties.hispanic_t * 100) / 100 + "</p>"
-
-        //     );
-        //     layer.on({
-        //         click: highlightFeature
-        //     });
-        // }
-
-        // styling functions for first map
-        function year1Style(feature) {
-            if (feature.properties[selectedYear1Property] === null) {
-            return {
-                color: 'lightgray', 
-                weight: 0.5, 
-                fill: false
-            };
+    function setMap2ActiveCensus(option) {
+        if (option === 'map2-tract') {
+            map2Tract.classList.add('active');
+            map2Block.classList.remove('active');
         } else {
-        return {
-            color: 'white', 
-            weight: 1, 
-            fillOpacity: 0.98,
-            fillColor: year1Colors(feature.properties[selectedYear1Property])
-        };
+            map2Block.classList.add('active');
+            map2Tract.classList.remove('active');
         }
-        }
-
-        function year2Style(feature) {
-            if (feature.properties[selectedYear2Property] === null) {
-            return {
-                color: 'lightgray', 
-                weight: 0.5, 
-                fill: false 
-            };
-        } else {
-        return {
-            color: 'white', 
-            weight: 1, 
-            fillOpacity: 0.98,
-            fillColor: year2Colors(feature.properties[selectedYear2Property])
-        };
-        }
-        }
-
-        // styling functions for second map
-        // function for styling social data layer
-        function socialStyle(feature) {
-            if (feature.properties[selectedSocialProperty] === null) {
-            return {
-                color: 'lightgray', 
-                weight: 0.5, 
-                fill: false 
-            };
-        } else {
-            return {
-                color: 'white',
-                weight: 0.5,
-                fillOpacity: 0.95,
-                fillColor: socialColors(feature.properties[selectedSocialProperty])
-            };
-        }}
-
-        function environmentalStyle(feature) {
-            if (feature.properties[selectedYear3Property] === null) {
-            return {
-                color: 'lightgray', 
-                weight: 0.5, 
-                fill: false 
-            };
-        } else {
-        return {
-            color: 'white', 
-            weight: 0.5, 
-            fillOpacity: 0.95,
-            fillColor: year3Colors(feature.properties[selectedYear3Property])
-        };
-        }
-        }
-
-        // adding layers of first map
-        year1Layer = L.geoJSON(data, 
-            { 
-                style: year1Style,
-                // onEachFeature: onEachFeature,
-                pane: 'left' 
-            }
-        ).addTo(this.map);
-
-        year2Layer = L.geoJSON(data, 
-            { 
-                style: year2Style,
-                // onEachFeature: onEachFeature,
-                pane: 'right' 
-            }
-        ).addTo(this.map);
-
-
-        // adding layers of second map
-        socialLayer = L.geoJSON(data, 
-            { 
-                style: socialStyle,
-                // onEachFeature: onEachFeature,
-                pane: 'right' 
-            }
-        ).addTo(this.map2);
-
-        environmentalLayer2 = L.geoJSON(data, 
-            { 
-                style: environmentalStyle,
-                // onEachFeature: onEachFeature,
-                pane: 'left' 
-            }
-        ).addTo(this.map2);
-
-        if (!comparator1) {
-            comparator1 = L.control.sideBySide([], []).addTo(this.map);
-            comparator1.setLeftLayers(year1Layer);
-            comparator1.setRightLayers(year2Layer)  
-        }
-        
-        if (!comparator2) {
-            comparator2 = L.control.sideBySide([], []).addTo(this.map2);
-            comparator2.setLeftLayers(environmentalLayer2);
-            comparator2.setRightLayers(socialLayer)  
-        }
-       
-        // ------------ LEGEND SETUP -----------
-
-        // setup for map 1
-        if (yearLegend1) {
-            map.removeControl(yearLegend1);
-        };
-
-        if (yearLegend2) {
-            map.removeControl(yearLegend2);
-        };
-
-        yearLegend1 = L.control({position: 'bottomleft'});
-        yearLegend2 = L.control({position: 'bottomright'});
-
-        yearLegend1.onAdd = function (map) {
-            var div = L.DomUtil.create('div', 'info legend'),
-            classes = year1Colors.quantiles(),
-            labels = [];
-            
-            div.innerHTML += '<p class="legend-title">Legend</p>'
-
-            for (var i = 0; i < classes.length; i++) {
-                var start = classes[i].toFixed(0);
-            var end = classes[i + 1] ? classes[i + 1].toFixed(0) : "+";
-
-            div.innerHTML +=
-                '<i style="background:' + year1Colors(classes[i]) + '"></i> ' +
-                start + (end !== "+" ? '&ndash;' + end : '') + '<br>';
-            }
-            return div;
-        };
-
-        yearLegend2.onAdd = function (map) {
-            var div = L.DomUtil.create('div', 'info legend'),
-            classes = year2Colors.quantiles(),
-            labels = [];
-            
-            div.innerHTML += '<p class="legend-title">Legend</p>'
-
-            for (var i = 0; i < classes.length; i++) {
-                var start = classes[i].toFixed(0);
-            var end = classes[i + 1] ? classes[i + 1].toFixed(0) : "+";
-
-            div.innerHTML +=
-                '<i style="background:' + year2Colors(classes[i]) + '"></i> ' +
-                start + (end !== "+" ? '&ndash;' + end : '') + '<br>';
-            }
-            return div;
-        };
-        yearLegend1.addTo(map);
-        yearLegend2.addTo(map);
-
-        // setup for map 2
-        if (socialLegend) {
-            map2.removeControl(socialLegend);
-        };
-
-        if (environmentalLegend2) {
-            map2.removeControl(environmentalLegend2);
-        };
-        
-        socialLegend = L.control({position: 'bottomright'});
-        environmentalLegend2 = L.control({position: 'bottomleft'});
-
-        socialLegend.onAdd = function (map2) {
-            var div = L.DomUtil.create('div', 'info legend'),
-            classes = socialColors.quantiles(),
-            labels = [];
-            
-            div.innerHTML += '<p class="legend-title">Legend</p>'
-
-            for (var i = 0; i < classes.length; i++) {
-                var start = classes[i].toFixed(2);
-            var end = classes[i + 1] ? classes[i + 1].toFixed(2) : "+";
-
-            div.innerHTML +=
-                '<i style="background:' + socialColors(classes[i]) + '"></i> ' +
-                start + (end !== "+" ? '&ndash;' + end : '') + '<br>';
-            }
-            return div;
-        };
-
-        environmentalLegend2.onAdd = function (map2) {
-            var div = L.DomUtil.create('div', 'info legend'),
-            classes = year3Colors.quantiles(),
-            labels = [];
-            
-            div.innerHTML += '<p class="legend-title">Legend</p>'
-
-            for (var i = 0; i < classes.length; i++) {
-                var start = classes[i].toFixed(0);
-            var end = classes[i + 1] ? classes[i + 1].toFixed(0) : "+";
-
-            div.innerHTML +=
-                '<i style="background:' + year3Colors(classes[i]) + '"></i> ' +
-                start + (end !== "+" ? '&ndash;' + end : '') + '<br>';
-            }
-            return div;
-        };
-        socialLegend.addTo(map2);
-        environmentalLegend2.addTo(map2);
     }
-    loadTracts();
+
+    function getMap2SelectedCensus() {
+        const activeElement = document.querySelector('.map2-toggle-option.active');
+        return activeElement ? activeElement.id : null;
+    }
+
+    map2Tract.addEventListener('click', () => {
+        setMap2ActiveCensus('map2-tract');
+        loadMap2();
+    });
+
+    map2Block.addEventListener('click', () => {
+        setMap2ActiveCensus('map2-block');
+        loadMap2();
+    });
+
+    // ------------ MAP 2: data loading ------------
+    async function loadMap2() {
+        // fetch data file based on selected census level, then call function to render
+        let censusLevel = getMap2SelectedCensus();
+        let filePath = censusLevel === 'map2-tract' ? "storm_social_tract_cropped.geojson" : "storm_social_block_cropped.geojson";
+        let data = await d3.json(filePath, d3.autoType);
+        renderMap2GeoJSON(data);
+    }
+
+    function renderMap2GeoJSON(data) {
+        // handle calls to styling to render the map
+        let leftColumn = map2UserOptions.map2EnvironmentalValue + "_#_" + map2UserOptions.map2YearValue;
+        let rightColumn = map2UserOptions.map2SocialValue;
+
+        let map2EnvironmentalExtent = d3.extent(data.features, d => Number(d.properties[leftColumn]));
+        let map2SocialExtent = d3.extent(data.features, d => Number(d.properties[rightColumn]));
+
+        console.log(data.features[0].properties)
+        
+        map2EnvironmentalColorScale = d3.scaleQuantile().domain(map2EnvironmentalExtent).range(d3.schemeGnBu[8]);
+        map2SocialColorScale = d3.scaleQuantile().domain(map2SocialExtent).range(d3.schemeYlOrBr[8]);
+
+        if (map2LeftLayer) {
+            map2.removeLayer(map2LeftLayer);
+        }
+        if (map2RightLayer) {
+            map2.removeLayer(map2RightLayer);
+        }
+        if (map2Comparator) {
+            map2.removeControl(map2Comparator);
+        }
+        if (map2LeftLegend) {
+            map2.removeControl(map2LeftLegend);
+        };
+        if (map2RightLegend) {
+            map2.removeControl(map2RightLegend);
+        };
+
+        map2LeftLayer = L.geoJSON(data, { 
+            style: feature => getMap2LeftStyle(feature),
+            pane: 'left' 
+        }).addTo(this.map2);
+
+        map2RightLayer = L.geoJSON(data, { 
+            style: feature => getMap2RightStyle(feature),
+            pane: 'right' 
+        }).addTo(this.map2);
+
+        map2Comparator = L.control.sideBySide([], []).addTo(this.map2);
+        map2Comparator.setLeftLayers(map2LeftLayer);
+        map2Comparator.setRightLayers(map2RightLayer);  
+
+        map2LeftLegend = L.control({position: 'bottomleft'});
+        map2RightLegend = L.control({position: 'bottomright'});
+
+        map2LeftLegend.onAdd = function (map) {
+            var div = L.DomUtil.create('div', 'info legend'),
+            classes = map2EnvironmentalColorScale.quantiles(),
+            labels = [];
+            
+            div.innerHTML += `<p class="legend-title">Estimated # of Affected Structures in ${map2UserOptions.map2YearValue}</p>`
+
+            if (classes[0] === undefined) {
+                div.innerHTML += `<p>No data available</p>`
+            } else {
+                for (var i = 0; i < classes.length; i++) {
+                    var start = classes[i].toFixed(0);
+                    var end = classes[i + 1] ? classes[i + 1].toFixed(0) : "+";
+
+                    div.innerHTML += '<i style="background:' + map2EnvironmentalColorScale(classes[i]) + '"></i> ' +
+                        start + (end !== "+" ? '&ndash;' + end : '') + '<br>';
+                    }
+            }
+            
+            return div;
+        };
+
+        map2RightLegend.onAdd = function (map) {
+            var div = L.DomUtil.create('div', 'info legend'),
+            classes = map2SocialColorScale.quantiles(),
+            labels = [];
+
+            console.log(classes)
+            
+            div.innerHTML += `<p class="legend-title">Legend</p>`
+
+            if (classes[0] === undefined) {
+                div.innerHTML += `<p>No data available</p>`
+            } else {
+                for (var i = 0; i < classes.length; i++) {
+                var start = classes[i].toFixed(0);
+                var end = classes[i + 1] ? classes[i + 1].toFixed(0) : "+";
+
+                div.innerHTML += '<i style="background:' + map2SocialColorScale(classes[i]) + '"></i> ' +
+                    start + (end !== "+" ? '&ndash;' + end : '') + '<br>';
+                }
+            }
+            return div;
+        };  
+        map2LeftLegend.addTo(map2);
+        map2RightLegend.addTo(map2);
+    }
+
+    function getMap2LeftStyle(feature) {
+        let value = feature.properties[map2UserOptions.map2EnvironmentalValue + "_#_" + map2UserOptions.map2YearValue];
+
+        // if (map2LeftLegend) {
+        //     map2.removeControl(map2LeftLegend);
+        //     map2LeftLegend.addTo(map2);
+        // };
+        
+        return {
+            color: 'white', 
+            weight: 1, 
+            fillOpacity: 0.98,
+            fillColor: map2EnvironmentalColorScale(value)
+        }
+    }
+
+    function getMap2RightStyle(feature) {
+        let value = feature.properties[map2UserOptions.map2SocialValue];
+        
+        // if (map2RightLegend) {
+        //     map2.removeControl(map2RightLegend);
+        //     map2RightLegend.addTo(map2);
+        // };
+        
+        return {
+            color: 'white', 
+            weight: 1, 
+            fillOpacity: 0.98,
+            fillColor: map2SocialColorScale(value)
+        }
+    }
+
+    function updateMap2UserOptions(newOptions) {
+        map2UserOptions = { ...map2UserOptions, ...newOptions };
+        if (map2LeftLayer) {
+            map2LeftLayer.setStyle(getMap2LeftStyle);
+        };
+        if (map2RightLayer) {
+            map2RightLayer.setStyle(getMap2RightStyle);
+        };
+    }
+    loadMap2();
 
 
+    // handling dropdowns
     // ------------ DROPDOWN INTERACTION SETUP ------------
     document.querySelectorAll('.dropdown').forEach(dropdown => {
         const dropdownButton = dropdown.querySelector('.dropdown-button');
@@ -604,26 +696,28 @@
                 dropdownOptions.forEach((option) => option.classList.remove("selected-option"));
                 target.classList.add("selected-option");
                 setDropdownWidth();
+               
+                updateMap1UserOptions({
+                    map1EnvironmentalValue: map1EnvironmentalOptions[map1EnvironmentalDropdown.querySelector('.selected-option').id],
+                    map1LeftYearValue: map1LeftYearOptions[map1LeftYearDropdown.querySelector('.selected-option').id],
+                    map1RightYearValue: map1RightYearOptions[map1RightYearDropdown.querySelector('.selected-option').id],
+                });
 
-                loadTracts();
-
-                // socialLayer.setStyle(function(feature) {
-                //     return socialStyle(feature, selectedProperty);
-                // });
-
-                // environmentalLayer2.setStyle(function(feature) {
-                //     return environmentalStyle(feature, selectedProperty);
-                // });
+                updateMap2UserOptions({
+                    map2EnvironmentalValue: map2EnvironmentalOptions[map2EnvironmentalDropdown.querySelector('.selected-option').id],
+                    map2SocialValue: map2SocialOptions[map2SocialDropdown.querySelector('.selected-option').id],
+                    map2YearValue: map2YearOptions[map2YearDropdown.querySelector('.selected-option').id]
+                });
             }
         });
 
         // close dropdown if clicked outside
         window.addEventListener('click', (event) => {
             if (!dropdown.contains(event.target)) {
-            if (dropdownContent.style.display === 'block') {
-                dropdownContent.style.display = 'none';
-                dropdownArrow.classList.remove("active");
-            }
+                if (dropdownContent.style.display === 'block') {
+                    dropdownContent.style.display = 'none';
+                    dropdownArrow.classList.remove("active");
+                }
             }
         });
     });
