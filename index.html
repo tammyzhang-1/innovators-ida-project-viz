@@ -241,6 +241,7 @@
         map1RightYearValue: map1RightYearOptions[map1RightYearDropdown.querySelector('.selected-option').id]
     };
 
+    var data1;
     var map1ColorScale;
     var map1LeftLegend;
     var map1RightLegend;
@@ -280,8 +281,8 @@
         // fetch data file based on selected census level, then call function to render
         let censusLevel = getMap1SelectedCensus();
         let filePath = censusLevel === 'map1-tract' ? "storm_social_tract_cropped.geojson" : "storm_social_block_cropped.geojson";
-        let data = await d3.json(filePath, d3.autoType);
-        renderMap1GeoJSON(data);
+        data1 = await d3.json(filePath, d3.autoType);
+        renderMap1GeoJSON(data1);
     }
 
     function renderMap1GeoJSON(data) {
@@ -294,10 +295,9 @@
             Number(f.properties[rightColumn])
         ]);
 
-
         let map1Extent = d3.extent(allMap1Values);
         
-        map1ColorScale = d3.scaleQuantile().domain(map1Extent).range(d3.schemeGnBu[8]);
+        map1ColorScale = d3.scaleQuantile().domain(map1Extent).range(d3.schemeGnBu[9].slice(1));
 
         if (map1LeftLayer) {
             map1.removeLayer(map1LeftLayer);
@@ -361,13 +361,13 @@
         const legend = L.control({ position: legendPosition });
 
         legend.onAdd = function () {
-            const div = L.DomUtil.create('div', `info legend ${position}`);
+            const div = L.DomUtil.create('div', `map1 info legend ${position}`);
             div.innerHTML = generateMap1LegendHTML(position);
             return div;
         };
 
         legend.update = function (position) {
-            const div = document.querySelector(`.info.legend.${position}`);
+            const div = document.querySelector(`.map1.info.legend.${position}`);
 
             if (div) {
                 div.innerHTML = generateMap1LegendHTML(position);
@@ -382,11 +382,14 @@
         let classes = map1ColorScale.quantiles(),
         labels = [];
 
+        let placeholder2071 = position === 'left' ? map1UserOptions.map1LeftYearValue == 2071 : map1UserOptions.map1RightYearValue == 2071;
+        let placeholderWind = map1UserOptions.map1EnvironmentalValue == "wind";
+
         let innerContent = position === 'left' ? 
             `<p class="legend-title">Estimated # of Affected Structures in ${map1UserOptions.map1LeftYearValue}</p>` : 
             `<p class="legend-title">Estimated # of Affected Structures in ${map1UserOptions.map1RightYearValue}</p>`;
         
-        if (classes[0] === undefined) {
+        if (classes[0] === undefined || classes[1] == 0 || placeholder2071 || placeholderWind) {
             innerContent += `<p>No data available</p>`
         } else {
             for (var i = 0; i < classes.length; i++) {
@@ -402,19 +405,18 @@
 
     function updateMap1UserOptions(newOptions) {
         map1UserOptions = { ...map1UserOptions, ...newOptions };
-        if (map1LeftLayer) {
-            map1LeftLayer.setStyle(getMap1LeftStyle);
-        };
-        if (map1RightLayer) {
-            map1RightLayer.setStyle(getMap1RightStyle);
-        };
-
         if (map1LeftLegend) {
             map1LeftLegend.update('left');
         }
         if (map1RightLegend) {
             map1RightLegend.update('right');
         }
+        if (map1LeftLayer) {
+            map1LeftLayer.setStyle(getMap1LeftStyle);
+        };
+        if (map1RightLayer) {
+            map1RightLayer.setStyle(getMap1RightStyle);
+        };
     }
     loadMap1();
 
@@ -479,6 +481,7 @@
         map2YearValue: map2YearOptions[map2YearDropdown.querySelector('.selected-option').id]
     };
 
+    var data2;
     var map2EnvironmentalColorScale;
     var map2SocialColorScale;
     var map2LeftLegend;
@@ -519,8 +522,8 @@
         // fetch data file based on selected census level, then call function to render
         let censusLevel = getMap2SelectedCensus();
         let filePath = censusLevel === 'map2-tract' ? "storm_social_tract_cropped.geojson" : "storm_social_block_cropped.geojson";
-        let data = await d3.json(filePath, d3.autoType);
-        renderMap2GeoJSON(data);
+        data2 = await d3.json(filePath, d3.autoType);
+        renderMap2GeoJSON(data2);
     }
 
     function renderMap2GeoJSON(data) {
@@ -530,11 +533,15 @@
 
         let map2EnvironmentalExtent = d3.extent(data.features, d => Number(d.properties[leftColumn]));
         let map2SocialExtent = d3.extent(data.features, d => Number(d.properties[rightColumn]));
-
-        console.log(data.features[0].properties)
         
-        map2EnvironmentalColorScale = d3.scaleQuantile().domain(map2EnvironmentalExtent).range(d3.schemeGnBu[8]);
-        map2SocialColorScale = d3.scaleQuantile().domain(map2SocialExtent).range(d3.schemeYlOrBr[8]);
+        map2EnvironmentalColorScale = d3.scaleQuantile().domain(map2EnvironmentalExtent).range(d3.schemeGnBu[9].slice(1));
+        map2SocialColorScale = d3.scaleQuantile().domain(map2SocialExtent).range(d3.schemeYlOrBr[9].slice(1));
+
+        console.log(rightColumn)
+
+        if (rightColumn == 'median_inc') {
+            map2SocialColorScale = d3.scaleQuantile().domain(map2SocialExtent).range(d3.schemeYlOrBr[9].slice(1));
+        }
 
         if (map2LeftLayer) {
             map2.removeLayer(map2LeftLayer);
@@ -566,64 +573,12 @@
         map2Comparator.setLeftLayers(map2LeftLayer);
         map2Comparator.setRightLayers(map2RightLayer);  
 
-        map2LeftLegend = L.control({position: 'bottomleft'});
-        map2RightLegend = L.control({position: 'bottomright'});
-
-        map2LeftLegend.onAdd = function (map) {
-            var div = L.DomUtil.create('div', 'info legend'),
-            classes = map2EnvironmentalColorScale.quantiles(),
-            labels = [];
-            
-            div.innerHTML += `<p class="legend-title">Estimated # of Affected Structures in ${map2UserOptions.map2YearValue}</p>`
-
-            if (classes[0] === undefined) {
-                div.innerHTML += `<p>No data available</p>`
-            } else {
-                for (var i = 0; i < classes.length; i++) {
-                    var start = classes[i].toFixed(0);
-                    var end = classes[i + 1] ? classes[i + 1].toFixed(0) : "+";
-
-                    div.innerHTML += '<i style="background:' + map2EnvironmentalColorScale(classes[i]) + '"></i> ' +
-                        start + (end !== "+" ? '&ndash;' + end : '') + '<br>';
-                    }
-            }
-            
-            return div;
-        };
-
-        map2RightLegend.onAdd = function (map) {
-            var div = L.DomUtil.create('div', 'info legend'),
-            classes = map2SocialColorScale.quantiles(),
-            labels = [];
-
-            console.log(classes)
-            
-            div.innerHTML += `<p class="legend-title">Legend</p>`
-
-            if (classes[0] === undefined) {
-                div.innerHTML += `<p>No data available</p>`
-            } else {
-                for (var i = 0; i < classes.length; i++) {
-                var start = classes[i].toFixed(0);
-                var end = classes[i + 1] ? classes[i + 1].toFixed(0) : "+";
-
-                div.innerHTML += '<i style="background:' + map2SocialColorScale(classes[i]) + '"></i> ' +
-                    start + (end !== "+" ? '&ndash;' + end : '') + '<br>';
-                }
-            }
-            return div;
-        };  
-        map2LeftLegend.addTo(map2);
-        map2RightLegend.addTo(map2);
+        map2LeftLegend = createMap2Legends(map2, 'left');
+        map2RightLegend = createMap2Legends(map2, 'right');
     }
 
     function getMap2LeftStyle(feature) {
         let value = feature.properties[map2UserOptions.map2EnvironmentalValue + "_#_" + map2UserOptions.map2YearValue];
-
-        // if (map2LeftLegend) {
-        //     map2.removeControl(map2LeftLegend);
-        //     map2LeftLegend.addTo(map2);
-        // };
         
         return {
             color: 'white', 
@@ -636,11 +591,6 @@
     function getMap2RightStyle(feature) {
         let value = feature.properties[map2UserOptions.map2SocialValue];
         
-        // if (map2RightLegend) {
-        //     map2.removeControl(map2RightLegend);
-        //     map2RightLegend.addTo(map2);
-        // };
-        
         return {
             color: 'white', 
             weight: 1, 
@@ -649,8 +599,82 @@
         }
     }
 
+    function createMap2Legends(map, position) {
+        let legendPosition = position === 'left' ? 'bottomleft' : 'bottomright';
+
+        const legend = L.control({ position: legendPosition });
+
+        legend.onAdd = function () {
+            const div = L.DomUtil.create('div', `map2 info legend ${position}`);
+            div.innerHTML = generateMap2LegendHTML(position);
+            return div;
+        };
+
+        legend.update = function (position) {
+            const div = document.querySelector(`.map2.info.legend.${position}`);
+
+            let updatedColumn = position === 'left' ? map2UserOptions.map2EnvironmentalValue + "_#_" + map2UserOptions.map2YearValue : map2UserOptions.map2SocialValue;
+            let updatedExtent = d3.extent(data2.features, d => Number(d.properties[updatedColumn]));
+      
+            if (position === 'left') {
+                map2EnvironmentalExtent = updatedExtent;
+                map2EnvironmentalColorScale = d3.scaleQuantile().domain(map2EnvironmentalExtent).range(d3.schemeGnBu[9].slice(1));
+            } else {
+                map2SocialExtent = updatedExtent;
+                map2SocialColorScale = d3.scaleQuantile().domain(map2SocialExtent).range(d3.schemeYlOrBr[9].slice(1));
+            }
+            
+            if (div) {
+                div.innerHTML = generateMap2LegendHTML(position);
+            }
+        };
+
+        legend.addTo(map);
+        return legend;
+    }
+
+    function generateMap2LegendHTML(position) {
+        let colorScale = position === 'left' ? map2EnvironmentalColorScale : map2SocialColorScale;
+        
+        let classes = colorScale.quantiles(),
+        labels = [];
+
+        let socialTitles = {
+            "college_de": "% of Population with College Degree",
+            "poverty_tr": "% of Population in Poverty",
+            "median_inc": "Median Yearly Income"
+        };
+
+        let innerContent;
+
+        if (position === 'left') {
+            innerContent = `<p class="legend-title">Estimated # of Affected Structures in ${map2UserOptions.map2YearValue}</p>`;
+        } else {
+            innerContent = `<p class="legend-title">${socialTitles[map2UserOptions.map2SocialValue]}</p>`;
+        }
+        
+        if (classes[0] === undefined || classes[1] == 0) {
+            innerContent += `<p>No data available</p>`
+        } else {
+            for (var i = 0; i < classes.length; i++) {
+                var start = classes[i].toFixed(0);
+                var end = classes[i + 1] ? classes[i + 1].toFixed(0) : "+";
+
+                innerContent += '<i style="background:' + colorScale(classes[i]) + '"></i> ' +
+                    start + (end !== "+" ? '&ndash;' + end : '') + '<br>';
+            }
+        }
+        return innerContent;
+    }
+
     function updateMap2UserOptions(newOptions) {
         map2UserOptions = { ...map2UserOptions, ...newOptions };
+        if (map2LeftLegend) {
+            map2LeftLegend.update('left');
+        }
+        if (map2RightLegend) {
+            map2RightLegend.update('right');
+        }
         if (map2LeftLayer) {
             map2LeftLayer.setStyle(getMap2LeftStyle);
         };
