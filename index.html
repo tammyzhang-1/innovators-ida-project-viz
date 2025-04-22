@@ -22,19 +22,25 @@
     <div id="landing" class="textbox-background">
         <img src="images/background-1.jpg" alt="picture of coastal louisiana" />
         <div class="textbox-overlay">
-            <h1>Social Responses to Climate Change Attributed Flooding in South Louisiana</h1>
-            <p>Kevin Smiley, ... list contributors to study here</p>
-            <p>Louisiana State University, NSF NCAR, the Water Institute ...</p>
+            <h1>Extreme Event Attribution of Hurricane Ida</h1>
+            <p>Louisiana State University, the NSF National Center for Atmospheric Research, and the Water Institute</p>
         </div>
     </div>
 
     <div id="intro" class="textbox-main">
         <div class="text">
-            <h2>What is attribution?</h2>
-            <p>When talking about climate, attribution refers to .... [text introduction explaining what attribution is / how it works] Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo ...</p>
-            <h2>An example of attribution</h2>
+            <h2>What is Extreme Event Attribution?</h2>
+            <p>The world is warming. We work in a field called extreme event attribution that investigates if the warming our world has already experienced&mdash;about 2 degrees Fahrenheit&mdash;is making our extreme weather more extreme. Our project studies Hurricane Ida, one of the United States' ten costliest storms ever and one with deep impacts in south Louisiana.</p>
+            <p>We work in teams with climate scientists, engineers, geographers, sociologists, and data visualization experts to assess if, and to what extent, a given extreme weather event is more severe because of climate change.</p>
+            <p>For Hurricane Ida, we compare and contrast three important time points. The first is 2021: the year of Hurricane Ida occurred. We identify the impacts to buildings and in economic damages.</p>
+            <p>The second is 1971&mdash;fifty years <em>before</em> Ida. For this time point, we analyzed the storm again keeping everything the same like the location of buildings and extent of wetlands. But we changed one thing: the climate conditions. We set those to 1971, that is, a time before the world has warmed. In this way, our 1971 model can be thought of as what the impacts of Hurricane Ida might have been in a world without climate change.</p>
+            <p>The third time point is 2071&mdash;fifty years <em>after</em> Ida. The logic for 2071 is the same as 1971: we kept everything the same, but changed the climate conditions. This time, though, we looked to the future, not the past. Specifically, we studied what Hurricane Ida might look like in 2071 if the world continues to warm a few more degrees.</p>
+            <p>Below, we will share data comparing and contrasting the 2021 storm that we experienced to the 1971 storm that would have occurred without the added impact of climate change, and the 2071 storm with greater impacts from climate change.</p>
+            <h2>Extreme Event Attribution of Hurricane Ida</h2>
             <img src="images/placeholder-1.png" alt="example graph" />
-            <p>In the graphs above, we're looking at [explanation and context as needed]. For example, on the left, the graph expresses that in [scenario 1], we attribute [$ amount or buildings damaged] to storm surge damages ...</p>
+            <p>In the graph above, we're looking at projected damage from flooding caused by storm surge under the three different climate time points: 1971, 2021, and 2071. For example, on the left, the graph shows that under 1971 climate conditions, we attribute just over $4.1 billion in damages to storm surge. In the middle, the 2021 bar reflects Ida as it actually occurred, with damages rising to over $4.3 billion. On the right, under 2071 climate projections, storm surge damage is expected to exceed $5 billion.</p>
+            <p>By comparing 1971 and 2021, we found that damages from storm surge flooding were about 5% higher in Hurricane Ida because of climate change. We would anticipate that the storm would have 21% greater impacts if the climate continues to warm like for our 2071 time point.</p>
+            <p>It’s not just dollar damages either: we estimate that approximately 1,300 buildings were affected in 2021 that would not have been affected in a world without climate change. That number rises to approximately 6,000 more buildings in 2071.</p>
         </div>
     </div>
 
@@ -42,8 +48,8 @@
     <div class="textbox-background">
         <img src="images/background-2.jpg" alt="picture of coastal louisiana" />
         <div class="textbox-overlay">
-            <h2>Impacts across space</h2>
-            <p>One thing we can do in our study is to see how these impacts from climate change can really vary from place to place.</p>
+            <h2>Impacts Where We Live</h2>
+            <p>Using sophisticated flood models, we are able to analyze extreme event attribution impacts of Hurricane Ida not just for the whole storm, but localized impacts too.</p>
         </div>
     </div>
 
@@ -107,7 +113,7 @@
     <div class="textbox-background">
         <img src="images/background-3.jpg" alt="picture of coastal louisiana" />
         <div class="textbox-overlay">
-            <h2>Impacts across society</h2>
+            <h2>Impacts Across Society</h2>
             <p>We can also learn about the social make-up of those affected places.</p>
         </div>
     </div>
@@ -135,9 +141,10 @@
                     <span class="arrow"></span>
                     </button>
                     <div id="map2-social-dropdown" class="social dropdown-content">
-                        <span id="education-levels">education levels</span>
-                        <span id="poverty-levels">poverty levels</span>
                         <span class="selected-option" id="incomes">incomes</span>
+                        <span id="education-levels">education levels</span>
+                        <span id="percent-minority">races</span>
+                        <span id="percent-homeowners">home ownership</span>
                     </div>
                 </div>
                 
@@ -172,8 +179,8 @@
     <div class="textbox-background">
         <img src="images/background-4.jpg" alt="picture of coastal louisiana" />
         <div class="textbox-overlay">
-            <h2>Conclusion</h2>
-            <p>[conclusion content here] Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim...</p>
+            <h2>Extreme Weather in a Changing Climate</h2>
+            <p>Thank you for your engagement with this work, and we have a few questions to ask you about this research.</p>
         </div>
     </div>
 </body>
@@ -184,7 +191,7 @@
     // base map
     var map1 = L.map('map1', {
         minZoom: 7,
-        maxZoom: 10,
+        maxZoom: 14,
         maxBounds: [
         [26, -100.5],
         [35, -82.5]
@@ -297,7 +304,8 @@
 
         let map1Extent = d3.extent(allMap1Values);
         
-        map1ColorScale = d3.scaleQuantile().domain(map1Extent).range(d3.schemeGnBu[9].slice(1));
+        // map1ColorScale = d3.scaleQuantile().domain(map1Extent).range(d3.schemeGnBu[9].slice(1));
+        map1ColorScale = d3.scaleQuantile().domain(map1Extent).range(['#dff3db', '#a8dcb5', '#4cb3d2', '#2c8cbd', '#084080']);
 
         if (map1LeftLayer) {
             map1.removeLayer(map1LeftLayer);
@@ -382,22 +390,34 @@
         let classes = map1ColorScale.quantiles(),
         labels = [];
 
+        const formatCommas = d3.format(",.0f");
+
         let placeholder2071 = position === 'left' ? map1UserOptions.map1LeftYearValue == 2071 : map1UserOptions.map1RightYearValue == 2071;
         let placeholderWind = map1UserOptions.map1EnvironmentalValue == "wind";
 
+        let leftColumn = map1UserOptions.map1EnvironmentalValue + "_#_" + map1UserOptions.map1LeftYearValue;
+        let rightColumn = map1UserOptions.map1EnvironmentalValue + "_#_" + map1UserOptions.map1RightYearValue;
+
+        let allMap1Values = data1.features.flatMap(f => [
+            Number(f.properties[leftColumn]),
+            Number(f.properties[rightColumn])
+        ]);
+
+        let extent = d3.extent(allMap1Values);
+
         let innerContent = position === 'left' ? 
-            `<p class="legend-title">Estimated # of Affected Structures in ${map1UserOptions.map1LeftYearValue}</p>` : 
-            `<p class="legend-title">Estimated # of Affected Structures in ${map1UserOptions.map1RightYearValue}</p>`;
+            `<p class="legend-title">Estimated # of Affected Buildings in ${map1UserOptions.map1LeftYearValue}</p>` : 
+            `<p class="legend-title">Estimated # of Affected Buildings in ${map1UserOptions.map1RightYearValue}</p>`;
         
         if (classes[0] === undefined || classes[1] == 0 || placeholder2071 || placeholderWind) {
             innerContent += `<p>No data available</p>`
         } else {
-            for (var i = 0; i < classes.length; i++) {
-                var start = classes[i].toFixed(0);
-                var end = classes[i + 1] ? classes[i + 1].toFixed(0) : "+";
+            for (let i = 0; i < 5; i++) {
+                let from = i === 0 ? extent[0] : classes[i-1];
+                let to = classes[i] !== undefined ? classes[i] : extent[1];
 
-                innerContent += '<i style="background:' + map1ColorScale(classes[i]) + '"></i> ' +
-                    start + (end !== "+" ? '&ndash;' + end : '') + '<br>';
+                innerContent += '<i style="background:' + map1ColorScale(from) + '"></i> ' +
+                    formatCommas(from) + (to !== extent[1] ? ' &ndash; ' + formatCommas(to) : '+') + '<br>';
             }
         }
         return innerContent;
@@ -424,7 +444,7 @@
     // base map
     var map2 = L.map('map2', {
         minZoom: 7,
-        maxZoom: 10,
+        maxZoom: 14,
         maxBounds: [
         [26, -100.5],
         [35, -82.5]
@@ -467,9 +487,10 @@
     let map2EnvironmentalOptions = {"map2-wind-damages": "wind", 
                                     "map2-storm-surge": "storm"};
 
-    let map2SocialOptions = {"education-levels": "college_de",
-                            "poverty-levels": "poverty_tr",
-                            "incomes": "median_inc"};
+    let map2SocialOptions = {"incomes": "median_inc",
+                             "education-levels": "college_de",
+                             "percent-minority": "nonwhite_t",
+                             "percent-homeowners": "owner_occu"};
 
     let map2YearOptions = {"map2-1971": "1971",
                             "map2-2021": "2021",
@@ -534,14 +555,8 @@
         let map2EnvironmentalExtent = d3.extent(data.features, d => Number(d.properties[leftColumn]));
         let map2SocialExtent = d3.extent(data.features, d => Number(d.properties[rightColumn]));
         
-        map2EnvironmentalColorScale = d3.scaleQuantile().domain(map2EnvironmentalExtent).range(d3.schemeGnBu[9].slice(1));
-        map2SocialColorScale = d3.scaleQuantile().domain(map2SocialExtent).range(d3.schemeYlOrBr[9].slice(1));
-
-        console.log(rightColumn)
-
-        if (rightColumn == 'median_inc') {
-            map2SocialColorScale = d3.scaleQuantile().domain(map2SocialExtent).range(d3.schemeYlOrBr[9].slice(1));
-        }
+        map2EnvironmentalColorScale = d3.scaleQuantile().domain(map2EnvironmentalExtent).range(['#dff3db', '#a8dcb5', '#4cb3d2', '#2c8cbd', '#084080']);
+        map2SocialColorScale = d3.scaleQuantile().domain(map2SocialExtent).range(d3.schemeYlOrBr[6].slice(1));
 
         if (map2LeftLayer) {
             map2.removeLayer(map2LeftLayer);
@@ -618,10 +633,10 @@
       
             if (position === 'left') {
                 map2EnvironmentalExtent = updatedExtent;
-                map2EnvironmentalColorScale = d3.scaleQuantile().domain(map2EnvironmentalExtent).range(d3.schemeGnBu[9].slice(1));
+                map2EnvironmentalColorScale = d3.scaleQuantile().domain(map2EnvironmentalExtent).range(['#dff3db', '#a8dcb5', '#4cb3d2', '#2c8cbd', '#084080']);
             } else {
                 map2SocialExtent = updatedExtent;
-                map2SocialColorScale = d3.scaleQuantile().domain(map2SocialExtent).range(d3.schemeYlOrBr[9].slice(1));
+                map2SocialColorScale = d3.scaleQuantile().domain(map2SocialExtent).range(d3.schemeYlOrBr[6].slice(1));
             }
             
             if (div) {
@@ -639,29 +654,36 @@
         let classes = colorScale.quantiles(),
         labels = [];
 
+        const formatCommas = d3.format(",.0f");
+
+        let column = position === 'left' ? map2UserOptions.map2EnvironmentalValue + "_#_" + map2UserOptions.map2YearValue : map2UserOptions.map2SocialValue;
+
+        let extent = d3.extent(data2.features, d => Number(d.properties[column]));
+
         let socialTitles = {
+            "median_inc": "Median Income",
             "college_de": "% of Population with College Degree",
-            "poverty_tr": "% of Population in Poverty",
-            "median_inc": "Median Yearly Income"
+            "nonwhite_t": "% Minority",
+            "owner_occu": "% Homeowners"
         };
 
         let innerContent;
 
         if (position === 'left') {
-            innerContent = `<p class="legend-title">Estimated # of Affected Structures in ${map2UserOptions.map2YearValue}</p>`;
+            innerContent = `<p class="legend-title">Estimated # of Affected Buildings in ${map2UserOptions.map2YearValue}</p>`;
         } else {
             innerContent = `<p class="legend-title">${socialTitles[map2UserOptions.map2SocialValue]}</p>`;
         }
-        
+
         if (classes[0] === undefined || classes[1] == 0) {
             innerContent += `<p>No data available</p>`
         } else {
-            for (var i = 0; i < classes.length; i++) {
-                var start = classes[i].toFixed(0);
-                var end = classes[i + 1] ? classes[i + 1].toFixed(0) : "+";
+            for (let i = 0; i < 5; i++) {
+                let from = i === 0 ? extent[0] : classes[i-1];
+                let to = classes[i] !== undefined ? classes[i] : extent[1];
 
-                innerContent += '<i style="background:' + colorScale(classes[i]) + '"></i> ' +
-                    start + (end !== "+" ? '&ndash;' + end : '') + '<br>';
+                innerContent += '<i style="background:' + colorScale(from) + '"></i> ' +
+                formatCommas(from) + (to !== extent[1] ? ' &ndash; ' +  formatCommas(to) : '+') + '<br>';
             }
         }
         return innerContent;
