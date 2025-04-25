@@ -8,7 +8,7 @@ html, body {
 
 /* -- styles for textbox overlays with image background */
 #landing > .textbox-overlay {
-    padding: 3em 2em;
+    padding: 3em 2.5em;
 }
 
 #landing > .textbox-overlay h1 {
@@ -64,6 +64,40 @@ html, body {
     min-height: 500px;
     max-height: 700px;
     object-fit: cover;
+}
+
+/* -- styles for introduction bar graph -- */
+
+#intro-graph-container {
+    width: calc(100% + 2.5em);
+    height: 18em;
+    transform: translateX(-2.5em);
+}
+
+#intro-graph-title {
+    font-size: 1.05em;
+    padding-bottom: 0;
+    margin-bottom: 0.35em;
+}
+
+.bar {
+    fill: #084080;
+}
+
+#intro-graph-container text {
+    font-family: 'Inter', sans-serif;
+}
+
+#intro-graph-container text.axis-label {
+    font-weight: 300;
+}
+
+#intro-graph-container .tick text {
+    font-size: 12px;
+}
+
+#intro-graph-container .x-axis .tick text {
+    font-size: 16px;
 }
 
 /* -- styles for main text sections -- */
@@ -173,16 +207,30 @@ html, body {
 
 .leaflet-popup-content p {
     position: relative;
-    margin: 0;
+    margin: 0 !important;
     padding: 0.25em 0;
 }
 
+#custom-popup {
+    background-color: #54565C;
+    min-width: 50px;
+    min-height: 20px;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85em;
+    padding: 0.5em 1em;
+    border-radius: 0.5em;
+    z-index: 10001;
+}
 
 /* -- styles for interactive map prompts -- */
 .visualization-prompt {
     height: 20vh;
     background-color: #54565C;
     font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .visualization-prompt h2 {
@@ -273,8 +321,24 @@ button * {
     font-weight: 600;
 }
 
+.force-break::before {
+    content: "";
+    display: block;
+}
 
 /* -- media queries to control responsiveness */
+@media (min-width: 1770px) {
+    .force-break::before {
+       display: none;
+    }
+}
+
+@media (max-width: 1125px) {
+    .force-break::before {
+       display: none;
+    }
+}
+
 @media (max-width: 1000px) {
     .textbox-overlay {
         width: 70%;
@@ -323,7 +387,7 @@ button * {
     }
 
     .map {
-        height: 70%;
+        height: 70vh;
     }
 
     .visualization-prompt h2 {

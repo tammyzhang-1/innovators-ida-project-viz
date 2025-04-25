@@ -37,10 +37,12 @@
             <p>The third time point is 2071&mdash;fifty years <em>after</em> Ida. The logic for 2071 is the same as 1971: we kept everything the same, but changed the climate conditions. This time, though, we looked to the future, not the past. Specifically, we studied what Hurricane Ida might look like in 2071 if the world continues to warm a few more degrees.</p>
             <p>Below, we will share data comparing and contrasting the 2021 storm that we experienced to the 1971 storm that would have occurred without the added impact of climate change, and the 2071 storm with greater impacts from climate change.</p>
             <h2>Extreme Event Attribution of Hurricane Ida</h2>
-            <img src="images/placeholder-1.png" alt="example graph" />
+            <!-- <img src="images/placeholder-1.png" alt="example graph" /> -->
+            <p id="intro-graph-title">Storm surge damages in three climate scenarios</p>
+            <div id="intro-graph-container"><svg id="intro-graph"></svg></div>
             <p>In the graph above, we're looking at projected damage from flooding caused by storm surge under the three different climate time points: 1971, 2021, and 2071. For example, on the left, the graph shows that under 1971 climate conditions, we attribute just over $4.1 billion in damages to storm surge. In the middle, the 2021 bar reflects Ida as it actually occurred, with damages rising to over $4.3 billion. On the right, under 2071 climate projections, storm surge damage is expected to exceed $5 billion.</p>
             <p>By comparing 1971 and 2021, we found that damages from storm surge flooding were about 5% higher in Hurricane Ida because of climate change. We would anticipate that the storm would have 21% greater impacts if the climate continues to warm like for our 2071 time point.</p>
-            <p>It’s not just dollar damages either: we estimate that approximately 1,300 buildings were affected in 2021 that would not have been affected in a world without climate change. That number rises to approximately 6,000 more buildings in 2071.</p>
+            <p>It's not just dollar damages either: we estimate that approximately 1,300 buildings were affected in 2021 that would not have been affected in a world without climate change. That number rises to approximately 6,000 more buildings in 2071.</p>
         </div>
     </div>
 
@@ -55,9 +57,9 @@
 
     <div class="visualization-container">
         <div class="visualization-prompt">
-            <h2 class="poppins-light">What might 
+            <h2 class="poppins-light">What might storm surge flood damages
     
-                <div class="dropdown">
+                <!-- <div class="dropdown">
                     <button class="dropdown-button">
                       <span id="map1-environmental-value" class="dropdown-value">storm surge flood damages</span>
                       <span class="arrow"></span>
@@ -66,7 +68,7 @@
                         <span id="map1-wind-damages">wind damages</span>
                         <span class="selected-option" id="map1-storm-surge">storm surge flood damages</span>
                     </div>
-                </div>
+                </div> -->
                 
                 look like in
             
@@ -120,9 +122,9 @@
 
     <div class="visualization-container">
         <div class="visualization-prompt">
-            <h2 class="poppins-light">What might 
+            <h2 class="poppins-light">What might storm surge flood damages
     
-                <div class="dropdown">
+                <!-- <div class="dropdown">
                     <button class="dropdown-button">
                       <span id="map2-environmental-dropdown-value" class="dropdown-value">storm surge flood damages</span>
                       <span class="arrow"></span>
@@ -131,10 +133,11 @@
                         <span id="map2-wind-damages">wind damages</span>
                         <span class="selected-option" id="map2-storm-surge">storm surge flood damages</span>
                     </div>
-                </div>
+                </div> -->
                 
-            look like for people of different 
+                look like for people of different 
             
+                <span class="force-break dropdown-wrapper"></span>
                 <div class="dropdown">
                     <button class="dropdown-button">
                     <span id="map2-social-dropdown-value" class="dropdown-value">incomes</span>
@@ -187,6 +190,88 @@
 </html>
 
 <script>
+    // ------------ SETUP FOR INTRO GRAPH ------------
+
+    const graphData = [
+        {year: "1971", damage: 4105417009}, 
+        {year: "2021", damage: 4328088370},
+        {year: "2071", damage: 5240759336}
+    ];
+
+    const graphContainer = d3.select("#intro-graph-container");
+    const graphSVG = d3.select("#intro-graph")
+    
+    graphSVG.attr("width", graphContainer.node().offsetWidth);
+    graphSVG.attr("height", graphContainer.node().offsetHeight);
+    let graphWidth = graphSVG.attr("width");
+    let graphHeight = graphSVG.attr("height");
+
+    const graphMargin = { top: 10, right: 10, bottom: 40, left: 80 };
+
+    const chartWidth = graphWidth - graphMargin.left - graphMargin.right;
+    const chartHeight = graphHeight - graphMargin.top - graphMargin.bottom;
+
+    const graphX = d3.scaleBand()
+        .domain(graphData.map(d => d.year))
+        .range([0, chartWidth])
+        .padding(0.3);
+
+    const graphY = d3.scaleLinear()
+        .domain([0, 6000000000])
+        .range([chartHeight, 0]);
+
+    const chart = graphSVG.append("g")
+        .attr("transform", `translate(${graphMargin.left},${graphMargin.top})`);
+
+    chart.append("g")
+        .attr("class", "y-axis")
+        .call(d3.axisLeft(graphY).tickFormat(d => `$${(d / 1e9).toFixed(1)}B`));
+
+    const yTicks = graphY.ticks(); 
+
+    yTicks.forEach((tick, i) => {
+        if (i % 2 === 0) {
+            chart.append("line")
+                .attr("x1", 0)
+                .attr("x2", chartWidth)
+                .attr("y1", graphY(tick))
+                .attr("y2", graphY(tick))
+                .attr("stroke", "#e5e3e3")
+                .attr("stroke-width", 1);
+        }
+    });
+
+    chart.append("line")
+        .attr("x1", chartWidth)
+        .attr("y1", 0)
+        .attr("x2", chartWidth)
+        .attr("y2", chartHeight)
+        .attr("stroke", "#e5e3e3")
+        .attr("stroke-width", 1);
+    
+    chart.append("text")
+        .attr("class", "axis-label")
+        .attr("text-anchor", "middle")
+        .attr("transform", `rotate(-90)`)
+        .attr("x", -chartHeight / 2)
+        .attr("y", -graphMargin.left + 20)
+        .text("Total Damage in USD");
+
+    chart.append("g")
+        .attr("transform", `translate(0,${chartHeight})`)
+        .attr("class", "x-axis")
+        .call(d3.axisBottom(graphX).tickPadding(10));
+
+    chart.selectAll(".bar")
+        .data(graphData)
+        .enter()
+        .append("rect")
+        .attr("class", "bar")
+        .attr("x", d => graphX(d.year))
+        .attr("y", d => graphY(d.damage))
+        .attr("width", graphX.bandwidth())
+        .attr("height", d => chartHeight - graphY(d.damage));
+
     // ------------ SETUP FOR MAP 1: COMPARING ONE ENVIRONMENTAL VARIABLE BETWEEN YEARS ------------
     // base map
     var map1 = L.map('map1', {
@@ -227,7 +312,7 @@
     let map1RightLayer = null;
 
     // referring to the options selected in the first visualization prompt
-    const map1EnvironmentalDropdown = document.querySelector('#map1-environmental-dropdown');
+    // const map1EnvironmentalDropdown = document.querySelector('#map1-environmental-dropdown'); todo: placeholder
     const map1LeftYearDropdown = document.querySelector('#map1-left-year-dropdown');
     const map1RightYearDropdown = document.querySelector('#map1-right-year-dropdown');
 
@@ -243,7 +328,8 @@
                                 "map1-right-2071": "2071"};
 
     let map1UserOptions = {
-        map1EnvironmentalValue: map1EnvironmentalOptions[map1EnvironmentalDropdown.querySelector('.selected-option').id],
+        // map1EnvironmentalValue: map1EnvironmentalOptions[map1EnvironmentalDropdown.querySelector('.selected-option').id], todo: placeholder
+        map1EnvironmentalValue: "storm",
         map1LeftYearValue: map1LeftYearOptions[map1LeftYearDropdown.querySelector('.selected-option').id],
         map1RightYearValue: map1RightYearOptions[map1RightYearDropdown.querySelector('.selected-option').id]
     };
@@ -253,6 +339,7 @@
     var map1LeftLegend;
     var map1RightLegend;
     var map1Comparator;
+    const formatCommas = d3.format(",.0f");
 
     // ------------ MAP 1: user input event handlers ------------
     const map1Tract = document.getElementById('map1-tract');
@@ -325,12 +412,15 @@
 
         map1LeftLayer = L.geoJSON(data, { 
             style: feature => getMap1LeftStyle(feature),
-            pane: 'left' 
+            pane: 'left',
+            onEachFeature: showMap1Popup
+            
         }).addTo(this.map1);
 
         map1RightLayer = L.geoJSON(data, { 
             style: feature => getMap1RightStyle(feature),
-            pane: 'right' 
+            pane: 'right',
+            onEachFeature: showMap1Popup
         }).addTo(this.map1);
 
         map1Comparator = L.control.sideBySide([], []).addTo(this.map1);
@@ -390,8 +480,6 @@
         let classes = map1ColorScale.quantiles(),
         labels = [];
 
-        const formatCommas = d3.format(",.0f");
-
         let placeholder2071 = position === 'left' ? map1UserOptions.map1LeftYearValue == 2071 : map1UserOptions.map1RightYearValue == 2071;
         let placeholderWind = map1UserOptions.map1EnvironmentalValue == "wind";
 
@@ -440,6 +528,38 @@
     }
     loadMap1();
 
+    // function showCustomPopup(feature, layer) {
+    
+    //     layer.bindPopup(feature.properties.NAMELSADCO);
+    // }
+    var currentlyHighlightedLayer = null;
+
+    function highlightFeature(e) {
+       
+    }
+
+    function showMap1Popup(feature, layer) {
+
+        let title = getMap1SelectedCensus() == 'map1-tract' ? feature.properties.NAMELSADCO : feature.properties.NAME20;
+
+        layer.bindPopup("<h3>" + 
+            title + 
+            "</h3> <p> Buildings Affected in 1971: " + feature.properties['storm_#_1971'] +
+            "</p><p> Buildings Affected in 2021: " + feature.properties['storm_#_2021'] +
+            "</p><p> Buildings Affected in 2071: no data </p>"
+
+            //     "<p>Population: " + feature.properties.total_popu + 
+            // "</p><p> Median Income: $" + formatCommas(feature.properties.median_inc) + 
+            // "</p><p> College Educated: " + Math.round(feature.properties.college_de * 100) / 100 + 
+            // "%</p>"
+            
+        );
+        
+        layer.on({
+            click: highlightFeature
+        });
+    }
+
     // ------------ SETUP FOR MAP 2: COMPARING ONE ENVIRONMENTAL VARIABLE AND ONE SOCIAL VARIABLE IN ONE YEAR ------------
     // base map
     var map2 = L.map('map2', {
@@ -480,7 +600,7 @@
     let map2RightLayer = null;
 
     // referring to the options selected in the first visualization prompt
-    const map2EnvironmentalDropdown = document.querySelector('#map2-environmental-dropdown');
+    // const map2EnvironmentalDropdown = document.querySelector('#map2-environmental-dropdown'); todo: placeholder
     const map2SocialDropdown = document.querySelector('#map2-social-dropdown');
     const map2YearDropdown = document.querySelector('#map2-year-dropdown');
 
@@ -497,7 +617,8 @@
                             "map2-2071": "2071"};
 
     let map2UserOptions = {
-        map2EnvironmentalValue: map2EnvironmentalOptions[map2EnvironmentalDropdown.querySelector('.selected-option').id],
+        // map2EnvironmentalValue: map2EnvironmentalOptions[map2EnvironmentalDropdown.querySelector('.selected-option').id], todo: placeholder
+        map2EnvironmentalValue: "storm",
         map2SocialValue: map2SocialOptions[map2SocialDropdown.querySelector('.selected-option').id],
         map2YearValue: map2YearOptions[map2YearDropdown.querySelector('.selected-option').id]
     };
@@ -508,6 +629,20 @@
     var map2LeftLegend;
     var map2RightLegend;
     var map2Comparator;
+
+    let socialTitles = {
+            "median_inc": "Median Income in $",
+            "college_de": "% of Population with College Degree",
+            "nonwhite_t": "% Minority",
+            "owner_occu": "% Homeowners"
+    };
+
+    let socialPopup = {
+            "median_inc": "Median Income: $",
+            "college_de": "Percent of Population with College Degree: ",
+            "nonwhite_t": "Percent Minority: ",
+            "owner_occu": "Percent Homeowners: "
+    };
 
     // ------------ MAP 2: user input event handlers ------------
     const map2Tract = document.getElementById('map2-tract');
@@ -576,12 +711,14 @@
 
         map2LeftLayer = L.geoJSON(data, { 
             style: feature => getMap2LeftStyle(feature),
-            pane: 'left' 
+            pane: 'left',
+            onEachFeature: showMap2Popup
         }).addTo(this.map2);
 
         map2RightLayer = L.geoJSON(data, { 
             style: feature => getMap2RightStyle(feature),
-            pane: 'right' 
+            pane: 'right',
+            onEachFeature: showMap2Popup
         }).addTo(this.map2);
 
         map2Comparator = L.control.sideBySide([], []).addTo(this.map2);
@@ -654,18 +791,9 @@
         let classes = colorScale.quantiles(),
         labels = [];
 
-        const formatCommas = d3.format(",.0f");
-
         let column = position === 'left' ? map2UserOptions.map2EnvironmentalValue + "_#_" + map2UserOptions.map2YearValue : map2UserOptions.map2SocialValue;
 
         let extent = d3.extent(data2.features, d => Number(d.properties[column]));
-
-        let socialTitles = {
-            "median_inc": "Median Income",
-            "college_de": "% of Population with College Degree",
-            "nonwhite_t": "% Minority",
-            "owner_occu": "% Homeowners"
-        };
 
         let innerContent;
 
@@ -704,6 +832,28 @@
             map2RightLayer.setStyle(getMap2RightStyle);
         };
     }
+
+    function showMap2Popup(feature, layer) {
+        let title = getMap2SelectedCensus() == 'map2-tract' ? feature.properties.NAMELSADCO : feature.properties.NAME20;
+
+        layer.bindPopup("<h3>" + 
+            title + 
+            "</h3> <p> Buildings Affected in 1971: " + feature.properties['storm_#_1971'] +
+            "</p><p> Buildings Affected in 2021: " + feature.properties['storm_#_2021'] +
+            "</p><p> Buildings Affected in 2071: no data </p>" +
+            "<p>Population: " + feature.properties.total_popu + 
+            "</p><p> Median Income: " + `${feature.properties.median_inc ? '$' + formatCommas(feature.properties.median_inc) : 'no data'}` +
+            "</p><p> Percent College Educated: " + `${feature.properties.college_de ? Math.round(feature.properties.college_de * 100) / 100 + '%': " no data"}` +
+            "</p><p> Percent Minority: " + `${feature.properties.nonwhite_t ? Math.round(feature.properties.nonwhite_t * 100) / 100 + '%': " no data"}` +
+            "</p><p> Percent Homeowners: " + `${feature.properties.owner_occu ? Math.round(feature.properties.owner_occu * 100) / 100 + '%': " no data"}` +
+            "</p>"
+        );
+
+        layer.on({
+            click: highlightFeature
+        });
+    }
+
     loadMap2();
 
 
@@ -744,13 +894,13 @@
                 setDropdownWidth();
                
                 updateMap1UserOptions({
-                    map1EnvironmentalValue: map1EnvironmentalOptions[map1EnvironmentalDropdown.querySelector('.selected-option').id],
+                    // map1EnvironmentalValue: map1EnvironmentalOptions[map1EnvironmentalDropdown.querySelector('.selected-option').id], todo: placeholder
                     map1LeftYearValue: map1LeftYearOptions[map1LeftYearDropdown.querySelector('.selected-option').id],
                     map1RightYearValue: map1RightYearOptions[map1RightYearDropdown.querySelector('.selected-option').id],
                 });
 
                 updateMap2UserOptions({
-                    map2EnvironmentalValue: map2EnvironmentalOptions[map2EnvironmentalDropdown.querySelector('.selected-option').id],
+                    // map2EnvironmentalValue: map2EnvironmentalOptions[map2EnvironmentalDropdown.querySelector('.selected-option').id], todo: placeholder
                     map2SocialValue: map2SocialOptions[map2SocialDropdown.querySelector('.selected-option').id],
                     map2YearValue: map2YearOptions[map2YearDropdown.querySelector('.selected-option').id]
                 });
