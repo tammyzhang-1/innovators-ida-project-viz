@@ -39,7 +39,10 @@
             <h2>Extreme Event Attribution of Hurricane Ida</h2>
             <!-- <img src="images/placeholder-1.png" alt="example graph" /> -->
             <p id="intro-graph-title">Storm surge damages in three climate scenarios</p>
-            <div id="intro-graph-container"><svg id="intro-graph"></svg></div>
+            <div id="intro-graph-container">
+                <svg id="intro-graph-1"></svg>
+                <svg id="intro-graph-2"></svg>
+            </div>
             <p>In the graph above, we're looking at projected damage from flooding caused by storm surge under the three different climate time points: 1971, 2021, and 2071. For example, on the left, the graph shows that under 1971 climate conditions, we attribute just over $4.1 billion in damages to storm surge. In the middle, the 2021 bar reflects Ida as it actually occurred, with damages rising to over $4.3 billion. On the right, under 2071 climate projections, storm surge damage is expected to exceed $5 billion.</p>
             <p>By comparing 1971 and 2021, we found that damages from storm surge flooding were about 5% higher in Hurricane Ida because of climate change. We would anticipate that the storm would have 21% greater impacts if the climate continues to warm like for our 2071 time point.</p>
             <p>It's not just dollar damages either: we estimate that approximately 1,300 buildings were affected in 2021 that would not have been affected in a world without climate change. That number rises to approximately 6,000 more buildings in 2071.</p>
@@ -188,85 +191,166 @@
 
 <script>
     // ------------ SETUP FOR INTRO GRAPH ------------
-    const graphData = [
+    const graph1Data = [
         {year: "1971", damage: 4105417009}, 
         {year: "2021", damage: 4328088370},
         {year: "2071", damage: 5240759336}
     ];
 
     const graphContainer = d3.select("#intro-graph-container");
-    const graphSVG = d3.select("#intro-graph")
+    const graph1SVG = d3.select("#intro-graph-1")
     
-    graphSVG.attr("width", graphContainer.node().offsetWidth);
-    graphSVG.attr("height", graphContainer.node().offsetHeight);
-    let graphWidth = graphSVG.attr("width");
-    let graphHeight = graphSVG.attr("height");
+    graph1SVG.attr("width", graphContainer.node().offsetWidth * 0.48);
+    graph1SVG.attr("height", graphContainer.node().offsetHeight);
+    let graph1Width = graph1SVG.attr("width");
+    let graph1Height = graph1SVG.attr("height");
 
-    const graphMargin = { top: 10, right: 10, bottom: 40, left: 80 };
+    const graph1Margin = { top: 10, right: 10, bottom: 40, left: 80 };
 
-    const chartWidth = graphWidth - graphMargin.left - graphMargin.right;
-    const chartHeight = graphHeight - graphMargin.top - graphMargin.bottom;
+    const chart1Width = graph1Width - graph1Margin.left - graph1Margin.right;
+    const chart1Height = graph1Height - graph1Margin.top - graph1Margin.bottom;
 
-    const graphX = d3.scaleBand()
-        .domain(graphData.map(d => d.year))
-        .range([0, chartWidth])
+    const graph1X = d3.scaleBand()
+        .domain(graph1Data.map(d => d.year))
+        .range([0, chart1Width])
         .padding(0.3);
 
-    const graphY = d3.scaleLinear()
-        .domain([0, 6000000000])
-        .range([chartHeight, 0]);
+    const graph1Y = d3.scaleLinear()
+        .domain([0, 5500000000])
+        .range([chart1Height, 0]);
 
-    const chart = graphSVG.append("g")
-        .attr("transform", `translate(${graphMargin.left},${graphMargin.top})`);
+    const chart1 = graph1SVG.append("g")
+        .attr("transform", `translate(${graph1Margin.left},${graph1Margin.top})`);
 
-    chart.append("g")
+    chart1.append("g")
         .attr("class", "y-axis")
-        .call(d3.axisLeft(graphY).tickFormat(d => `$${(d / 1e9).toFixed(1)}B`));
+        .call(d3.axisLeft(graph1Y).tickFormat(d => `$${(d / 1e9).toFixed(1)}B`));
 
-    const yTicks = graphY.ticks(); 
+    const yTicks1 = graph1Y.ticks(); 
 
-    yTicks.forEach((tick, i) => {
+    yTicks1.forEach((tick, i) => {
         if (i % 2 === 0) {
-            chart.append("line")
+            chart1.append("line")
                 .attr("x1", 0)
-                .attr("x2", chartWidth)
-                .attr("y1", graphY(tick))
-                .attr("y2", graphY(tick))
+                .attr("x2", chart1Width)
+                .attr("y1", graph1Y(tick))
+                .attr("y2", graph1Y(tick))
                 .attr("stroke", "#e5e3e3")
                 .attr("stroke-width", 1);
         }
     });
 
-    chart.append("line")
-        .attr("x1", chartWidth)
+    chart1.append("line")
+        .attr("x1", chart1Width)
         .attr("y1", 0)
-        .attr("x2", chartWidth)
-        .attr("y2", chartHeight)
+        .attr("x2", chart1Width)
+        .attr("y2", chart1Height)
         .attr("stroke", "#e5e3e3")
         .attr("stroke-width", 1);
     
-    chart.append("text")
+    chart1.append("text")
         .attr("class", "axis-label")
         .attr("text-anchor", "middle")
         .attr("transform", `rotate(-90)`)
-        .attr("x", -chartHeight / 2)
-        .attr("y", -graphMargin.left + 20)
+        .attr("x", -chart1Height / 2)
+        .attr("y", -graph1Margin.left + 20)
         .text("Total Damage in USD");
 
-    chart.append("g")
-        .attr("transform", `translate(0,${chartHeight})`)
+    chart1.append("g")
+        .attr("transform", `translate(0,${chart1Height})`)
         .attr("class", "x-axis")
-        .call(d3.axisBottom(graphX).tickPadding(10));
+        .call(d3.axisBottom(graph1X).tickPadding(10));
 
-    chart.selectAll(".bar")
-        .data(graphData)
+    chart1.selectAll(".bar")
+        .data(graph1Data)
         .enter()
         .append("rect")
         .attr("class", "bar")
-        .attr("x", d => graphX(d.year))
-        .attr("y", d => graphY(d.damage))
-        .attr("width", graphX.bandwidth())
-        .attr("height", d => chartHeight - graphY(d.damage));
+        .attr("x", d => graph1X(d.year))
+        .attr("y", d => graph1Y(d.damage))
+        .attr("width", graph1X.bandwidth())
+        .attr("height", d => chart1Height - graph1Y(d.damage));
+
+    
+    const graph2Data = [
+        {year: "1971", damage: 20923}, 
+        {year: "2021", damage: 22232},
+        {year: "2071", damage: 28195}
+    ];
+
+    const graph2SVG = d3.select("#intro-graph-2")
+    
+    graph2SVG.attr("width", graphContainer.node().offsetWidth * 0.48);
+    graph2SVG.attr("height", graphContainer.node().offsetHeight);
+
+    let graph2Width = graph2SVG.attr("width");
+    let graph2Height = graph2SVG.attr("height");
+
+    const graph2Margin = { top: 10, right: 10, bottom: 40, left: 100 };
+
+    const chart2Width = graph2Width - graph2Margin.left - graph2Margin.right;
+    const chart2Height = graph2Height - graph2Margin.top - graph2Margin.bottom;
+
+    const graph2X = d3.scaleBand()
+        .domain(graph2Data.map(d => d.year))
+        .range([0, chart2Width])
+        .padding(0.3);
+
+    const graph2Y = d3.scaleLinear()
+        .domain([0, 30000])
+        .range([chart2Height, 0]);
+
+    const chart2 = graph2SVG.append("g")
+        .attr("transform", `translate(${graph2Margin.left},${graph2Margin.top})`);
+
+    chart2.append("g")
+        .attr("class", "y-axis")
+        .call(d3.axisLeft(graph2Y));
+
+    const yTicks2 = graph2Y.ticks(); 
+
+    yTicks2.forEach((tick, i) => {
+        if (i % 2 === 0) {
+            chart2.append("line")
+                .attr("x1", 0)
+                .attr("x2", chart2Width)
+                .attr("y1", graph2Y(tick))
+                .attr("y2", graph2Y(tick))
+                .attr("stroke", "#e5e3e3")
+                .attr("stroke-width", 1);
+        }
+    });
+
+    chart2.append("line")
+        .attr("x1", chart2Width)
+        .attr("y1", 0)
+        .attr("x2", chart2Width)
+        .attr("y2", chart2Height)
+        .attr("stroke", "#e5e3e3")
+        .attr("stroke-width", 1);
+    
+    chart2.append("text")
+        .attr("class", "axis-label")
+        .attr("text-anchor", "middle")
+        .attr("transform", `rotate(-90)`)
+        .attr("x", -chart2Height / 2)
+        .attr("y", -graph2Margin.left + 40)
+        .text("Total Damage in Buildings Affected");
+
+    chart2.append("g")
+        .attr("transform", `translate(0,${chart2Height})`)
+        .attr("class", "x-axis")
+        .call(d3.axisBottom(graph2X).tickPadding(10));
+
+    chart2.selectAll(".graph2-bar")
+        .data(graph2Data)
+        .enter()
+        .append("rect")
+        .attr("class", "graph2-bar")
+        .attr("x", d => graph2X(d.year))
+        .attr("y", d => graph2Y(d.damage))
+        .attr("width", graph2X.bandwidth())
+        .attr("height", d => chart2Height - graph2Y(d.damage));
 </script>
 
 <script>

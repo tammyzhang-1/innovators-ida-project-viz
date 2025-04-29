@@ -72,6 +72,7 @@ html, body {
     width: calc(100% + 2.5em);
     height: 25em;
     transform: translateX(-2.5em);
+    display: flex;
 }
 
 #intro-graph-title {
@@ -82,6 +83,10 @@ html, body {
 
 .bar {
     fill: #084080;
+}
+
+.graph2-bar {
+    fill: #276f7c;
 }
 
 #intro-graph-container text {
