@@ -23,7 +23,6 @@
         <img src="images/background-1.jpg" alt="picture of coastal louisiana" />
         <div class="textbox-overlay">
             <h1>Extreme Event Attribution of Hurricane Ida</h1>
-            <p>Louisiana State University, the NSF National Center for Atmospheric Research, and the Water Institute</p>
         </div>
     </div>
 
@@ -37,13 +36,12 @@
             <p>The third time point is 2071&mdash;fifty years <em>after</em> Ida. The logic for 2071 is the same as 1971: we kept everything the same, but changed the climate conditions. This time, though, we looked to the future, not the past. Specifically, we studied what Hurricane Ida might look like in 2071 if the world continues to warm a few more degrees.</p>
             <p>Below, we will share data comparing and contrasting the 2021 storm that we experienced to the 1971 storm that would have occurred without the added impact of climate change, and the 2071 storm with greater impacts from climate change.</p>
             <h2>Extreme Event Attribution of Hurricane Ida</h2>
-            <!-- <img src="images/placeholder-1.png" alt="example graph" /> -->
-            <p id="intro-graph-title">Storm surge damages in three climate scenarios</p>
+            <p id="intro-graph-title">Storm surge damages at three time points</p>
             <div id="intro-graph-container">
                 <svg id="intro-graph-1"></svg>
                 <svg id="intro-graph-2"></svg>
             </div>
-            <p>In the graph above, we're looking at projected damage from flooding caused by storm surge under the three different climate time points: 1971, 2021, and 2071. For example, on the left, the graph shows that under 1971 climate conditions, we attribute just over $4.1 billion in damages to storm surge. In the middle, the 2021 bar reflects Ida as it actually occurred, with damages rising to over $4.3 billion. On the right, under 2071 climate projections, storm surge damage is expected to exceed $5 billion.</p>
+            <p>In the graphs above, we're looking at projected damage from flooding caused by storm surge under the three different climate time points: 1971, 2021, and 2071. For example, on the left, the graph shows that under 1971 climate conditions, we attribute just over $4.1 billion in damages to storm surge. In the middle, the 2021 bar reflects Ida as it actually occurred, with damages rising to over $4.3 billion. On the right, under 2071 climate projections, storm surge damage is expected to exceed $5 billion.</p>
             <p>By comparing 1971 and 2021, we found that damages from storm surge flooding were about 5% higher in Hurricane Ida because of climate change. We would anticipate that the storm would have 21% greater impacts if the climate continues to warm like for our 2071 time point.</p>
             <p>It's not just dollar damages either: we estimate that approximately 1,300 buildings were affected in 2021 that would not have been affected in a world without climate change. That number rises to approximately 6,000 more buildings in 2071.</p>
         </div>
@@ -75,6 +73,8 @@
                 </div>
                 
                 look like in
+
+                <span class="force-break-map1"></span>
             
                 <div class="dropdown">
                     <button class="dropdown-button">
@@ -216,7 +216,7 @@
         .padding(0.3);
 
     const graph1Y = d3.scaleLinear()
-        .domain([0, 5500000000])
+        .domain([3000000000, 5400000000])
         .range([chart1Height, 0]);
 
     const chart1 = graph1SVG.append("g")
@@ -229,15 +229,13 @@
     const yTicks1 = graph1Y.ticks(); 
 
     yTicks1.forEach((tick, i) => {
-        if (i % 2 === 0) {
-            chart1.append("line")
-                .attr("x1", 0)
-                .attr("x2", chart1Width)
-                .attr("y1", graph1Y(tick))
-                .attr("y2", graph1Y(tick))
-                .attr("stroke", "#e5e3e3")
-                .attr("stroke-width", 1);
-        }
+        chart1.append("line")
+            .attr("x1", 0)
+            .attr("x2", chart1Width)
+            .attr("y1", graph1Y(tick))
+            .attr("y2", graph1Y(tick))
+            .attr("stroke", "#e5e3e3")
+            .attr("stroke-width", 1);
     });
 
     chart1.append("line")
@@ -271,6 +269,14 @@
         .attr("width", graph1X.bandwidth())
         .attr("height", d => chart1Height - graph1Y(d.damage));
 
+    chart1.append("line")
+        .attr("x1", chart1Width/2 - graph1X.bandwidth() / 2)
+        .attr("x2", chart1Width)
+        .attr("y1", graph1Y(4105417009))
+        .attr("y2", graph1Y(4105417009))
+        .attr("stroke", "white")
+        .attr("stroke-width", 2)
+        .attr("stroke-dasharray", "4,4");
     
     const graph2Data = [
         {year: "1971", damage: 20923}, 
@@ -297,7 +303,7 @@
         .padding(0.3);
 
     const graph2Y = d3.scaleLinear()
-        .domain([0, 30000])
+        .domain([15000, 30000])
         .range([chart2Height, 0]);
 
     const chart2 = graph2SVG.append("g")
@@ -310,15 +316,13 @@
     const yTicks2 = graph2Y.ticks(); 
 
     yTicks2.forEach((tick, i) => {
-        if (i % 2 === 0) {
-            chart2.append("line")
-                .attr("x1", 0)
-                .attr("x2", chart2Width)
-                .attr("y1", graph2Y(tick))
-                .attr("y2", graph2Y(tick))
-                .attr("stroke", "#e5e3e3")
-                .attr("stroke-width", 1);
-        }
+        chart2.append("line")
+            .attr("x1", 0)
+            .attr("x2", chart2Width)
+            .attr("y1", graph2Y(tick))
+            .attr("y2", graph2Y(tick))
+            .attr("stroke", "#e5e3e3")
+            .attr("stroke-width", 1);
     });
 
     chart2.append("line")
@@ -335,7 +339,7 @@
         .attr("transform", `rotate(-90)`)
         .attr("x", -chart2Height / 2)
         .attr("y", -graph2Margin.left + 40)
-        .text("Total Damage in Buildings Affected");
+        .text("Total Buildings Damaged");
 
     chart2.append("g")
         .attr("transform", `translate(0,${chart2Height})`)
@@ -351,6 +355,15 @@
         .attr("y", d => graph2Y(d.damage))
         .attr("width", graph2X.bandwidth())
         .attr("height", d => chart2Height - graph2Y(d.damage));
+    
+    chart2.append("line")
+        .attr("x1", chart2Width/2 - graph2X.bandwidth() / 2)
+        .attr("x2", chart2Width)
+        .attr("y1", graph2Y(20923))
+        .attr("y2", graph2Y(20923))
+        .attr("stroke", "white")
+        .attr("stroke-width", 2)
+        .attr("stroke-dasharray", "4,4");
 </script>
 
 <script>
@@ -463,7 +476,7 @@
     async function loadMap1() {
         // fetch data file based on selected census level, then call function to render
         let censusLevel = getMap1SelectedCensus();
-        let filePath = censusLevel === 'map1-tract' ? "storm_social_tract_cropped.geojson" : "storm_social_block_cropped.geojson";
+        let filePath = censusLevel === 'map1-tract' ? "storm_tract_cropped.geojson" : "storm_block.geojson";
         data1 = await d3.json(filePath, d3.autoType);
         renderMap1GeoJSON(data1);
     }
@@ -473,35 +486,11 @@
         let leftColumn = map1UserOptions.map1EnvironmentalValue + map1UserOptions.map1LeftYearValue;
         let rightColumn = map1UserOptions.map1EnvironmentalValue + map1UserOptions.map1RightYearValue;
 
-        // let allMap1Values = data.features.flatMap(f => [
-        //     Number(f.properties[leftColumn]),
-        //     Number(f.properties[rightColumn])
-        // ]);
-
-        // let map1Extent = d3.extent(allMap1Values);        
-        
-        // console.log(map1ColorScale.quantiles());
-        
-        // map1ColorScale = d3.scaleQuantile().domain(map1Extent).range(['#dff3db', '#a8dcb5', '#4cb3d2', '#2c8cbd', '#084080']);
-        // map1ColorScale = d3.scaleThreshold()
-        //                     .domain([0, 50, 100, 150, 200, 250])
-        //                     .range(['#f6fcf0', '#dff3db', '#a8dcb5', '#4cb3d2', '#2c8cbd', '#084080'])
-
         let thresholds = map1Thresholds[map1UserOptions.map1EnvironmentalValue + getMap1SelectedCensus()];
 
         map1ColorScale = d3.scaleThreshold()
                             .domain(thresholds)
                             .range(['#adadad', '#dff3db', '#a8dcb5', '#4cb3d2', '#2c8cbd', '#084080']);
-
-    //    map1ColorScale =  d3.scaleQuantile().domain(allMap1Values).range(d3.schemeGnBu[5])
-
-        // map1ColorScale = d3.scaleSequential(d3.interpolateGnBu).domain(map1Extent).exponent(0.3);
-
-    //     map1ColorScale = d3.scaleLinear()
-    // .domain([0, 700])
-    // .range([0, 1])
-    // .interpolate(() => d3.interpolateGnBu);
-        
 
         if (map1LeftLayer) {
             map1.removeLayer(map1LeftLayer);
@@ -546,7 +535,7 @@
         return {
             color: 'white', 
             weight: getMap1SelectedCensus() == 'map1-tract' ? 1 : 0.5, 
-            fillOpacity: 0.98,
+            fillOpacity: 0.8,
             fillColor: map1ColorScale(value)
         }
     }
@@ -557,7 +546,7 @@
         return {
             color: 'white', 
             weight: getMap1SelectedCensus() == 'map1-tract' ? 1 : 0.5, 
-            fillOpacity: 0.98,
+            fillOpacity: 0.8,
             fillColor: map1ColorScale(value)
         }
     }
@@ -587,9 +576,7 @@
 
     function generateMap1LegendHTML(position) {
        
-        let placeholder2071 = position === 'left' ? map1UserOptions.map1LeftYearValue == 2071 : map1UserOptions.map1RightYearValue == 2071;
         let placeholderWind = map1UserOptions.map1EnvironmentalValue == "wind";
-        let placeholder1971 = position === 'left' ? map1UserOptions.map1LeftYearValue == 1971 && map1UserOptions.map1EnvironmentalValue == "storm_$_": map1UserOptions.map1RightYearValue == 1971 && map1UserOptions.map1EnvironmentalValue == "storm_$_";
 
         let thresholds = map1Thresholds[map1UserOptions.map1EnvironmentalValue + getMap1SelectedCensus()];
 
@@ -606,7 +593,7 @@
             `<p class="legend-title">${title} in ${map1UserOptions.map1LeftYearValue} Climate</p>` : 
             `<p class="legend-title">${title} in ${map1UserOptions.map1RightYearValue} Climate</p>`;
         
-        if (classes[0] === undefined || classes[1] == 0 || placeholder2071 || placeholderWind || placeholder1971) {
+        if (classes[0] === undefined || classes[1] == 0 || placeholderWind) {
             innerContent += `<p>No data available</p>`
         } else {
             innerContent += '<i style="background:' + map1ColorScale(0) + '"></i> ' + '0' + '<br>';
@@ -638,16 +625,6 @@
     }
     loadMap1();
 
-    // function showCustomPopup(feature, layer) {
-    
-    //     layer.bindPopup(feature.properties.NAMELSADCO);
-    // }
-    var currentlyHighlightedLayer = null;
-
-    function highlightFeature(e) {
-       
-    }
-
     function showMap1Popup(feature, layer) {
 
         let title = getMap1SelectedCensus() == 'map1-tract' ? feature.properties.NAMELSADCO : feature.properties.NAME20;
@@ -657,17 +634,8 @@
             "</h3> <p> Buildings Affected in 1971: " + feature.properties['storm_#_1971'] +
             "</p><p> Buildings Affected in 2021: " + feature.properties['storm_#_2021'] +
             "</p><p> Buildings Affected in 2071: no data </p>"
-
-            //     "<p>Population: " + feature.properties.total_popu + 
-            // "</p><p> Median Income: $" + formatCommas(feature.properties.median_inc) + 
-            // "</p><p> College Educated: " + Math.round(feature.properties.college_de * 100) / 100 + 
-            // "%</p>"
             
         );
-        
-        layer.on({
-            click: highlightFeature
-        });
     }
 </script>
 
@@ -682,13 +650,16 @@
         [35, -82.5]
         ],
         maxBoundsViscosity: 1,
-        bounceAtZoomLimits: false
+        bounceAtZoomLimits: false,
+        attributionControl: true
     }).setView([30, -91.5], 8);
 
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
         subdomains: 'abcd'
     }).addTo(map2);
+
+    map2.attributionControl.addAttribution('Social data: U.S. Census 2016-2020 American Community Survey.');
 
     // properly center and expand map tiles on load
     setTimeout(function () {
@@ -772,22 +743,12 @@
 
     // ------------ MAP 2: data loading ------------
     async function loadMap2() {
-        let filePath = "storm_social_tract_uncropped.geojson";
+        let filePath = "storm_tract.geojson";
         data2 = await d3.json(filePath, d3.autoType);
         renderMap2GeoJSON(data2);
     }
 
     function renderMap2GeoJSON(data) {
-        // handle calls to styling to render the map
-        // let leftColumn = map2UserOptions.map2EnvironmentalValue + map2UserOptions.map2YearValue;
-        // let rightColumn = map2UserOptions.map2SocialValue;
-
-        // let map2EnvironmentalExtent = d3.extent(data.features, d => Number(d.properties[leftColumn]));
-        // let map2SocialExtent = d3.extent(data.features, d => Number(d.properties[rightColumn]));
-        
-        // map2EnvironmentalColorScale = d3.scaleQuantile().domain(map2EnvironmentalExtent).range(['#dff3db', '#a8dcb5', '#4cb3d2', '#2c8cbd', '#084080']);
-        // map2SocialColorScale = d3.scaleQuantile().domain(map2SocialExtent).range(d3.schemeYlOrBr[6].slice(1));
-
         let socialThresholds = map2Thresholds[map2UserOptions.map2SocialValue];
 
         map2SocialColorScale = d3.scaleThreshold()
@@ -842,7 +803,7 @@
         return {
             color: 'white', 
             weight: 1, 
-            fillOpacity: 0.98,
+            fillOpacity: 0.8,
             fillColor: value == null ? 'transparent' : map2EnvironmentalColorScale(value)
         }
     }
@@ -853,7 +814,7 @@
         return {
             color: 'white', 
             weight: 1, 
-            fillOpacity: 0.98,
+            fillOpacity: 0.8,
             fillColor: value == null ? 'transparent' : map2SocialColorScale(value)
         }
     }
@@ -950,17 +911,13 @@
             "</h3> <p> Buildings Affected in 1971: " + feature.properties['storm_#_1971'] +
             "</p><p> Buildings Affected in 2021: " + feature.properties['storm_#_2021'] +
             "</p><p> Buildings Affected in 2071: no data </p>" +
-            "<p>Population: " + feature.properties.total_popu + 
+            "<p>Population: " + feature.properties['total_pop'] + 
             "</p><p> Median Income: " + `${feature.properties.median_inc ? '$' + formatCommas(feature.properties.median_inc) : 'no data'}` +
             "</p><p> Percent College Educated: " + `${feature.properties.college_de ? Math.round(feature.properties.college_de * 100) / 100 + '%': " no data"}` +
             "</p><p> Percent Minority: " + `${feature.properties.nonwhite_t ? Math.round(feature.properties.nonwhite_t * 100) / 100 + '%': " no data"}` +
             "</p><p> Percent Homeowners: " + `${feature.properties.owner_occu ? Math.round(feature.properties.owner_occu * 100) / 100 + '%': " no data"}` +
             "</p>"
         );
-
-        layer.on({
-            click: highlightFeature
-        });
     }
     loadMap2();
 </script>

@@ -8,23 +8,14 @@ html, body {
 
 /* -- styles for textbox overlays with image background */
 #landing > .textbox-overlay {
-    padding: 3em 2.5em;
+    padding: 3em 3em;
+    box-sizing: border-box;
 }
 
 #landing > .textbox-overlay h1 {
     font-family: 'Poppins', sans-serif;
-    font-size: 2em;
+    font-size: 2.25em;
     font-weight: 400;
-    text-align: center;
-}
-
-#landing > .textbox-overlay p {
-    font-family: 'Poppins', sans-serif;
-    color: #282828;
-    font-size: 1em;
-    font-weight: 300;
-    padding: 0;
-    margin: 0;
     text-align: center;
 }
 
@@ -94,7 +85,7 @@ html, body {
 }
 
 #intro-graph-container text.axis-label {
-    font-weight: 300;
+    font-weight: 600;
 }
 
 #intro-graph-container .tick text {
@@ -324,6 +315,11 @@ button * {
 
 .selected-option {
     font-weight: 600;
+}
+
+.force-break-map1::before {
+    content: "";
+    display: block;
 }
 
 .force-break::before {
