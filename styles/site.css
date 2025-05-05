@@ -34,6 +34,8 @@ html, body {
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     padding: 1em 3em;
+    text-align: center;
+    box-sizing: border-box;
 }
 
 .textbox-overlay h2 {
@@ -57,6 +59,29 @@ html, body {
     object-fit: cover;
 }
 
+blockquote {
+    font-size: 1.35em;
+    font-style: italic;
+    padding-top: 0.75em;
+    padding-bottom: 0.75em;
+    margin-left: 0;
+    margin-right: 0;
+    position: relative;
+    color:#05668D;
+}
+
+.text blockquote p {
+    font-weight: 400;
+}
+
+#timeline {
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    padding-bottom: 2em;
+    padding-top: 1em;
+}
+
 /* -- styles for introduction bar graph -- */
 
 #intro-graph-container {
@@ -67,9 +92,9 @@ html, body {
 }
 
 #intro-graph-title {
-    font-size: 1.05em;
     padding-bottom: 0;
     margin-bottom: 0.35em;
+    font-weight: 600;
 }
 
 .bar {
@@ -240,7 +265,7 @@ html, body {
     font-weight: 300;
 }
 
-.dropdown {
+.dropdown, .dropdown-1{
     position: relative;
     display: inline-block;
 }
@@ -327,6 +352,47 @@ button * {
     display: block;
 }
 
+#appendix-toggle {
+    width: 100%;
+    height: 5em;
+    background-color: #54565C;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 1.25em;
+    border-bottom: solid 1px rgb(180, 177, 177);
+}
+
+#appendix-toggle:hover {
+    background-color: #5a5c61;
+    cursor: pointer;
+}
+
+#appendix-arrow {
+    display: inline-block;
+    margin-left: 1em;
+    font-size: 0.35em;
+    transition: transform 0.3s ease;
+}
+
+#appendix-arrow.rotate {
+    transform: rotate(180deg);
+}
+
+#appendix {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, opacity 0.5s ease;
+    opacity: 0;
+}
+
+#appendix.show {
+    max-height: 100vh;
+    opacity: 1;
+}
+
 /* -- media queries to control responsiveness */
 @media (min-width: 1770px) {
     .force-break::before {
@@ -369,7 +435,7 @@ button * {
         font-size: 1.25em;
     }
 
-    .textbox-overlay p {
+    .textbox-overlay p, #appendix-toggle {
         font-size: 1em;
     }
 
@@ -401,7 +467,7 @@ button * {
         padding: 2em 2em;
     }
 
-    #landing > .textbox-overlay p {
+    #landing > .textbox-overlay p, #appendix-toggle {
         font-size: 0.9em;
     }
 

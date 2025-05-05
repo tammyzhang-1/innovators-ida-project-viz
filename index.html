@@ -28,22 +28,18 @@
 
     <div id="intro" class="textbox-main">
         <div class="text">
-            <h2>What is Extreme Event Attribution?</h2>
-            <p>The world is warming. We work in a field called extreme event attribution that investigates if the warming our world has already experienced&mdash;about 2 degrees Fahrenheit&mdash;is making our extreme weather more extreme. Our project studies Hurricane Ida, one of the United States' ten costliest storms ever and one with deep impacts in south Louisiana.</p>
-            <p>We work in teams with climate scientists, engineers, geographers, sociologists, and data visualization experts to assess if, and to what extent, a given extreme weather event is more severe because of climate change.</p>
-            <p>For Hurricane Ida, we compare and contrast three important time points. The first is 2021: the year of Hurricane Ida occurred. We identify the impacts to buildings and in economic damages.</p>
-            <p>The second is 1971&mdash;fifty years <em>before</em> Ida. For this time point, we analyzed the storm again keeping everything the same like the location of buildings and extent of wetlands. But we changed one thing: the climate conditions. We set those to 1971, that is, a time before the world started to warm substantially. In this way, our 1971 model can be thought of as what the impacts of Hurricane Ida might have been in a world without climate change.</p>
-            <p>The third time point is 2071&mdash;fifty years <em>after</em> Ida. The logic for 2071 is the same as 1971: we kept everything the same, but changed the climate conditions. This time, though, we looked to the future, not the past. Specifically, we studied what Hurricane Ida might look like in 2071 if the world continues to warm a few more degrees.</p>
-            <p>Below, we will share data comparing and contrasting the 2021 storm that we experienced to the 1971 storm that would have occurred without the added impact of climate change, and the 2071 storm with greater impacts from climate change.</p>
-            <h2>Extreme Event Attribution of Hurricane Ida</h2>
+            <p>Hurricane Ida was one of the United States' ten costliest storms ever and one with deep impacts in south Louisiana. Sometimes, after a storm like Ida, people ask:</p>
+            <blockquote><p>&#8220;Was that storm more severe because of climate change?&#8221;</p></blockquote>
+            <p>Sometimes people also want to know about their future.</p>
+            <blockquote><p>&#8220;Will a storm like Ida be more severe in the future because of climate change?&#8221;</p></blockquote>
+
+            <img id="timeline" src="images/timeline.png" alt="visualization of three time points for hurricane ida: 1971, 2021, and 2071" />
+
             <p id="intro-graph-title">Storm surge damages at three time points</p>
             <div id="intro-graph-container">
                 <svg id="intro-graph-1"></svg>
                 <svg id="intro-graph-2"></svg>
             </div>
-            <p>In the graphs above, we're looking at projected damage from flooding caused by storm surge under the three different climate time points: 1971, 2021, and 2071. For example, on the left, the graph shows that under 1971 climate conditions, we attribute just over $4.1 billion in damages to storm surge. In the middle, the 2021 bar reflects Ida as it actually occurred, with damages rising to over $4.3 billion. On the right, under 2071 climate projections, storm surge damage is expected to exceed $5 billion.</p>
-            <p>By comparing 1971 and 2021, we found that damages from storm surge flooding were about 5% higher in Hurricane Ida because of climate change. We would anticipate that the storm would have 21% greater impacts if the climate continues to warm like for our 2071 time point.</p>
-            <p>It's not just dollar damages either: we estimate that approximately 1,300 buildings were affected in 2021 that would not have been affected in a world without climate change. That number rises to approximately 6,000 more buildings in 2071.</p>
         </div>
     </div>
 
@@ -52,7 +48,6 @@
         <img src="images/background-2.jpg" alt="picture of coastal louisiana" />
         <div class="textbox-overlay">
             <h2>Impacts Where We Live</h2>
-            <p>Using sophisticated flood models, we are able to analyze extreme event attribution impacts of Hurricane Ida not just for the whole storm, but localized impacts too.</p>
         </div>
     </div>
 
@@ -60,7 +55,7 @@
         <div class="visualization-prompt">
             <h2 class="poppins-light">What might
     
-                <div class="dropdown">
+                <div class="dropdown-1">
                     <button class="dropdown-button">
                       <span id="map1-environmental-value" class="dropdown-value">storm surge flood damages in buildings</span>
                       <span class="arrow"></span>
@@ -76,7 +71,7 @@
 
                 <span class="force-break-map1"></span>
             
-                <div class="dropdown">
+                <div class="dropdown-1">
                     <button class="dropdown-button">
                     <span id="map1-left-year-value" class="dropdown-value">1971</span>
                     <span class="arrow"></span>
@@ -90,7 +85,7 @@
                 
                 climatological conditions compared to in
     
-                <div class="dropdown">
+                <div class="dropdown-1">
                     <button class="dropdown-button">
                     <span id="map1-right-year-value" class="dropdown-value">2021</span>
                     <span class="arrow"></span>
@@ -106,25 +101,22 @@
         </div>
 
         <div class="map-container">
-            <div id="map1-census-toggle">
-                <div class="map1-toggle-option active" id="map1-tract">census tract</div>
-                <div class="map1-toggle-option" id="map1-block">census block</div>
-            </div>
-
             <div id="map1" class="map">
             </div>
         </div>
     </div>
 
     <div class="textbox-background">
-        <img src="images/background-3.jpg" alt="picture of coastal louisiana" />
+        <img src="images/background-4.jpg" alt="picture of coastal louisiana" />
         <div class="textbox-overlay">
-            <h2>Impacts Across Society</h2>
-            <p>We can also learn about the social make-up of those affected places.</p>
+            <h2>Extreme Weather in a Changing Climate</h2>
+            <p>Thank you for your engagement with this work, and we have a few questions to ask you about this research.</p>
         </div>
     </div>
 
-    <div class="visualization-container">
+    <div id="appendix-toggle">Appendix <span id="appendix-arrow">&#9660;</span></div>
+
+    <div id="appendix" class="visualization-container">
         <div class="visualization-prompt">
             <h2 class="poppins-light">What might 
     
@@ -179,18 +171,12 @@
         </div>
     </div>
 
-    <div class="textbox-background">
-        <img src="images/background-4.jpg" alt="picture of coastal louisiana" />
-        <div class="textbox-overlay">
-            <h2>Extreme Weather in a Changing Climate</h2>
-            <p>Thank you for your engagement with this work, and we have a few questions to ask you about this research.</p>
-        </div>
-    </div>
+    
 </body>
 </html>
 
 <script>
-    // ------------ SETUP FOR INTRO GRAPH ------------
+    // ------------ SETUP FOR INTRO GRAPHS ------------
     const graph1Data = [
         {year: "1971", damage: 4105417009}, 
         {year: "2021", damage: 4328088370},
@@ -200,12 +186,12 @@
     const graphContainer = d3.select("#intro-graph-container");
     const graph1SVG = d3.select("#intro-graph-1")
     
-    graph1SVG.attr("width", graphContainer.node().offsetWidth * 0.48);
+    graph1SVG.attr("width", graphContainer.node().offsetWidth * 0.5);
     graph1SVG.attr("height", graphContainer.node().offsetHeight);
     let graph1Width = graph1SVG.attr("width");
     let graph1Height = graph1SVG.attr("height");
 
-    const graph1Margin = { top: 10, right: 10, bottom: 40, left: 80 };
+    const graph1Margin = { top: 10, right: 20, bottom: 40, left: 80 };
 
     const chart1Width = graph1Width - graph1Margin.left - graph1Margin.right;
     const chart1Height = graph1Height - graph1Margin.top - graph1Margin.bottom;
@@ -286,13 +272,13 @@
 
     const graph2SVG = d3.select("#intro-graph-2")
     
-    graph2SVG.attr("width", graphContainer.node().offsetWidth * 0.48);
+    graph2SVG.attr("width", graphContainer.node().offsetWidth * 0.5);
     graph2SVG.attr("height", graphContainer.node().offsetHeight);
 
     let graph2Width = graph2SVG.attr("width");
     let graph2Height = graph2SVG.attr("height");
 
-    const graph2Margin = { top: 10, right: 10, bottom: 40, left: 100 };
+    const graph2Margin = { top: 10, right: 10, bottom: 40, left: 90 };
 
     const chart2Width = graph2Width - graph2Margin.left - graph2Margin.right;
     const chart2Height = graph2Height - graph2Margin.top - graph2Margin.bottom;
@@ -338,8 +324,8 @@
         .attr("text-anchor", "middle")
         .attr("transform", `rotate(-90)`)
         .attr("x", -chart2Height / 2)
-        .attr("y", -graph2Margin.left + 40)
-        .text("Total Buildings Damaged");
+        .attr("y", -graph2Margin.left + 30)
+        .text("Total Buildings Affected");
 
     chart2.append("g")
         .attr("transform", `translate(0,${chart2Height})`)
@@ -416,10 +402,8 @@
                                     "map1-storm-surge-#": "storm_#_"};
 
     let map1Thresholds = {
-        "storm_#_map1-tract": [1, 350, 700, 1050, 1400, 1750],
-        "storm_#_map1-block": [1, 50, 100, 150, 200, 250],
-        "storm_$_map1-tract": [1, 25000000, 50000000, 75000000, 100000000, 125000000],
-        "storm_$_map1-block": [1, 10000000, 20000000, 30000000, 40000000, 50000000]
+        "storm_#_": [1, 100, 200, 300, 400, 500, 600, 700, 800, 900],
+        "storm_$_": [1, 10000000, 20000000, 30000000, 40000000, 50000000, 60000000, 70000000, 80000000, 90000000]
     }
 
     let map1LeftYearOptions = {"map1-left-1971": "1971", 
@@ -443,41 +427,9 @@
     var map1Comparator;
     const formatCommas = d3.format(",.0f");
 
-    // ------------ MAP 1: user input event handlers ------------
-    const map1Tract = document.getElementById('map1-tract');
-    const map1Block = document.getElementById('map1-block');
-
-    function setMap1ActiveCensus(option) {
-        if (option === 'map1-tract') {
-            map1Tract.classList.add('active');
-            map1Block.classList.remove('active');
-        } else {
-            map1Block.classList.add('active');
-            map1Tract.classList.remove('active');
-        }
-    }
-
-    function getMap1SelectedCensus() {
-        const activeElement = document.querySelector('.map1-toggle-option.active');
-        return activeElement ? activeElement.id : null;
-    }
-
-    map1Tract.addEventListener('click', () => {
-        setMap1ActiveCensus('map1-tract');
-        loadMap1();
-    });
-
-    map1Block.addEventListener('click', () => {
-        setMap1ActiveCensus('map1-block');
-        loadMap1();
-    });
-
     // ------------ MAP 1: data loading ------------
     async function loadMap1() {
-        // fetch data file based on selected census level, then call function to render
-        let censusLevel = getMap1SelectedCensus();
-        let filePath = censusLevel === 'map1-tract' ? "storm_tract_cropped.geojson" : "storm_block.geojson";
-        data1 = await d3.json(filePath, d3.autoType);
+        data1 = await d3.json("storm_tract_cropped.geojson", d3.autoType);
         renderMap1GeoJSON(data1);
     }
 
@@ -486,11 +438,17 @@
         let leftColumn = map1UserOptions.map1EnvironmentalValue + map1UserOptions.map1LeftYearValue;
         let rightColumn = map1UserOptions.map1EnvironmentalValue + map1UserOptions.map1RightYearValue;
 
-        let thresholds = map1Thresholds[map1UserOptions.map1EnvironmentalValue + getMap1SelectedCensus()];
+        let thresholds = map1Thresholds[map1UserOptions.map1EnvironmentalValue];
+
+        const numThresholds = 9;
+
+        const colorRange = ['#adadad', ...Array.from({ length: numThresholds }, (_, i) =>
+            d3.interpolateGnBu(i / (numThresholds - 1))
+        )];
 
         map1ColorScale = d3.scaleThreshold()
                             .domain(thresholds)
-                            .range(['#adadad', '#dff3db', '#a8dcb5', '#4cb3d2', '#2c8cbd', '#084080']);
+                            .range(colorRange);
 
         if (map1LeftLayer) {
             map1.removeLayer(map1LeftLayer);
@@ -534,7 +492,7 @@
         
         return {
             color: 'white', 
-            weight: getMap1SelectedCensus() == 'map1-tract' ? 1 : 0.5, 
+            weight: 1, 
             fillOpacity: 0.8,
             fillColor: map1ColorScale(value)
         }
@@ -545,7 +503,7 @@
         
         return {
             color: 'white', 
-            weight: getMap1SelectedCensus() == 'map1-tract' ? 1 : 0.5, 
+            weight: 1, 
             fillOpacity: 0.8,
             fillColor: map1ColorScale(value)
         }
@@ -578,7 +536,7 @@
        
         let placeholderWind = map1UserOptions.map1EnvironmentalValue == "wind";
 
-        let thresholds = map1Thresholds[map1UserOptions.map1EnvironmentalValue + getMap1SelectedCensus()];
+        let thresholds = map1Thresholds[map1UserOptions.map1EnvironmentalValue];
 
         map1ColorScale.domain(thresholds);
 
@@ -597,12 +555,12 @@
             innerContent += `<p>No data available</p>`
         } else {
             innerContent += '<i style="background:' + map1ColorScale(0) + '"></i> ' + '0' + '<br>';
-            for (let i = 1; i < 6; i++) {
+            for (let i = 1; i < 10; i++) {
                 let from = i === 0 ? 0 : classes[i-1];
-                let to = classes[i] !== undefined ? classes[i] : classes[5];
+                let to = classes[i] !== undefined ? classes[i] : classes[9];
 
                 innerContent += '<i style="background:' + map1ColorScale(from) + '"></i> ' +
-                    formatCommas(from) + (to !== classes[5] ? ' &ndash; ' + formatCommas(to - 1) : '+') + '<br>';
+                    formatCommas(from) + (to !== classes[9] ? ' &ndash; ' + formatCommas(to - 1) : '+') + '<br>';
             }
         }
         return innerContent;
@@ -626,306 +584,400 @@
     loadMap1();
 
     function showMap1Popup(feature, layer) {
+        let label = map1UserOptions.map1EnvironmentalValue === "storm_#_" 
+        ? "Buildings Affected" 
+        : "Estimated $ Damages";
 
-        let title = getMap1SelectedCensus() == 'map1-tract' ? feature.properties.NAMELSADCO : feature.properties.NAME20;
+        let leftYearValue = feature.properties[map1UserOptions.map1EnvironmentalValue + map1UserOptions.map1LeftYearValue];
+        let rightYearValue = feature.properties[map1UserOptions.map1EnvironmentalValue + map1UserOptions.map1RightYearValue];
 
-        layer.bindPopup("<h3>" + 
-            title + 
-            "</h3> <p> Buildings Affected in 1971: " + feature.properties['storm_#_1971'] +
-            "</p><p> Buildings Affected in 2021: " + feature.properties['storm_#_2021'] +
-            "</p><p> Buildings Affected in 2071: no data </p>"
-            
-        );
+        let innerContent = `
+            <p>${label} in ${map1UserOptions.map1LeftYearValue}: ${formatCommas(leftYearValue)}</p>
+            <p>${label} in ${map1UserOptions.map1RightYearValue}: ${formatCommas(rightYearValue)}</p>
+        `;
+
+        layer.bindPopup(innerContent);
+    }
+
+    function updatePopupsOnUserOptionChange() {
+        map1.eachLayer(function (layer) {
+            if (layer.feature) { 
+                showMap1Popup(layer.feature, layer);
+            }
+        });
     }
 </script>
 
 <script>
-    // ------------ SETUP FOR MAP 2: COMPARING ONE ENVIRONMENTAL VARIABLE AND ONE SOCIAL VARIABLE IN ONE YEAR ------------
-    // base map
-    var map2 = L.map('map2', {
-        minZoom: 7,
-        maxZoom: 14,
-        maxBounds: [
-        [26, -100.5],
-        [35, -82.5]
-        ],
-        maxBoundsViscosity: 1,
-        bounceAtZoomLimits: false,
-        attributionControl: true
-    }).setView([30, -91.5], 8);
+    document.getElementById('appendix-toggle').addEventListener('click', function () {
+        const hiddenDiv = document.getElementById('appendix');
+        const toggleArrow = document.getElementById('appendix-arrow');
 
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-        subdomains: 'abcd'
-    }).addTo(map2);
+        hiddenDiv.classList.toggle('show');
+        toggleArrow.classList.toggle('rotate');
 
-    map2.attributionControl.addAttribution('Social data: U.S. Census 2016-2020 American Community Survey.');
-
-    // properly center and expand map tiles on load
-    setTimeout(function () {
-        map2.invalidateSize();
-    }, 100);
-
-    // add comparator
-    map2.createPane("left")
-    map2.createPane("right")
-    map2.createPane("labels")
-
-    // add labels layer on top
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-        subdomains: 'abcd',
-        pane: 'labels'
-    }).addTo(map2);
-
-    // ------------ MAP 2: initializing user options ------------
-    let map2LeftLayer = null;
-    let map2RightLayer = null;
-
-    // referring to the options selected in the first visualization prompt
-    const map2EnvironmentalDropdown = document.querySelector('#map2-environmental-dropdown');
-    const map2SocialDropdown = document.querySelector('#map2-social-dropdown');
-    const map2YearDropdown = document.querySelector('#map2-year-dropdown');
-
-    let map2EnvironmentalOptions = {"map2-wind-damages": "wind", 
-                                    "map2-storm-surge-$": "storm_$_",
-                                    "map2-storm-surge-#": "storm_#_"};
-
-    let map2SocialOptions = {"incomes": "median_inc",
-                             "education-levels": "college_de",
-                             "percent-minority": "nonwhite_t",
-                             "percent-homeowners": "owner_occu"};
-    
-    let map2Thresholds = {
-        "storm_#_1971": [1, 350, 700, 1050, 1400, 1750],
-        "storm_#_2021": [1, 350, 700, 1050, 1400, 1750],
-        "storm_#_2071": [1, 350, 700, 1050, 1400, 1750],
-        "storm_$_1971": [1, 25000000, 50000000, 75000000, 100000000, 125000000],
-        "storm_$_2021": [1, 10000000, 20000000, 30000000, 40000000, 50000000],
-        "storm_$_2071": [1, 10000000, 20000000, 30000000, 40000000, 50000000],
-        "median_inc": [5000, 40000, 75000, 110000, 145000],
-        "college_de": [1, 15, 30, 45, 60],
-        "nonwhite_t": [0, 20, 40, 60, 80],
-        "owner_occu": [5, 25, 45, 65, 85]
-    }
-
-
-    let map2YearOptions = {"map2-1971": "1971",
-                            "map2-2021": "2021",
-                            "map2-2071": "2071"};
-
-    let map2UserOptions = {
-        map2EnvironmentalValue: map2EnvironmentalOptions[map2EnvironmentalDropdown.querySelector('.selected-option').id],
-        map2SocialValue: map2SocialOptions[map2SocialDropdown.querySelector('.selected-option').id],
-        map2YearValue: map2YearOptions[map2YearDropdown.querySelector('.selected-option').id]
-    };
-
-    var data2;
-    var map2EnvironmentalColorScale;
-    var map2SocialColorScale;
-    var map2LeftLegend;
-    var map2RightLegend;
-    var map2Comparator;
-
-    let socialTitles = {
-            "median_inc": "Median Income in $",
-            "college_de": "% of Population with College Degree",
-            "nonwhite_t": "% Minority",
-            "owner_occu": "% Homeowners"
-    };
-
-    let socialPopup = {
-            "median_inc": "Median Income: $",
-            "college_de": "Percent of Population with College Degree: ",
-            "nonwhite_t": "Percent Minority: ",
-            "owner_occu": "Percent Homeowners: "
-    };
-
-    // ------------ MAP 2: data loading ------------
-    async function loadMap2() {
-        let filePath = "storm_tract.geojson";
-        data2 = await d3.json(filePath, d3.autoType);
-        renderMap2GeoJSON(data2);
-    }
-
-    function renderMap2GeoJSON(data) {
-        let socialThresholds = map2Thresholds[map2UserOptions.map2SocialValue];
-
-        map2SocialColorScale = d3.scaleThreshold()
-                            .domain(socialThresholds)
-                            .range(d3.schemeYlOrBr[6]);
-
-        let environmentalThresholds = map2Thresholds[map2UserOptions.map2EnvironmentalValue + map2UserOptions.map2YearValue];
-
-        map2EnvironmentalColorScale = d3.scaleThreshold()
-                            .domain(environmentalThresholds)
-                            .range(['#adadad', '#dff3db', '#a8dcb5', '#4cb3d2', '#2c8cbd', '#084080']);
-
-        if (map2LeftLayer) {
-            map2.removeLayer(map2LeftLayer);
+        if(map2) {
+            map2.invalidateSize();
         }
-        if (map2RightLayer) {
-            map2.removeLayer(map2RightLayer);
-        }
-        if (map2Comparator) {
-            map2.removeControl(map2Comparator);
-        }
-        if (map2LeftLegend) {
-            map2.removeControl(map2LeftLegend);
-        };
-        if (map2RightLegend) {
-            map2.removeControl(map2RightLegend);
-        };
+        var map2 = null; 
 
-        map2LeftLayer = L.geoJSON(data, { 
-            style: feature => getMap2LeftStyle(feature),
-            pane: 'left',
-            onEachFeature: showMap2Popup
-        }).addTo(this.map2);
+        var isHidden = hiddenDiv.classList.contains('show');
 
-        map2RightLayer = L.geoJSON(data, { 
-            style: feature => getMap2RightStyle(feature),
-            pane: 'right',
-            onEachFeature: showMap2Popup
-        }).addTo(this.map2);
-
-        map2Comparator = L.control.sideBySide([], []).addTo(this.map2);
-        map2Comparator.setLeftLayers(map2LeftLayer);
-        map2Comparator.setRightLayers(map2RightLayer);  
-
-        map2LeftLegend = createMap2Legends(map2, 'left');
-        map2RightLegend = createMap2Legends(map2, 'right');
-    }
-
-    function getMap2LeftStyle(feature) {
-        let value = feature.properties[map2UserOptions.map2EnvironmentalValue + map2UserOptions.map2YearValue];
-        
-        return {
-            color: 'white', 
-            weight: 1, 
-            fillOpacity: 0.8,
-            fillColor: value == null ? 'transparent' : map2EnvironmentalColorScale(value)
-        }
-    }
-
-    function getMap2RightStyle(feature) {
-        let value = feature.properties[map2UserOptions.map2SocialValue];
-        
-        return {
-            color: 'white', 
-            weight: 1, 
-            fillOpacity: 0.8,
-            fillColor: value == null ? 'transparent' : map2SocialColorScale(value)
-        }
-    }
-
-    function createMap2Legends(map, position) {
-        let legendPosition = position === 'left' ? 'bottomleft' : 'bottomright';
-
-        const legend = L.control({ position: legendPosition });
-
-        legend.onAdd = function () {
-            const div = L.DomUtil.create('div', `map2 info legend ${position}`);
-            div.innerHTML = generateMap2LegendHTML(position);
-            return div;
-        };
-
-        legend.update = function (position) {
-            const div = document.querySelector(`.map2.info.legend.${position}`);
-      
-            if (position === 'left') {
-                let environmentalThresholds = map2Thresholds[map2UserOptions.map2EnvironmentalValue + map2UserOptions.map2YearValue];
-                map2EnvironmentalColorScale.domain(environmentalThresholds);
-            } else {
-                let socialThresholds = map2Thresholds[map2UserOptions.map2SocialValue];
-                map2SocialColorScale.domain(socialThresholds)
+        if (isHidden && !L.DomUtil.get('map2')._leaflet_id) {
+            // ------------ SETUP FOR MAP 2: COMPARING ONE ENVIRONMENTAL VARIABLE AND ONE SOCIAL VARIABLE IN ONE YEAR ------------
+            // base map
+            if (map2) {
+                map2.remove();
             }
+            map2 = L.map('map2', {
+                minZoom: 7,
+                maxZoom: 14,
+                maxBounds: [
+                [26, -100.5],
+                [35, -82.5]
+                ],
+                maxBoundsViscosity: 1,
+                bounceAtZoomLimits: false,
+                attributionControl: true
+            }).setView([30, -91.5], 8);
+
+            setTimeout(() => {
+      map2.invalidateSize();
+    }, 400);
+
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+                subdomains: 'abcd'
+            }).addTo(map2);
+
+            map2.attributionControl.addAttribution('Social data: U.S. Census 2016-2020 American Community Survey.');
+
+            // properly center and expand map tiles on load
+            setTimeout(function () {
+                map2.invalidateSize();
+            }, 100);
+
+            // add comparator
+            map2.createPane("left")
+            map2.createPane("right")
+            map2.createPane("labels")
+
+            // add labels layer on top
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+                subdomains: 'abcd',
+                pane: 'labels'
+            }).addTo(map2);
+
+            // ------------ MAP 2: initializing user options ------------
+            let map2LeftLayer = null;
+            let map2RightLayer = null;
+
+            // referring to the options selected in the first visualization prompt
+            const map2EnvironmentalDropdown = document.querySelector('#map2-environmental-dropdown');
+            const map2SocialDropdown = document.querySelector('#map2-social-dropdown');
+            const map2YearDropdown = document.querySelector('#map2-year-dropdown');
+
+            let map2EnvironmentalOptions = {"map2-wind-damages": "wind", 
+                                            "map2-storm-surge-$": "storm_$_",
+                                            "map2-storm-surge-#": "storm_#_"};
+
+            let map2SocialOptions = {"incomes": "median_inc",
+                                    "education-levels": "college_de",
+                                    "percent-minority": "nonwhite_t",
+                                    "percent-homeowners": "owner_occu"};
             
-            if (div) {
-                div.innerHTML = generateMap2LegendHTML(position);
+            let map2Thresholds = {
+                "storm_#_1971": [1, 350, 700, 1050, 1400, 1750],
+                "storm_#_2021": [1, 350, 700, 1050, 1400, 1750],
+                "storm_#_2071": [1, 350, 700, 1050, 1400, 1750],
+                "storm_$_1971": [1, 25000000, 50000000, 75000000, 100000000, 125000000],
+                "storm_$_2021": [1, 10000000, 20000000, 30000000, 40000000, 50000000],
+                "storm_$_2071": [1, 10000000, 20000000, 30000000, 40000000, 50000000],
+                "median_inc": [5000, 40000, 75000, 110000, 145000],
+                "college_de": [1, 15, 30, 45, 60],
+                "nonwhite_t": [0, 20, 40, 60, 80],
+                "owner_occu": [5, 25, 45, 65, 85]
             }
-        };
 
-        legend.addTo(map);
-        return legend;
-    }
 
-    function generateMap2LegendHTML(position) {
-        let colorScale = position === 'left' ? map2EnvironmentalColorScale : map2SocialColorScale;
-        
-        let classes = colorScale.domain(),
-        labels = [];
+            let map2YearOptions = {"map2-1971": "1971",
+                                    "map2-2021": "2021",
+                                    "map2-2071": "2071"};
 
-        let column = position === 'left' ? map2UserOptions.map2EnvironmentalValue + map2UserOptions.map2YearValue : map2UserOptions.map2SocialValue;
+            let map2UserOptions = {
+                map2EnvironmentalValue: map2EnvironmentalOptions[map2EnvironmentalDropdown.querySelector('.selected-option').id],
+                map2SocialValue: map2SocialOptions[map2SocialDropdown.querySelector('.selected-option').id],
+                map2YearValue: map2YearOptions[map2YearDropdown.querySelector('.selected-option').id]
+            };
 
-        let title = map2UserOptions.map2EnvironmentalValue == "storm_#_" ? 
-            "Estimated # of Affected Buildings" : 
-            "Estimated $ Damages";
+            var data2;
+            var map2EnvironmentalColorScale;
+            var map2SocialColorScale;
+            var map2LeftLegend;
+            var map2RightLegend;
+            var map2Comparator;
 
-        let innerContent;
+            let socialTitles = {
+                    "median_inc": "Median Income in $",
+                    "college_de": "% of Population with College Degree",
+                    "nonwhite_t": "% Minority",
+                    "owner_occu": "% Homeowners"
+            };
 
-        if (position === 'left') {
-            innerContent = `<p class="legend-title">${title} in ${map2UserOptions.map2YearValue} Climate</p>`;
-        } else {
-            innerContent = `<p class="legend-title">${socialTitles[map2UserOptions.map2SocialValue]}</p>`;
-        }
+            let socialPopup = {
+                    "median_inc": "Median Income in $: ",
+                    "college_de": "Percent of Population with College Degree: ",
+                    "nonwhite_t": "Percent Minority: ",
+                    "owner_occu": "Percent Homeowners: "
+            };
 
-        if (classes[0] === undefined || classes[1] == 0) {
-            innerContent += `<p>No data available</p>`
-        } else {
-            if (position === 'left') {
-                innerContent += '<i style="background:' + colorScale(0) + '"></i> ' + '0' + '<br>';
-            } 
-            for (let i = 1; i < 6; i++) {
-                let from = i === 0 ? classes[0] : classes[i-1];
-                let to = classes[i] !== undefined ? classes[i] : classes[5];
-
-                innerContent += '<i style="background:' + colorScale(from) + '"></i> ' +
-                formatCommas(from) + (to !== classes[5] ? ' &ndash; ' +  formatCommas(to - 1) : '+') + '<br>';
+            // ------------ MAP 2: data loading ------------
+            async function loadMap2() {
+                let filePath = "storm_tract.geojson";
+                data2 = await d3.json(filePath, d3.autoType);
+                renderMap2GeoJSON(data2);
             }
-        }
-        return innerContent;
-    }
 
-    function updateMap2UserOptions(newOptions) {
-        map2UserOptions = { ...map2UserOptions, ...newOptions };
-        if (map2LeftLegend) {
-            map2LeftLegend.update('left');
-        }
-        if (map2RightLegend) {
-            map2RightLegend.update('right');
-        }
-        if (map2LeftLayer) {
-            map2LeftLayer.setStyle(getMap2LeftStyle);
-        };
-        if (map2RightLayer) {
-            map2RightLayer.setStyle(getMap2RightStyle);
-        };
-    }
+            function renderMap2GeoJSON(data) {
+                let socialThresholds = map2Thresholds[map2UserOptions.map2SocialValue];
 
-    function showMap2Popup(feature, layer) {
-        let title = feature.properties.NAMELSADCO;
+                map2SocialColorScale = d3.scaleThreshold()
+                                    .domain(socialThresholds)
+                                    .range(d3.schemeYlOrBr[6]);
 
-        layer.bindPopup("<h3>" + 
-            title + 
-            "</h3> <p> Buildings Affected in 1971: " + feature.properties['storm_#_1971'] +
-            "</p><p> Buildings Affected in 2021: " + feature.properties['storm_#_2021'] +
-            "</p><p> Buildings Affected in 2071: no data </p>" +
-            "<p>Population: " + feature.properties['total_pop'] + 
-            "</p><p> Median Income: " + `${feature.properties.median_inc ? '$' + formatCommas(feature.properties.median_inc) : 'no data'}` +
-            "</p><p> Percent College Educated: " + `${feature.properties.college_de ? Math.round(feature.properties.college_de * 100) / 100 + '%': " no data"}` +
-            "</p><p> Percent Minority: " + `${feature.properties.nonwhite_t ? Math.round(feature.properties.nonwhite_t * 100) / 100 + '%': " no data"}` +
-            "</p><p> Percent Homeowners: " + `${feature.properties.owner_occu ? Math.round(feature.properties.owner_occu * 100) / 100 + '%': " no data"}` +
-            "</p>"
-        );
-    }
-    loadMap2();
+                let environmentalThresholds = map2Thresholds[map2UserOptions.map2EnvironmentalValue + map2UserOptions.map2YearValue];
+
+                map2EnvironmentalColorScale = d3.scaleThreshold()
+                                    .domain(environmentalThresholds)
+                                    .range(['#adadad', '#dff3db', '#a8dcb5', '#4cb3d2', '#2c8cbd', '#084080']);
+
+                if (map2LeftLayer) {
+                    map2.removeLayer(map2LeftLayer);
+                }
+                if (map2RightLayer) {
+                    map2.removeLayer(map2RightLayer);
+                }
+                if (map2Comparator) {
+                    map2.removeControl(map2Comparator);
+                }
+                if (map2LeftLegend) {
+                    map2.removeControl(map2LeftLegend);
+                };
+                if (map2RightLegend) {
+                    map2.removeControl(map2RightLegend);
+                };
+
+                map2LeftLayer = L.geoJSON(data, { 
+                    style: feature => getMap2LeftStyle(feature),
+                    pane: 'left',
+                    onEachFeature: showMap2Popup
+                }).addTo(map2);
+
+                map2RightLayer = L.geoJSON(data, { 
+                    style: feature => getMap2RightStyle(feature),
+                    pane: 'right',
+                    onEachFeature: showMap2Popup
+                }).addTo(map2);
+
+                map2Comparator = L.control.sideBySide([], []).addTo(map2);
+                map2Comparator.setLeftLayers(map2LeftLayer);
+                map2Comparator.setRightLayers(map2RightLayer);  
+
+                map2LeftLegend = createMap2Legends(map2, 'left');
+                map2RightLegend = createMap2Legends(map2, 'right');
+            }
+
+            function getMap2LeftStyle(feature) {
+                let value = feature.properties[map2UserOptions.map2EnvironmentalValue + map2UserOptions.map2YearValue];
+                
+                return {
+                    color: 'white', 
+                    weight: 1, 
+                    fillOpacity: 0.8,
+                    fillColor: value == null ? 'transparent' : map2EnvironmentalColorScale(value)
+                }
+            }
+
+            function getMap2RightStyle(feature) {
+                let value = feature.properties[map2UserOptions.map2SocialValue];
+                
+                return {
+                    color: 'white', 
+                    weight: 1, 
+                    fillOpacity: 0.8,
+                    fillColor: value == null ? 'transparent' : map2SocialColorScale(value)
+                }
+            }
+
+            function createMap2Legends(map, position) {
+                let legendPosition = position === 'left' ? 'bottomleft' : 'bottomright';
+
+                const legend = L.control({ position: legendPosition });
+
+                legend.onAdd = function () {
+                    const div = L.DomUtil.create('div', `map2 info legend ${position}`);
+                    div.innerHTML = generateMap2LegendHTML(position);
+                    return div;
+                };
+
+                legend.update = function (position) {
+                    const div = document.querySelector(`.map2.info.legend.${position}`);
+            
+                    if (position === 'left') {
+                        let environmentalThresholds = map2Thresholds[map2UserOptions.map2EnvironmentalValue + map2UserOptions.map2YearValue];
+                        map2EnvironmentalColorScale.domain(environmentalThresholds);
+                    } else {
+                        let socialThresholds = map2Thresholds[map2UserOptions.map2SocialValue];
+                        map2SocialColorScale.domain(socialThresholds)
+                    }
+                    
+                    if (div) {
+                        div.innerHTML = generateMap2LegendHTML(position);
+                    }
+                };
+
+                legend.addTo(map);
+                return legend;
+            }
+
+            function generateMap2LegendHTML(position) {
+                let colorScale = position === 'left' ? map2EnvironmentalColorScale : map2SocialColorScale;
+                
+                let classes = colorScale.domain(),
+                labels = [];
+
+                let column = position === 'left' ? map2UserOptions.map2EnvironmentalValue + map2UserOptions.map2YearValue : map2UserOptions.map2SocialValue;
+
+                let title = map2UserOptions.map2EnvironmentalValue == "storm_#_" ? 
+                    "Estimated # of Affected Buildings" : 
+                    "Estimated $ Damages";
+
+                let innerContent;
+
+                if (position === 'left') {
+                    innerContent = `<p class="legend-title">${title} in ${map2UserOptions.map2YearValue} Climate</p>`;
+                } else {
+                    innerContent = `<p class="legend-title">${socialTitles[map2UserOptions.map2SocialValue]}</p>`;
+                }
+
+                if (classes[0] === undefined || classes[1] == 0) {
+                    innerContent += `<p>No data available</p>`
+                } else {
+                    if (position === 'left') {
+                        innerContent += '<i style="background:' + colorScale(0) + '"></i> ' + '0' + '<br>';
+                    } 
+                    for (let i = 1; i < 6; i++) {
+                        let from = i === 0 ? classes[0] : classes[i-1];
+                        let to = classes[i] !== undefined ? classes[i] : classes[5];
+
+                        innerContent += '<i style="background:' + colorScale(from) + '"></i> ' +
+                        formatCommas(from) + (to !== classes[5] ? ' &ndash; ' +  formatCommas(to - 1) : '+') + '<br>';
+                    }
+                }
+                return innerContent;
+            }
+
+            function updateMap2UserOptions(newOptions) {
+                map2UserOptions = { ...map2UserOptions, ...newOptions };
+                if (map2LeftLegend) {
+                    map2LeftLegend.update('left');
+                }
+                if (map2RightLegend) {
+                    map2RightLegend.update('right');
+                }
+                if (map2LeftLayer) {
+                    map2LeftLayer.setStyle(getMap2LeftStyle);
+                };
+                if (map2RightLayer) {
+                    map2RightLayer.setStyle(getMap2RightStyle);
+                };
+            }
+
+            function showMap2Popup(feature, layer) {
+                let environmentalLabel = map2UserOptions.map2EnvironmentalValue === "storm_#_"
+                ? "Buildings Affected"
+                : "Estimated $ Damages";
+                let socialLabel = socialPopup[map2UserOptions.map2SocialValue];
+                let environmentalValue = feature.properties[map2UserOptions.map2EnvironmentalValue + map2UserOptions.map2YearValue];
+                let socialValue = feature.properties[map2UserOptions.map2SocialValue];
+                let innerContent = `
+                    <p>${environmentalLabel} in ${map2UserOptions.map2YearValue}: ${formatCommas(environmentalValue)}</p>
+                    <p>${socialLabel} ${formatCommas(socialValue)}</p>
+                `;
+                layer.bindPopup(innerContent);
+            }
+
+            function updatePopups2OnUserOptionChange() {
+                map2.eachLayer(function (layer) {
+                    if (layer.feature) { 
+                        showMap2Popup(layer.feature, layer);
+                    }
+                });
+            }
+            loadMap2();
+
+            document.querySelectorAll('.dropdown').forEach(dropdown => {
+                const dropdownButton = dropdown.querySelector('.dropdown-button');
+                const dropdownContent = dropdown.querySelector('.dropdown-content');
+                const dropdownOptions = [...dropdown.querySelectorAll('.dropdown-content span')];
+                const dropdownArrow = dropdown.querySelector('.arrow');
+                const dropdownValue = dropdown.querySelector('.dropdown-value');
+
+                // Handling when dropdown filter chip is clicked
+                dropdownButton.addEventListener('click', (event) => {
+                    const isVisible = dropdownContent.style.display === 'block';
+                    dropdownContent.style.display = isVisible ? 'none' : 'block';
+                    dropdownArrow.classList.toggle("active");
+                });
+
+                const setDropdownWidth = () => {
+                    const buttonWidth = dropdownButton.offsetWidth;
+                    dropdownContent.style.minWidth = `${buttonWidth}px`;
+                    dropdownContent.style.width = `${buttonWidth}px`;
+                };
+
+                setDropdownWidth();
+
+                // Handling when a dropdown option is selected
+                dropdownContent.addEventListener('click', (event) => {
+                    const target = event.target;
+                    if (target.tagName.toLowerCase() === 'span') {
+                        let newValue = target.innerHTML;
+                        dropdownValue.innerHTML = newValue;
+                        dropdownOptions.forEach((option) => option.classList.remove("selected-option"));
+                        target.classList.add("selected-option");
+                        setDropdownWidth();
+
+                        updateMap2UserOptions({
+                            map2EnvironmentalValue: map2EnvironmentalOptions[map2EnvironmentalDropdown.querySelector('.selected-option').id],
+                            map2SocialValue: map2SocialOptions[map2SocialDropdown.querySelector('.selected-option').id],
+                            map2YearValue: map2YearOptions[map2YearDropdown.querySelector('.selected-option').id]
+                        });
+
+                        updatePopups2OnUserOptionChange();
+                    }
+                });
+
+                // close dropdown if clicked outside
+                window.addEventListener('click', (event) => {
+                    if (!dropdown.contains(event.target)) {
+                        if (dropdownContent.style.display === 'block') {
+                            dropdownContent.style.display = 'none';
+                            dropdownArrow.classList.remove("active");
+                        }
+                    }
+                });
+            });
+    
+        } 
+    });
 </script>
 
 <script>
     // handling dropdowns
     // ------------ DROPDOWN INTERACTION SETUP ------------
-    document.querySelectorAll('.dropdown').forEach(dropdown => {
+    document.querySelectorAll('.dropdown-1').forEach(dropdown => {
         const dropdownButton = dropdown.querySelector('.dropdown-button');
         const dropdownContent = dropdown.querySelector('.dropdown-content');
         const dropdownOptions = [...dropdown.querySelectorAll('.dropdown-content span')];
@@ -965,11 +1017,7 @@
                     map1RightYearValue: map1RightYearOptions[map1RightYearDropdown.querySelector('.selected-option').id],
                 });
 
-                updateMap2UserOptions({
-                    map2EnvironmentalValue: map2EnvironmentalOptions[map2EnvironmentalDropdown.querySelector('.selected-option').id],
-                    map2SocialValue: map2SocialOptions[map2SocialDropdown.querySelector('.selected-option').id],
-                    map2YearValue: map2YearOptions[map2YearDropdown.querySelector('.selected-option').id]
-                });
+                updatePopupsOnUserOptionChange();
             }
         });
 
