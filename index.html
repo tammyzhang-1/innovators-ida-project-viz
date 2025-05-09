@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LSU NCAR Ida Project</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/site.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
@@ -13,16 +16,12 @@
     crossorigin=""></script>
     <script src="leaflet-side-by-side.js"></script>
     <script src="d3.v7.min.js"></script>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div id="landing" class="textbox-background">
         <img src="images/background-1.jpg" alt="picture of coastal louisiana" />
         <div class="textbox-overlay">
-            <h1>Extreme Event Attribution of Hurricane Ida</h1>
+            <h1>Hurricane Ida and a Changing Climate</h1>
         </div>
     </div>
 
@@ -35,19 +34,11 @@
 
             <img id="timeline" src="images/timeline.png" alt="visualization of three time points for hurricane ida: 1971, 2021, and 2071" />
 
-            <p id="intro-graph-title">Storm surge damages at three time points</p>
+            <p id="intro-graph-title">Storm Surge Flooding Impacts Increase Because of a Changing Climate</p>
             <div id="intro-graph-container">
                 <svg id="intro-graph-1"></svg>
                 <svg id="intro-graph-2"></svg>
             </div>
-        </div>
-    </div>
-
-
-    <div class="textbox-background">
-        <img src="images/background-2.jpg" alt="picture of coastal louisiana" />
-        <div class="textbox-overlay">
-            <h2>Impacts Where We Live</h2>
         </div>
     </div>
 
@@ -57,12 +48,12 @@
     
                 <div class="dropdown-1">
                     <button class="dropdown-button">
-                      <span id="map1-environmental-value" class="dropdown-value">storm surge flood damages in buildings</span>
+                      <span id="map1-environmental-value" class="dropdown-value">buildings affected by storm surge flooding</span>
                       <span class="arrow"></span>
                     </button>
                     <div id="map1-environmental-dropdown" class="environmental dropdown-content">
                         <!-- <span id="map1-wind-damages">wind damages</span> -->
-                        <span class="selected-option" id="map1-storm-surge-#">storm surge flood damages in buildings</span>
+                        <span class="selected-option" id="map1-storm-surge-#">buildings affected by storm surge flooding</span>
                         <span id="map1-storm-surge-$">storm surge flood damages in dollars</span>
                     </div>
                 </div>
@@ -122,12 +113,12 @@
     
                 <div class="dropdown">
                     <button class="dropdown-button">
-                      <span id="map2-environmental-dropdown-value" class="dropdown-value">storm surge flood damages in buildings</span>
+                      <span id="map2-environmental-dropdown-value" class="dropdown-value">buildings affected by storm surge flooding</span>
                       <span class="arrow"></span>
                     </button>
                     <div id="map2-environmental-dropdown" class="environmental dropdown-content">
                         <!-- <span id="map2-wind-damages">wind damages</span> -->
-                        <span class="selected-option" id="map2-storm-surge-#">storm surge flood damages in buildings</span>
+                        <span class="selected-option" id="map2-storm-surge-#">buildings affected by storm surge flooding</span>
                         <span id="map2-storm-surge-$">storm surge flood damages in dollars</span>
                     </div>
                 </div>
@@ -429,7 +420,7 @@
 
     // ------------ MAP 1: data loading ------------
     async function loadMap1() {
-        data1 = await d3.json("storm_tract_cropped.geojson", d3.autoType);
+        data1 = await d3.json("storm_tract_map1.geojson", d3.autoType);
         renderMap1GeoJSON(data1);
     }
 
@@ -734,7 +725,7 @@
 
             // ------------ MAP 2: data loading ------------
             async function loadMap2() {
-                let filePath = "storm_tract.geojson";
+                let filePath = "storm_tract_map2.geojson";
                 data2 = await d3.json(filePath, d3.autoType);
                 renderMap2GeoJSON(data2);
             }
