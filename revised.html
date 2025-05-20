@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LSU NCAR Ida Project</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/site.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""></script>
+    <script src="leaflet-side-by-side.js"></script>
+    <script src="d3.v7.min.js"></script>
+</head>
+<body>
+    <div id="landing" class="textbox-background">
+        <img src="images/background-1.jpg" alt="picture of coastal louisiana" />
+        <div class="textbox-overlay">
+            <h1>Hurricane Ida and a Changing Climate</h1>
+        </div>
+    </div>
+
+    <div id="intro" class="textbox-main">
+        <div class="text">
+            <p>Hurricane Ida was one of the United States' ten costliest storms ever and one with deep impacts in south Louisiana. Sometimes, after a storm like Ida, people ask:</p>
+            <blockquote><p>&#8220;Was that storm more severe because of climate change?&#8221;</p></blockquote>
+            <p>Sometimes people also want to know about their future.</p>
+            <blockquote><p>&#8220;Will a storm like Ida be more severe in the future because of climate change?&#8221;</p></blockquote>
+
+            <img id="timeline" src="images/timeline.png" alt="visualization of three time points for hurricane ida: 1971, 2021, and 2071" />
+
+            <p id="intro-graph-title">Storm Surge Flooding Impacts Increase Because of a Changing Climate</p>
+            <div id="intro-graph-container">
+                <svg id="intro-graph-1"></svg>
+                <svg id="intro-graph-2"></svg>
+            </div>
+        </div>
+    </div>
+
+    <div class="visualization-container">
+        <div class="visualization-prompt">
+            <h2 class="poppins-light">What might
+    
+                <div class="dropdown-1">
+                    <button class="dropdown-button">
+                      <span id="map1-environmental-value" class="dropdown-value">buildings affected by storm surge flooding</span>
+                      <span class="arrow"></span>
+                    </button>
+                    <div id="map1-environmental-dropdown" class="environmental dropdown-content">
+                        <!-- <span id="map1-wind-damages">wind damages</span> -->
+                        <span class="selected-option" id="map1-storm-surge-#">buildings affected by storm surge flooding</span>
+                        <span id="map1-storm-surge-$">storm surge flood damages in dollars</span>
+                    </div>
+                </div>
+                
+                look like in
+
+                <span class="force-break-map1"></span>
+            
+                <div class="dropdown-1">
+                    <button class="dropdown-button">
+                    <span id="map1-left-year-value" class="dropdown-value">1971</span>
+                    <span class="arrow"></span>
+                    </button>
+                    <div id="map1-left-year-dropdown" class="dropdown-content">
+                        <span id="map1-left-1971" class="selected-option">1971</span>
+                        <span id="map1-left-2021">2021</span>
+                        <span id="map1-left-2071">2071</span>
+                    </div>
+                </div>
+                
+                climatological conditions compared to in
+    
+                <div class="dropdown-1">
+                    <button class="dropdown-button">
+                    <span id="map1-right-year-value" class="dropdown-value">2021</span>
+                    <span class="arrow"></span>
+                    </button>
+                    <div id="map1-right-year-dropdown" class="dropdown-content">
+                        <span id="map1-right-1971">1971</span>
+                        <span id="map1-right-2021" class="selected-option">2021</span>
+                        <span id="map1-right-2071">2071</span>
+                    </div>
+                </div>
+                ?
+            </h2>
+        </div>
+
+        <div class="map-container">
+            <div id="map1" class="map">
+            </div>
+        </div>
+    </div>
+
+    <div class="textbox-background">
+        <img src="images/background-4.jpg" alt="picture of coastal louisiana" />
+        <div class="textbox-overlay">
+            <h2>Extreme Weather in a Changing Climate</h2>
+            <p>Thank you for your engagement with this work, and we have a few questions to ask you about this research.</p>
+        </div>
+    </div>
+
+    <div id="appendix-toggle">Appendix <span id="appendix-arrow">&#9660;</span></div>
+
+    <div id="appendix" class="visualization-container">
+        <div class="visualization-prompt">
+            <h2 class="poppins-light">What might 
+    
+                <div class="dropdown">
+                    <button class="dropdown-button">
+                      <span id="map2-environmental-dropdown-value" class="dropdown-value">buildings affected by storm surge flooding</span>
+                      <span class="arrow"></span>
+                    </button>
+                    <div id="map2-environmental-dropdown" class="environmental dropdown-content">
+                        <!-- <span id="map2-wind-damages">wind damages</span> -->
+                        <span class="selected-option" id="map2-storm-surge-#">buildings affected by storm surge flooding</span>
+                        <span id="map2-storm-surge-$">storm surge flood damages in dollars</span>
+                    </div>
+                </div>
+                
+                look like for people of different 
+            
+                <span class="force-break dropdown-wrapper"></span>
+                <div class="dropdown">
+                    <button class="dropdown-button">
+                    <span id="map2-social-dropdown-value" class="dropdown-value">incomes</span>
+                    <span class="arrow"></span>
+                    </button>
+                    <div id="map2-social-dropdown" class="social dropdown-content">
+                        <span class="selected-option" id="incomes">incomes</span>
+                        <span id="education-levels">education levels</span>
+                        <span id="percent-minority">races</span>
+                        <span id="percent-homeowners">home ownership</span>
+                    </div>
+                </div>
+                
+                in
+    
+                <div class="dropdown">
+                    <button class="dropdown-button">
+                    <span id="map2-years-dropdown-value" class="dropdown-value">2021</span>
+                    <span class="arrow"></span>
+                    </button>
+                    <div id="map2-year-dropdown" class="dropdown-content">
+                        <span id="map2-1971">1971</span>
+                        <span id="map2-2021" class="selected-option">2021</span>
+                        <span id="map2-2071">2071</span>
+                    </div>
+                </div>
+                climatological conditions?
+            </h2>
+        </div>
+        
+        <div class="map-container">
+            <div id="map2" class="map">
+            </div>
+        </div>
+    </div>
+
+    
+</body>
+</html>
+
+<script>
+    // ------------ SETUP FOR INTRO GRAPHS ------------
+    const graph1Data = [
+        {year: "1971", damage: 4105417009}, 
+        {year: "2021", damage: 4328088370},
+        {year: "2071", damage: 5240759336}
+    ];
+
+    const graphContainer = d3.select("#intro-graph-container");
+    const graph1SVG = d3.select("#intro-graph-1")
+    
+    graph1SVG.attr("width", graphContainer.node().offsetWidth * 0.5);
+    graph1SVG.attr("height", graphContainer.node().offsetHeight);
+    let graph1Width = graph1SVG.attr("width");
+    let graph1Height = graph1SVG.attr("height");
+
+    const graph1Margin = { top: 10, right: 20, bottom: 40, left: 80 };
+
+    const chart1Width = graph1Width - graph1Margin.left - graph1Margin.right;
+    const chart1Height = graph1Height - graph1Margin.top - graph1Margin.bottom;
+
+    const graph1X = d3.scaleBand()
+        .domain(graph1Data.map(d => d.year))
+        .range([0, chart1Width])
+        .padding(0.3);
+
+    const graph1Y = d3.scaleLinear()
+        .domain([3000000000, 5400000000])
+        .range([chart1Height, 0]);
+
+    const chart1 = graph1SVG.append("g")
+        .attr("transform", `translate(${graph1Margin.left},${graph1Margin.top})`);
+
+    chart1.append("g")
+        .attr("class", "y-axis")
+        .call(d3.axisLeft(graph1Y).tickFormat(d => `$${(d / 1e9).toFixed(1)}B`));
+
+    const yTicks1 = graph1Y.ticks(); 
+
+    yTicks1.forEach((tick, i) => {
+        chart1.append("line")
+            .attr("x1", 0)
+            .attr("x2", chart1Width)
+            .attr("y1", graph1Y(tick))
+            .attr("y2", graph1Y(tick))
+            .attr("stroke", "#e5e3e3")
+            .attr("stroke-width", 1);
+    });
+
+    chart1.append("line")
+        .attr("x1", chart1Width)
+        .attr("y1", 0)
+        .attr("x2", chart1Width)
+        .attr("y2", chart1Height)
+        .attr("stroke", "#e5e3e3")
+        .attr("stroke-width", 1);
+    
+    chart1.append("text")
+        .attr("class", "axis-label")
+        .attr("text-anchor", "middle")
+        .attr("transform", `rotate(-90)`)
+        .attr("x", -chart1Height / 2)
+        .attr("y", -graph1Margin.left + 20)
+        .text("Total Damage in USD");
+
+    chart1.append("g")
+        .attr("transform", `translate(0,${chart1Height})`)
+        .attr("class", "x-axis")
+        .call(d3.axisBottom(graph1X).tickPadding(10));
+
+    chart1.selectAll(".bar")
+        .data(graph1Data)
+        .enter()
+        .append("rect")
+        .attr("class", "bar")
+        .attr("x", d => graph1X(d.year))
+        .attr("y", d => graph1Y(d.damage))
+        .attr("width", graph1X.bandwidth())
+        .attr("height", d => chart1Height - graph1Y(d.damage));
+
+    chart1.append("line")
+        .attr("x1", chart1Width/2 - graph1X.bandwidth() / 2)
+        .attr("x2", chart1Width)
+        .attr("y1", graph1Y(4105417009))
+        .attr("y2", graph1Y(4105417009))
+        .attr("stroke", "white")
+        .attr("stroke-width", 2)
+        .attr("stroke-dasharray", "4,4");
+    
+    const graph2Data = [
+        {year: "1971", damage: 20923}, 
+        {year: "2021", damage: 22232},
+        {year: "2071", damage: 28195}
+    ];
+
+    const graph2SVG = d3.select("#intro-graph-2")
+    
+    graph2SVG.attr("width", graphContainer.node().offsetWidth * 0.5);
+    graph2SVG.attr("height", graphContainer.node().offsetHeight);
+
+    let graph2Width = graph2SVG.attr("width");
+    let graph2Height = graph2SVG.attr("height");
+
+    const graph2Margin = { top: 10, right: 10, bottom: 40, left: 90 };
+
+    const chart2Width = graph2Width - graph2Margin.left - graph2Margin.right;
+    const chart2Height = graph2Height - graph2Margin.top - graph2Margin.bottom;
+
+    const graph2X = d3.scaleBand()
+        .domain(graph2Data.map(d => d.year))
+        .range([0, chart2Width])
+        .padding(0.3);
+
+    const graph2Y = d3.scaleLinear()
+        .domain([15000, 30000])
+        .range([chart2Height, 0]);
+
+    const chart2 = graph2SVG.append("g")
+        .attr("transform", `translate(${graph2Margin.left},${graph2Margin.top})`);
+
+    chart2.append("g")
+        .attr("class", "y-axis")
+        .call(d3.axisLeft(graph2Y));
+
+    const yTicks2 = graph2Y.ticks(); 
+
+    yTicks2.forEach((tick, i) => {
+        chart2.append("line")
+            .attr("x1", 0)
+            .attr("x2", chart2Width)
+            .attr("y1", graph2Y(tick))
+            .attr("y2", graph2Y(tick))
+            .attr("stroke", "#e5e3e3")
+            .attr("stroke-width", 1);
+    });
+
+    chart2.append("line")
+        .attr("x1", chart2Width)
+        .attr("y1", 0)
+        .attr("x2", chart2Width)
+        .attr("y2", chart2Height)
+        .attr("stroke", "#e5e3e3")
+        .attr("stroke-width", 1);
+    
+    chart2.append("text")
+        .attr("class", "axis-label")
+        .attr("text-anchor", "middle")
+        .attr("transform", `rotate(-90)`)
+        .attr("x", -chart2Height / 2)
+        .attr("y", -graph2Margin.left + 30)
+        .text("Total Buildings Affected");
+
+    chart2.append("g")
+        .attr("transform", `translate(0,${chart2Height})`)
+        .attr("class", "x-axis")
+        .call(d3.axisBottom(graph2X).tickPadding(10));
+
+    chart2.selectAll(".graph2-bar")
+        .data(graph2Data)
+        .enter()
+        .append("rect")
+        .attr("class", "graph2-bar")
+        .attr("x", d => graph2X(d.year))
+        .attr("y", d => graph2Y(d.damage))
+        .attr("width", graph2X.bandwidth())
+        .attr("height", d => chart2Height - graph2Y(d.damage));
+    
+    chart2.append("line")
+        .attr("x1", chart2Width/2 - graph2X.bandwidth() / 2)
+        .attr("x2", chart2Width)
+        .attr("y1", graph2Y(20923))
+        .attr("y2", graph2Y(20923))
+        .attr("stroke", "white")
+        .attr("stroke-width", 2)
+        .attr("stroke-dasharray", "4,4");
+</script>
+
+<script>
+    // ------------ SETUP FOR MAP 1: COMPARING ONE ENVIRONMENTAL VARIABLE BETWEEN YEARS ------------
+    // base map
+    var map1 = L.map('map1', {
+        minZoom: 7,
+        maxZoom: 14,
+        maxBounds: [
+        [26, -100.5],
+        [35, -82.5]
+        ],
+        maxBoundsViscosity: 1,
+        bounceAtZoomLimits: false
+    }).setView([30, -91.5], 8);
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd'
+    }).addTo(map1);
+
+    // properly center and expand map tiles on load
+    setTimeout(function () {
+        map1.invalidateSize();
+    }, 100);
+
+    // add comparator
+    map1.createPane("left")
+    map1.createPane("right")
+    map1.createPane("labels")
+
+    // add labels layer on top
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        pane: 'labels'
+    }).addTo(map1);
+
+    // ------------ MAP 1: initializing user options ------------
+    let map1LeftLayer = null;
+    let map1RightLayer = null;
+
+    // referring to the options selected in the first visualization prompt
+    const map1EnvironmentalDropdown = document.querySelector('#map1-environmental-dropdown');
+    const map1LeftYearDropdown = document.querySelector('#map1-left-year-dropdown');
+    const map1RightYearDropdown = document.querySelector('#map1-right-year-dropdown');
+
+    let map1EnvironmentalOptions = {"map1-wind-damages": "wind", 
+                                    "map1-storm-surge-$": "storm_$_",
+                                    "map1-storm-surge-#": "storm_#_"};
+
+    let map1Thresholds = {
+        "storm_#_": [1, 100, 200, 300, 400, 500, 600, 700, 800, 900],
+        "storm_$_": [1, 10000000, 20000000, 30000000, 40000000, 50000000, 60000000, 70000000, 80000000, 90000000]
+    }
+
+    let map1LeftYearOptions = {"map1-left-1971": "1971", 
+                               "map1-left-2021": "2021", 
+                               "map1-left-2071": "2071"};
+
+    let map1RightYearOptions = {"map1-right-1971": "1971", 
+                                "map1-right-2021": "2021", 
+                                "map1-right-2071": "2071"};
+
+    let map1UserOptions = {
+        map1EnvironmentalValue: map1EnvironmentalOptions[map1EnvironmentalDropdown.querySelector('.selected-option').id],
+        map1LeftYearValue: map1LeftYearOptions[map1LeftYearDropdown.querySelector('.selected-option').id],
+        map1RightYearValue: map1RightYearOptions[map1RightYearDropdown.querySelector('.selected-option').id]
+    };
+
+    var data1;
+    var map1ColorScale;
+    var map1LeftLegend;
+    var map1RightLegend;
+    var map1Comparator;
+    const formatCommas = d3.format(",.0f");
+
+    // ------------ MAP 1: data loading ------------
+    async function loadMap1() {
+        data1 = await d3.json("storm_tract_map1.geojson", d3.autoType);
+        renderMap1GeoJSON(data1);
+    }
+
+    function renderMap1GeoJSON(data) {
+        // handle calls to styling to render the map
+        let leftColumn = map1UserOptions.map1EnvironmentalValue + map1UserOptions.map1LeftYearValue;
+        let rightColumn = map1UserOptions.map1EnvironmentalValue + map1UserOptions.map1RightYearValue;
+
+        let thresholds = map1Thresholds[map1UserOptions.map1EnvironmentalValue];
+
+        const numThresholds = 9;
+
+        const colorRange = ['#adadad', ...Array.from({ length: numThresholds }, (_, i) =>
+            d3.interpolateGnBu(i / (numThresholds - 1))
+        )];
+
+        map1ColorScale = d3.scaleThreshold()
+                            .domain(thresholds)
+                            .range(colorRange);
+
+        if (map1LeftLayer) {
+            map1.removeLayer(map1LeftLayer);
+        }
+        if (map1RightLayer) {
+            map1.removeLayer(map1RightLayer);
+        }
+        if (map1Comparator) {
+            map1.removeControl(map1Comparator);
+        }
+        if (map1LeftLegend) {
+            map1.removeControl(map1LeftLegend);
+        };
+        if (map1RightLegend) {
+            map1.removeControl(map1RightLegend);
+        };
+
+        map1LeftLayer = L.geoJSON(data, { 
+            style: feature => getMap1LeftStyle(feature),
+            pane: 'left',
+            onEachFeature: showMap1Popup
+            
+        }).addTo(this.map1);
+
+        map1RightLayer = L.geoJSON(data, { 
+            style: feature => getMap1RightStyle(feature),
+            pane: 'right',
+            onEachFeature: showMap1Popup
+        }).addTo(this.map1);
+
+        map1Comparator = L.control.sideBySide([], []).addTo(this.map1);
+        map1Comparator.setLeftLayers(map1LeftLayer);
+        map1Comparator.setRightLayers(map1RightLayer);  
+
+        map1LeftLegend = createMap1Legends(map1, 'left');
+        map1RightLegend = createMap1Legends(map1, 'right');
+    }
+
+    function getMap1LeftStyle(feature) {
+        let value = feature.properties[map1UserOptions.map1EnvironmentalValue + map1UserOptions.map1LeftYearValue];
+        
+        return {
+            color: 'white', 
+            weight: 1, 
+            fillOpacity: 0.8,
+            fillColor: map1ColorScale(value)
+        }
+    }
+
+    function getMap1RightStyle(feature) {
+        let value = feature.properties[map1UserOptions.map1EnvironmentalValue + map1UserOptions.map1RightYearValue];
+        
+        return {
+            color: 'white', 
+            weight: 1, 
+            fillOpacity: 0.8,
+            fillColor: map1ColorScale(value)
+        }
+    }
+
+    function createMap1Legends(map, position) {
+        let legendPosition = position === 'left' ? 'bottomleft' : 'bottomright';
+
+        const legend = L.control({ position: legendPosition });
+
+        legend.onAdd = function () {
+            const div = L.DomUtil.create('div', `map1 info legend ${position}`);
+            div.innerHTML = generateMap1LegendHTML(position);
+            return div;
+        };
+
+        legend.update = function (position) {
+            const div = document.querySelector(`.map1.info.legend.${position}`);
+
+            if (div) {
+                div.innerHTML = generateMap1LegendHTML(position);
+            }
+        };
+
+        legend.addTo(map);
+        return legend;
+    }
+
+    function generateMap1LegendHTML(position) {
+       
+        let placeholderWind = map1UserOptions.map1EnvironmentalValue == "wind";
+
+        let thresholds = map1Thresholds[map1UserOptions.map1EnvironmentalValue];
+
+        map1ColorScale.domain(thresholds);
+
+        let classes = map1ColorScale.domain(),
+        labels = [];
+
+        let title = map1UserOptions.map1EnvironmentalValue == "storm_#_" ? 
+            "Estimated # of Affected Buildings" : 
+            "Estimated $ Damages";
+
+        let innerContent = position === 'left' ? 
+            `<p class="legend-title">${title} in ${map1UserOptions.map1LeftYearValue} Climate</p>` : 
+            `<p class="legend-title">${title} in ${map1UserOptions.map1RightYearValue} Climate</p>`;
+        
+        if (classes[0] === undefined || classes[1] == 0 || placeholderWind) {
+            innerContent += `<p>No data available</p>`
+        } else {
+            innerContent += '<i style="background:' + map1ColorScale(0) + '"></i> ' + '0' + '<br>';
+            for (let i = 1; i < 10; i++) {
+                let from = i === 0 ? 0 : classes[i-1];
+                let to = classes[i] !== undefined ? classes[i] : classes[9];
+
+                innerContent += '<i style="background:' + map1ColorScale(from) + '"></i> ' +
+                    formatCommas(from) + (to !== classes[9] ? ' &ndash; ' + formatCommas(to - 1) : '+') + '<br>';
+            }
+        }
+        return innerContent;
+    }
+
+    function updateMap1UserOptions(newOptions) {
+        map1UserOptions = { ...map1UserOptions, ...newOptions };
+        if (map1LeftLegend) {
+            map1LeftLegend.update('left');
+        }
+        if (map1RightLegend) {
+            map1RightLegend.update('right');
+        }
+        if (map1LeftLayer) {
+            map1LeftLayer.setStyle(getMap1LeftStyle);
+        };
+        if (map1RightLayer) {
+            map1RightLayer.setStyle(getMap1RightStyle);
+        };
+    }
+    loadMap1();
+
+    function showMap1Popup(feature, layer) {
+        let label = map1UserOptions.map1EnvironmentalValue === "storm_#_" 
+        ? "Buildings Affected" 
+        : "Estimated $ Damages";
+
+        let leftYearValue = feature.properties[map1UserOptions.map1EnvironmentalValue + map1UserOptions.map1LeftYearValue];
+        let rightYearValue = feature.properties[map1UserOptions.map1EnvironmentalValue + map1UserOptions.map1RightYearValue];
+
+        let innerContent = `
+            <p>${label} in ${map1UserOptions.map1LeftYearValue}: ${formatCommas(leftYearValue)}</p>
+            <p>${label} in ${map1UserOptions.map1RightYearValue}: ${formatCommas(rightYearValue)}</p>
+        `;
+
+        layer.bindPopup(innerContent);
+    }
+
+    function updatePopupsOnUserOptionChange() {
+        map1.eachLayer(function (layer) {
+            if (layer.feature) { 
+                showMap1Popup(layer.feature, layer);
+            }
+        });
+    }
+</script>
+
+<script>
+    document.getElementById('appendix-toggle').addEventListener('click', function () {
+        const hiddenDiv = document.getElementById('appendix');
+        const toggleArrow = document.getElementById('appendix-arrow');
+
+        hiddenDiv.classList.toggle('show');
+        toggleArrow.classList.toggle('rotate');
+
+        if(map2) {
+            map2.invalidateSize();
+        }
+        var map2 = null; 
+
+        var isHidden = hiddenDiv.classList.contains('show');
+
+        if (isHidden && !L.DomUtil.get('map2')._leaflet_id) {
+            // ------------ SETUP FOR MAP 2: COMPARING ONE ENVIRONMENTAL VARIABLE AND ONE SOCIAL VARIABLE IN ONE YEAR ------------
+            // base map
+            if (map2) {
+                map2.remove();
+            }
+            map2 = L.map('map2', {
+                minZoom: 7,
+                maxZoom: 14,
+                maxBounds: [
+                [26, -100.5],
+                [35, -82.5]
+                ],
+                maxBoundsViscosity: 1,
+                bounceAtZoomLimits: false,
+                attributionControl: true
+            }).setView([30, -91.5], 8);
+
+            setTimeout(() => {
+      map2.invalidateSize();
+    }, 400);
+
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+                subdomains: 'abcd'
+            }).addTo(map2);
+
+            map2.attributionControl.addAttribution('Social data: U.S. Census 2016-2020 American Community Survey.');
+
+            // properly center and expand map tiles on load
+            setTimeout(function () {
+                map2.invalidateSize();
+            }, 100);
+
+            // add comparator
+            map2.createPane("left")
+            map2.createPane("right")
+            map2.createPane("labels")
+
+            // add labels layer on top
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+                subdomains: 'abcd',
+                pane: 'labels'
+            }).addTo(map2);
+
+            // ------------ MAP 2: initializing user options ------------
+            let map2LeftLayer = null;
+            let map2RightLayer = null;
+
+            // referring to the options selected in the first visualization prompt
+            const map2EnvironmentalDropdown = document.querySelector('#map2-environmental-dropdown');
+            const map2SocialDropdown = document.querySelector('#map2-social-dropdown');
+            const map2YearDropdown = document.querySelector('#map2-year-dropdown');
+
+            let map2EnvironmentalOptions = {"map2-wind-damages": "wind", 
+                                            "map2-storm-surge-$": "storm_$_",
+                                            "map2-storm-surge-#": "storm_#_"};
+
+            let map2SocialOptions = {"incomes": "median_inc",
+                                    "education-levels": "college_de",
+                                    "percent-minority": "nonwhite_t",
+                                    "percent-homeowners": "owner_occu"};
+            
+            let map2Thresholds = {
+                "storm_#_1971": [1, 350, 700, 1050, 1400, 1750],
+                "storm_#_2021": [1, 350, 700, 1050, 1400, 1750],
+                "storm_#_2071": [1, 350, 700, 1050, 1400, 1750],
+                "storm_$_1971": [1, 25000000, 50000000, 75000000, 100000000, 125000000],
+                "storm_$_2021": [1, 10000000, 20000000, 30000000, 40000000, 50000000],
+                "storm_$_2071": [1, 10000000, 20000000, 30000000, 40000000, 50000000],
+                "median_inc": [5000, 40000, 75000, 110000, 145000],
+                "college_de": [1, 15, 30, 45, 60],
+                "nonwhite_t": [0, 20, 40, 60, 80],
+                "owner_occu": [5, 25, 45, 65, 85]
+            }
+
+
+            let map2YearOptions = {"map2-1971": "1971",
+                                    "map2-2021": "2021",
+                                    "map2-2071": "2071"};
+
+            let map2UserOptions = {
+                map2EnvironmentalValue: map2EnvironmentalOptions[map2EnvironmentalDropdown.querySelector('.selected-option').id],
+                map2SocialValue: map2SocialOptions[map2SocialDropdown.querySelector('.selected-option').id],
+                map2YearValue: map2YearOptions[map2YearDropdown.querySelector('.selected-option').id]
+            };
+
+            var data2;
+            var map2EnvironmentalColorScale;
+            var map2SocialColorScale;
+            var map2LeftLegend;
+            var map2RightLegend;
+            var map2Comparator;
+
+            let socialTitles = {
+                    "median_inc": "Median Income in $",
+                    "college_de": "% of Population with College Degree",
+                    "nonwhite_t": "% Minority",
+                    "owner_occu": "% Homeowners"
+            };
+
+            let socialPopup = {
+                    "median_inc": "Median Income in $: ",
+                    "college_de": "Percent of Population with College Degree: ",
+                    "nonwhite_t": "Percent Minority: ",
+                    "owner_occu": "Percent Homeowners: "
+            };
+
+            // ------------ MAP 2: data loading ------------
+            async function loadMap2() {
+                let filePath = "storm_tract_map2.geojson";
+                data2 = await d3.json(filePath, d3.autoType);
+                renderMap2GeoJSON(data2);
+            }
+
+            function renderMap2GeoJSON(data) {
+                let socialThresholds = map2Thresholds[map2UserOptions.map2SocialValue];
+
+                map2SocialColorScale = d3.scaleThreshold()
+                                    .domain(socialThresholds)
+                                    .range(d3.schemeYlOrBr[6]);
+
+                let environmentalThresholds = map2Thresholds[map2UserOptions.map2EnvironmentalValue + map2UserOptions.map2YearValue];
+
+                map2EnvironmentalColorScale = d3.scaleThreshold()
+                                    .domain(environmentalThresholds)
+                                    .range(['#adadad', '#dff3db', '#a8dcb5', '#4cb3d2', '#2c8cbd', '#084080']);
+
+                if (map2LeftLayer) {
+                    map2.removeLayer(map2LeftLayer);
+                }
+                if (map2RightLayer) {
+                    map2.removeLayer(map2RightLayer);
+                }
+                if (map2Comparator) {
+                    map2.removeControl(map2Comparator);
+                }
+                if (map2LeftLegend) {
+                    map2.removeControl(map2LeftLegend);
+                };
+                if (map2RightLegend) {
+                    map2.removeControl(map2RightLegend);
+                };
+
+                map2LeftLayer = L.geoJSON(data, { 
+                    style: feature => getMap2LeftStyle(feature),
+                    pane: 'left',
+                    onEachFeature: showMap2Popup
+                }).addTo(map2);
+
+                map2RightLayer = L.geoJSON(data, { 
+                    style: feature => getMap2RightStyle(feature),
+                    pane: 'right',
+                    onEachFeature: showMap2Popup
+                }).addTo(map2);
+
+                map2Comparator = L.control.sideBySide([], []).addTo(map2);
+                map2Comparator.setLeftLayers(map2LeftLayer);
+                map2Comparator.setRightLayers(map2RightLayer);  
+
+                map2LeftLegend = createMap2Legends(map2, 'left');
+                map2RightLegend = createMap2Legends(map2, 'right');
+            }
+
+            function getMap2LeftStyle(feature) {
+                let value = feature.properties[map2UserOptions.map2EnvironmentalValue + map2UserOptions.map2YearValue];
+                
+                return {
+                    color: 'white', 
+                    weight: 1, 
+                    fillOpacity: 0.8,
+                    fillColor: value == null ? 'transparent' : map2EnvironmentalColorScale(value)
+                }
+            }
+
+            function getMap2RightStyle(feature) {
+                let value = feature.properties[map2UserOptions.map2SocialValue];
+                
+                return {
+                    color: 'white', 
+                    weight: 1, 
+                    fillOpacity: 0.8,
+                    fillColor: value == null ? 'transparent' : map2SocialColorScale(value)
+                }
+            }
+
+            function createMap2Legends(map, position) {
+                let legendPosition = position === 'left' ? 'bottomleft' : 'bottomright';
+
+                const legend = L.control({ position: legendPosition });
+
+                legend.onAdd = function () {
+                    const div = L.DomUtil.create('div', `map2 info legend ${position}`);
+                    div.innerHTML = generateMap2LegendHTML(position);
+                    return div;
+                };
+
+                legend.update = function (position) {
+                    const div = document.querySelector(`.map2.info.legend.${position}`);
+            
+                    if (position === 'left') {
+                        let environmentalThresholds = map2Thresholds[map2UserOptions.map2EnvironmentalValue + map2UserOptions.map2YearValue];
+                        map2EnvironmentalColorScale.domain(environmentalThresholds);
+                    } else {
+                        let socialThresholds = map2Thresholds[map2UserOptions.map2SocialValue];
+                        map2SocialColorScale.domain(socialThresholds)
+                    }
+                    
+                    if (div) {
+                        div.innerHTML = generateMap2LegendHTML(position);
+                    }
+                };
+
+                legend.addTo(map);
+                return legend;
+            }
+
+            function generateMap2LegendHTML(position) {
+                let colorScale = position === 'left' ? map2EnvironmentalColorScale : map2SocialColorScale;
+                
+                let classes = colorScale.domain(),
+                labels = [];
+
+                let column = position === 'left' ? map2UserOptions.map2EnvironmentalValue + map2UserOptions.map2YearValue : map2UserOptions.map2SocialValue;
+
+                let title = map2UserOptions.map2EnvironmentalValue == "storm_#_" ? 
+                    "Estimated # of Affected Buildings" : 
+                    "Estimated $ Damages";
+
+                let innerContent;
+
+                if (position === 'left') {
+                    innerContent = `<p class="legend-title">${title} in ${map2UserOptions.map2YearValue} Climate</p>`;
+                } else {
+                    innerContent = `<p class="legend-title">${socialTitles[map2UserOptions.map2SocialValue]}</p>`;
+                }
+
+                if (classes[0] === undefined || classes[1] == 0) {
+                    innerContent += `<p>No data available</p>`
+                } else {
+                    if (position === 'left') {
+                        innerContent += '<i style="background:' + colorScale(0) + '"></i> ' + '0' + '<br>';
+                    } 
+                    for (let i = 1; i < 6; i++) {
+                        let from = i === 0 ? classes[0] : classes[i-1];
+                        let to = classes[i] !== undefined ? classes[i] : classes[5];
+
+                        innerContent += '<i style="background:' + colorScale(from) + '"></i> ' +
+                        formatCommas(from) + (to !== classes[5] ? ' &ndash; ' +  formatCommas(to - 1) : '+') + '<br>';
+                    }
+                }
+                return innerContent;
+            }
+
+            function updateMap2UserOptions(newOptions) {
+                map2UserOptions = { ...map2UserOptions, ...newOptions };
+                if (map2LeftLegend) {
+                    map2LeftLegend.update('left');
+                }
+                if (map2RightLegend) {
+                    map2RightLegend.update('right');
+                }
+                if (map2LeftLayer) {
+                    map2LeftLayer.setStyle(getMap2LeftStyle);
+                };
+                if (map2RightLayer) {
+                    map2RightLayer.setStyle(getMap2RightStyle);
+                };
+            }
+
+            function showMap2Popup(feature, layer) {
+                let environmentalLabel = map2UserOptions.map2EnvironmentalValue === "storm_#_"
+                ? "Buildings Affected"
+                : "Estimated $ Damages";
+                let socialLabel = socialPopup[map2UserOptions.map2SocialValue];
+                let environmentalValue = feature.properties[map2UserOptions.map2EnvironmentalValue + map2UserOptions.map2YearValue];
+                let socialValue = feature.properties[map2UserOptions.map2SocialValue];
+                let innerContent = `
+                    <p>${environmentalLabel} in ${map2UserOptions.map2YearValue}: ${formatCommas(environmentalValue)}</p>
+                    <p>${socialLabel} ${formatCommas(socialValue)}</p>
+                `;
+                layer.bindPopup(innerContent);
+            }
+
+            function updatePopups2OnUserOptionChange() {
+                map2.eachLayer(function (layer) {
+                    if (layer.feature) { 
+                        showMap2Popup(layer.feature, layer);
+                    }
+                });
+            }
+            loadMap2();
+
+            document.querySelectorAll('.dropdown').forEach(dropdown => {
+                const dropdownButton = dropdown.querySelector('.dropdown-button');
+                const dropdownContent = dropdown.querySelector('.dropdown-content');
+                const dropdownOptions = [...dropdown.querySelectorAll('.dropdown-content span')];
+                const dropdownArrow = dropdown.querySelector('.arrow');
+                const dropdownValue = dropdown.querySelector('.dropdown-value');
+
+                // Handling when dropdown filter chip is clicked
+                dropdownButton.addEventListener('click', (event) => {
+                    const isVisible = dropdownContent.style.display === 'block';
+                    dropdownContent.style.display = isVisible ? 'none' : 'block';
+                    dropdownArrow.classList.toggle("active");
+                });
+
+                const setDropdownWidth = () => {
+                    const buttonWidth = dropdownButton.offsetWidth;
+                    dropdownContent.style.minWidth = `${buttonWidth}px`;
+                    dropdownContent.style.width = `${buttonWidth}px`;
+                };
+
+                setDropdownWidth();
+
+                // Handling when a dropdown option is selected
+                dropdownContent.addEventListener('click', (event) => {
+                    const target = event.target;
+                    if (target.tagName.toLowerCase() === 'span') {
+                        let newValue = target.innerHTML;
+                        dropdownValue.innerHTML = newValue;
+                        dropdownOptions.forEach((option) => option.classList.remove("selected-option"));
+                        target.classList.add("selected-option");
+                        setDropdownWidth();
+
+                        updateMap2UserOptions({
+                            map2EnvironmentalValue: map2EnvironmentalOptions[map2EnvironmentalDropdown.querySelector('.selected-option').id],
+                            map2SocialValue: map2SocialOptions[map2SocialDropdown.querySelector('.selected-option').id],
+                            map2YearValue: map2YearOptions[map2YearDropdown.querySelector('.selected-option').id]
+                        });
+
+                        updatePopups2OnUserOptionChange();
+                    }
+                });
+
+                // close dropdown if clicked outside
+                window.addEventListener('click', (event) => {
+                    if (!dropdown.contains(event.target)) {
+                        if (dropdownContent.style.display === 'block') {
+                            dropdownContent.style.display = 'none';
+                            dropdownArrow.classList.remove("active");
+                        }
+                    }
+                });
+            });
+    
+        } 
+    });
+</script>
+
+<script>
+    // handling dropdowns
+    // ------------ DROPDOWN INTERACTION SETUP ------------
+    document.querySelectorAll('.dropdown-1').forEach(dropdown => {
+        const dropdownButton = dropdown.querySelector('.dropdown-button');
+        const dropdownContent = dropdown.querySelector('.dropdown-content');
+        const dropdownOptions = [...dropdown.querySelectorAll('.dropdown-content span')];
+        const dropdownArrow = dropdown.querySelector('.arrow');
+        const dropdownValue = dropdown.querySelector('.dropdown-value');
+
+        // Handling when dropdown filter chip is clicked
+        dropdownButton.addEventListener('click', (event) => {
+            const isVisible = dropdownContent.style.display === 'block';
+            dropdownContent.style.display = isVisible ? 'none' : 'block';
+            dropdownArrow.classList.toggle("active");
+        });
+
+        const setDropdownWidth = () => {
+            const buttonWidth = dropdownButton.offsetWidth;
+            dropdownContent.style.minWidth = `${buttonWidth}px`;
+            dropdownContent.style.width = `${buttonWidth}px`;
+        };
+
+        addEventListener("load", function () {
+            setDropdownWidth();
+        })
+       
+        // Handling when a dropdown option is selected
+        dropdownContent.addEventListener('click', (event) => {
+            const target = event.target;
+            if (target.tagName.toLowerCase() === 'span') {
+                let newValue = target.innerHTML;
+                dropdownValue.innerHTML = newValue;
+                dropdownOptions.forEach((option) => option.classList.remove("selected-option"));
+                target.classList.add("selected-option");
+                setDropdownWidth();
+               
+                updateMap1UserOptions({
+                    map1EnvironmentalValue: map1EnvironmentalOptions[map1EnvironmentalDropdown.querySelector('.selected-option').id],
+                    map1LeftYearValue: map1LeftYearOptions[map1LeftYearDropdown.querySelector('.selected-option').id],
+                    map1RightYearValue: map1RightYearOptions[map1RightYearDropdown.querySelector('.selected-option').id],
+                });
+
+                updatePopupsOnUserOptionChange();
+            }
+        });
+
+        // close dropdown if clicked outside
+        window.addEventListener('click', (event) => {
+            if (!dropdown.contains(event.target)) {
+                if (dropdownContent.style.display === 'block') {
+                    dropdownContent.style.display = 'none';
+                    dropdownArrow.classList.remove("active");
+                }
+            }
+        });
+    });
+</script>
