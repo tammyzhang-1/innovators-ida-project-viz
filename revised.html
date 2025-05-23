@@ -34,7 +34,7 @@
 
             <img id="timeline" src="images/timeline.png" alt="visualization of three time points for hurricane ida: 1971, 2021, and 2071" />
 
-            <p id="intro-graph-title">Storm Surge Flooding Impacts Increase Because of a Changing Climate</p>
+            <p id="intro-graph-title">Wind and Storm Surge Flooding Impacts Because of a Changing Climate</p>
             <div id="intro-graph-container">
                 <svg id="intro-graph-1"></svg>
                 <svg id="intro-graph-2"></svg>
@@ -117,9 +117,10 @@
                       <span class="arrow"></span>
                     </button>
                     <div id="map2-environmental-dropdown" class="environmental dropdown-content">
-                        <!-- <span id="map2-wind-damages">wind damages</span> -->
                         <span class="selected-option" id="map2-storm-surge-#">buildings affected by storm surge flooding</span>
                         <span id="map2-storm-surge-$">storm surge flood damages in dollars</span>
+                        <span id="map2-wind-#">buildings affected by wind</span>
+                        <span id="map2-wind-$">wind damages in dollars</span>
                     </div>
                 </div>
                 
@@ -193,7 +194,7 @@
         .padding(0.3);
 
     const graph1Y = d3.scaleLinear()
-        .domain([3000000000, 5400000000])
+        .domain([1000000000, 5400000000])
         .range([chart1Height, 0]);
 
     const chart1 = graph1SVG.append("g")
@@ -256,9 +257,9 @@
         .attr("stroke-dasharray", "4,4");
     
     const graph2Data = [
-        {year: "1971", damage: 20923}, 
-        {year: "2021", damage: 22232},
-        {year: "2071", damage: 28195}
+        {year: "1971", damage: 1744039382}, 
+        {year: "2021", damage: 2235212224},
+        {year: "2071", damage: 4509648017}
     ];
 
     const graph2SVG = d3.select("#intro-graph-2")
@@ -280,7 +281,7 @@
         .padding(0.3);
 
     const graph2Y = d3.scaleLinear()
-        .domain([15000, 30000])
+        .domain([1000000000, 5400000000])
         .range([chart2Height, 0]);
 
     const chart2 = graph2SVG.append("g")
@@ -288,7 +289,7 @@
 
     chart2.append("g")
         .attr("class", "y-axis")
-        .call(d3.axisLeft(graph2Y));
+        .call(d3.axisLeft(graph2Y).tickFormat(d => `$${(d / 1e9).toFixed(1)}B`));
 
     const yTicks2 = graph2Y.ticks(); 
 
@@ -316,7 +317,7 @@
         .attr("transform", `rotate(-90)`)
         .attr("x", -chart2Height / 2)
         .attr("y", -graph2Margin.left + 30)
-        .text("Total Buildings Affected");
+        .text("Total Damage in USD");
 
     chart2.append("g")
         .attr("transform", `translate(0,${chart2Height})`)
@@ -336,8 +337,8 @@
     chart2.append("line")
         .attr("x1", chart2Width/2 - graph2X.bandwidth() / 2)
         .attr("x2", chart2Width)
-        .attr("y1", graph2Y(20923))
-        .attr("y2", graph2Y(20923))
+        .attr("y1", graph2Y(1744039382))
+        .attr("y2", graph2Y(1744039382))
         .attr("stroke", "white")
         .attr("stroke-width", 2)
         .attr("stroke-dasharray", "4,4");
@@ -420,7 +421,7 @@
 
     // ------------ MAP 1: data loading ------------
     async function loadMap1() {
-        data1 = await d3.json("storm_tract_map1.geojson", d3.autoType);
+        data1 = await d3.json("storm_surge.geojson", d3.autoType);
         renderMap1GeoJSON(data1);
     }
 
@@ -669,9 +670,10 @@
             const map2SocialDropdown = document.querySelector('#map2-social-dropdown');
             const map2YearDropdown = document.querySelector('#map2-year-dropdown');
 
-            let map2EnvironmentalOptions = {"map2-wind-damages": "wind", 
-                                            "map2-storm-surge-$": "storm_$_",
-                                            "map2-storm-surge-#": "storm_#_"};
+            let map2EnvironmentalOptions = {"map2-storm-surge-$": "storm_$_",
+                                            "map2-storm-surge-#": "storm_#_",
+                                            "map2-wind-$": "wind_$_", 
+                                            "map2-wind-#": "wind_#_"};
 
             let map2SocialOptions = {"incomes": "median_inc",
                                     "education-levels": "college_de",
@@ -685,6 +687,12 @@
                 "storm_$_1971": [1, 25000000, 50000000, 75000000, 100000000, 125000000],
                 "storm_$_2021": [1, 10000000, 20000000, 30000000, 40000000, 50000000],
                 "storm_$_2071": [1, 10000000, 20000000, 30000000, 40000000, 50000000],
+                "wind_#_1971": [1, 350, 700, 1050, 1400, 1750],
+                "wind_#_2021": [1, 350, 700, 1050, 1400, 1750],
+                "wind_#_2071": [1, 350, 700, 1050, 1400, 1750],
+                "wind_$_1971": [1, 25000000, 50000000, 75000000, 100000000, 125000000],
+                "wind_$_2021": [1, 10000000, 20000000, 30000000, 40000000, 50000000],
+                "wind_$_2071": [1, 10000000, 20000000, 30000000, 40000000, 50000000],
                 "median_inc": [5000, 40000, 75000, 110000, 145000],
                 "college_de": [1, 15, 30, 45, 60],
                 "nonwhite_t": [0, 20, 40, 60, 80],
@@ -725,7 +733,7 @@
 
             // ------------ MAP 2: data loading ------------
             async function loadMap2() {
-                let filePath = "storm_tract_map2.geojson";
+                let filePath = "map2.geojson";
                 data2 = await d3.json(filePath, d3.autoType);
                 renderMap2GeoJSON(data2);
             }
