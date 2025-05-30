@@ -85,32 +85,16 @@ blockquote {
 /* -- styles for introduction bar graph -- */
 
 #intro-graph-container {
-    width: calc(100%);
-}
-
-#original-intro-graph-container {
-    width: calc(100% + 2em);
+    width: calc(100% + 2.5em);
+    height: 25em;
+    transform: translateX(-2.5em);
     display: flex;
-}
-
-#intro-graph-container > p {
-    text-align: center;
-    padding-bottom: 0;
-    margin-bottom: 0;
-    padding-top: 1em;
 }
 
 #intro-graph-title {
     padding-bottom: 0;
     margin-bottom: 0.35em;
     font-weight: 600;
-    text-align: center;
-}
-
-#graph-2-title {
-    transform: translateY(1em);
-    margin-left: 4em;
-    margin-top: 1em;
 }
 
 .bar {
@@ -165,6 +149,33 @@ blockquote {
 .textbox-main {
     padding: 2em 0;
     margin-bottom: 1em;
+}
+
+#map1-census-toggle, #map2-census-toggle {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    margin: 1em 5em;
+    border: 1px solid #7c7d82;
+    border-radius: 8px;
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.85em;
+}
+
+.map1-toggle-option, .map2-toggle-option {
+    padding: 0.15em 0.5em;
+    cursor: pointer;
+    background-color: #dfdfdf;
+    color: #7c7d82;
+    /* transition: background-color 0.3s; */
+}
+
+.map1-toggle-option.active, .map2-toggle-option.active {
+    background-color: #54565C;
+    color: white;
 }
 
 /* -- styles for interactive maps -- */
@@ -255,7 +266,7 @@ blockquote {
     font-weight: 300;
 }
 
-.dropdown, .dropdown-1, .dropdown-2 {
+.dropdown, .dropdown-1{
     position: relative;
     display: inline-block;
 }
@@ -332,7 +343,7 @@ button * {
     font-weight: 600;
 }
 
-.force-break-map1::before, .force-break-map2::before {
+.force-break-map1::before {
     content: "";
     display: block;
 }
