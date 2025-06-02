@@ -1036,16 +1036,7 @@
 
             // ------------ MAP 3: data loading ------------
             async function loadMap3() {
-
-                let filePath;
-
-                if (map3UserOptions.map3EnvironmentalValue === "wind_#_" || 
-                    map3UserOptions.map3EnvironmentalValue === "wind_$_") {
-                        filePath = "wind_full_dataset.geojson";
-                } else {
-                     filePath = "map3.geojson";
-                }
-
+                let filePath = "map3_final.geojson";
 
                 data3 = await d3.json(filePath, d3.autoType);
                 rendermap3GeoJSON(data3);
@@ -1161,7 +1152,7 @@
 
                 let column = position === 'left' ? map3UserOptions.map3EnvironmentalValue + map3UserOptions.map3YearValue : map3UserOptions.map3SocialValue;
 
-                let title = map3UserOptions.map3EnvironmentalValue == "storm_#_" ? 
+                let title = map3UserOptions.map3EnvironmentalValue == "storm_#_" || map3UserOptions.map3EnvironmentalValue == "wind_#_" ? 
                     "Estimated # of Affected Buildings" : 
                     "Estimated $ Damages";
 
@@ -1207,7 +1198,7 @@
             }
 
             function showMap3Popup(feature, layer) {
-                let environmentalLabel = map3UserOptions.map3EnvironmentalValue === "storm_#_"
+                let environmentalLabel = map3UserOptions.map3EnvironmentalValue === "storm_#_" || map3UserOptions.map3EnvironmentalValue === "wind_#_"
                 ? "Buildings Affected"
                 : "Estimated $ Damages";
                 let socialLabel = socialPopup[map3UserOptions.map3SocialValue];
