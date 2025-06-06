@@ -34,12 +34,19 @@
 
             <img id="timeline" src="images/timeline.png" alt="visualization of three time points for hurricane ida: 1971, 2021, and 2071" />
 
-            <p id="intro-graph-title">Storm Surge Flooding and Wind Impacts Because of a Changing Climate</p>
-            <div id="intro-graph-container">
-                <p>Storm Surge Flooding Impacts</p>
-                <svg id="intro-graph-1"></svg>
-                <p id="graph-2-title">Wind Impacts</p>
-                <svg id="intro-graph-2"></svg>
+            <!-- <p id="intro-graph-title">Storm Surge Flooding and Wind Impacts Because of a Changing Climate</p> -->
+            <div id="intro-graph-container"> 
+                <p class="graph-title">Storm Surge Flooding Impacts</p>
+                <div class="graph-row">
+                    <svg id="intro-graph-1"></svg>
+                    <svg id="intro-graph-2"></svg>
+                </div>
+               
+                <p id="graph-second-row" class="graph-title">Wind Impacts</p>
+                 <div class="graph-row">
+                    <svg id="intro-graph-3"></svg>
+                    <svg id="intro-graph-4"></svg>
+                </div>
             </div>
         </div>
     </div>
@@ -231,12 +238,12 @@
     const graphContainer = d3.select("#intro-graph-container");
     const graph1SVG = d3.select("#intro-graph-1")
     
-    graph1SVG.attr("width", graphContainer.node().offsetWidth);
-    graph1SVG.attr("height", 500);
+    graph1SVG.attr("width", graphContainer.node().offsetWidth * 0.5);
+    graph1SVG.attr("height", 450);
     let graph1Width = graph1SVG.attr("width");
     let graph1Height = graph1SVG.attr("height");
 
-    const graph1Margin = { top: 0, right: 0, bottom: 50, left: 80 };
+    const graph1Margin = { top: 10, right: 0, bottom: 50, left: 80 };
 
     const chart1Width = graph1Width - graph1Margin.left - graph1Margin.right;
     const chart1Height = graph1Height - graph1Margin.top - graph1Margin.bottom;
@@ -247,7 +254,7 @@
         .padding(0.3);
 
     const graph1Y = d3.scaleLinear()
-        .domain([1000000000, 5400000000])
+        .domain([3000000000, 5400000000])
         .range([chart1Height, 0]);
 
     const chart1 = graph1SVG.append("g")
@@ -308,22 +315,23 @@
         .attr("stroke", "white")
         .attr("stroke-width", 2)
         .attr("stroke-dasharray", "4,4");
-    
+</script>
+
+<script>
     const graph2Data = [
-        {year: "1971", damage: 1744039382}, 
-        {year: "2021", damage: 2235212224},
-        {year: "2071", damage: 4509648017}
+        {year: "1971", damage: 20923}, 
+        {year: "2021", damage: 22232},
+        {year: "2071", damage: 28195}
     ];
 
     const graph2SVG = d3.select("#intro-graph-2")
     
-    graph2SVG.attr("width", graphContainer.node().offsetWidth);
-    graph2SVG.attr("height", 500);
-
+    graph2SVG.attr("width", graphContainer.node().offsetWidth * 0.5);
+    graph2SVG.attr("height", 450);
     let graph2Width = graph2SVG.attr("width");
     let graph2Height = graph2SVG.attr("height");
 
-    const graph2Margin = { top: 0, right: 0, bottom: 50, left: 80 };
+    const graph2Margin = { top: 10, right: 0, bottom: 50, left: 80 };
 
     const chart2Width = graph2Width - graph2Margin.left - graph2Margin.right;
     const chart2Height = graph2Height - graph2Margin.top - graph2Margin.bottom;
@@ -334,7 +342,7 @@
         .padding(0.3);
 
     const graph2Y = d3.scaleLinear()
-        .domain([1000000000, 5400000000])
+        .domain([15000, 30000])
         .range([chart2Height, 0]);
 
     const chart2 = graph2SVG.append("g")
@@ -342,7 +350,7 @@
 
     chart2.append("g")
         .attr("class", "y-axis")
-        .call(d3.axisLeft(graph2Y).tickFormat(d => `$${(d / 1e9).toFixed(1)}B`));
+        .call(d3.axisLeft(graph2Y));
 
     const yTicks2 = graph2Y.ticks(); 
 
@@ -370,28 +378,206 @@
         .attr("transform", `rotate(-90)`)
         .attr("x", -chart2Height / 2)
         .attr("y", -graph2Margin.left + 20)
-        .text("Total Damage in USD");
+        .text("Total Buildings Affected");
 
     chart2.append("g")
         .attr("transform", `translate(0,${chart2Height})`)
         .attr("class", "x-axis")
         .call(d3.axisBottom(graph2X).tickPadding(10));
 
-    chart2.selectAll(".graph2-bar")
+    chart2.selectAll(".bar")
         .data(graph2Data)
         .enter()
         .append("rect")
-        .attr("class", "graph2-bar")
+        .attr("class", "bar")
         .attr("x", d => graph2X(d.year))
         .attr("y", d => graph2Y(d.damage))
         .attr("width", graph2X.bandwidth())
         .attr("height", d => chart2Height - graph2Y(d.damage));
-    
+
     chart2.append("line")
         .attr("x1", chart2Width/2 - graph2X.bandwidth() / 2)
         .attr("x2", chart2Width)
-        .attr("y1", graph2Y(1744039382))
-        .attr("y2", graph2Y(1744039382))
+        .attr("y1", graph2Y(20923))
+        .attr("y2", graph2Y(20923))
+        .attr("stroke", "white")
+        .attr("stroke-width", 2)
+        .attr("stroke-dasharray", "4,4");
+</script>
+
+<script>
+    const graph3Data = [
+        {year: "1971", damage: 1744039382}, 
+        {year: "2021", damage: 2235212224},
+        {year: "2071", damage: 4509648017}
+    ];
+
+    const graph3SVG = d3.select("#intro-graph-3")
+    
+    graph3SVG.attr("width", graphContainer.node().offsetWidth * 0.5);
+    graph3SVG.attr("height", 450);
+
+    let graph3Width = graph3SVG.attr("width");
+    let graph3Height = graph3SVG.attr("height");
+
+    const graph3Margin = { top: 10, right: 0, bottom: 50, left: 80 };
+
+    const chart3Width = graph3Width - graph3Margin.left - graph3Margin.right;
+    const chart3Height = graph3Height - graph3Margin.top - graph3Margin.bottom;
+
+    const graph3X = d3.scaleBand()
+        .domain(graph3Data.map(d => d.year))
+        .range([0, chart3Width])
+        .padding(0.3);
+
+    const graph3Y = d3.scaleLinear()
+        .domain([1000000000, 5500000000])
+        .range([chart3Height, 0]);
+
+    const chart3 = graph3SVG.append("g")
+        .attr("transform", `translate(${graph3Margin.left},${graph3Margin.top})`);
+
+    chart3.append("g")
+        .attr("class", "y-axis")
+        .call(d3.axisLeft(graph3Y).tickFormat(d => `$${(d / 1e9).toFixed(1)}B`));
+
+    const yTicks3 = graph3Y.ticks(); 
+
+    yTicks3.forEach((tick, i) => {
+        chart3.append("line")
+            .attr("x1", 0)
+            .attr("x2", chart3Width)
+            .attr("y1", graph3Y(tick))
+            .attr("y2", graph3Y(tick))
+            .attr("stroke", "#e5e3e3")
+            .attr("stroke-width", 1);
+    });
+
+    chart3.append("line")
+        .attr("x1", chart3Width)
+        .attr("y1", 0)
+        .attr("x2", chart3Width)
+        .attr("y2", chart3Height)
+        .attr("stroke", "#e5e3e3")
+        .attr("stroke-width", 1);
+    
+    chart3.append("text")
+        .attr("class", "axis-label")
+        .attr("text-anchor", "middle")
+        .attr("transform", `rotate(-90)`)
+        .attr("x", -chart3Height / 2)
+        .attr("y", -graph3Margin.left + 20)
+        .text("Total Damage in USD");
+
+    chart3.append("g")
+        .attr("transform", `translate(0,${chart3Height})`)
+        .attr("class", "x-axis")
+        .call(d3.axisBottom(graph3X).tickPadding(10));
+
+    chart3.selectAll(".graph3-bar")
+        .data(graph3Data)
+        .enter()
+        .append("rect")
+        .attr("class", "graph3-bar")
+        .attr("x", d => graph3X(d.year))
+        .attr("y", d => graph3Y(d.damage))
+        .attr("width", graph3X.bandwidth())
+        .attr("height", d => chart3Height - graph3Y(d.damage));
+    
+    chart3.append("line")
+        .attr("x1", chart3Width/2 - graph3X.bandwidth() / 2)
+        .attr("x2", chart3Width)
+        .attr("y1", graph3Y(1744039382))
+        .attr("y2", graph3Y(1744039382))
+        .attr("stroke", "white")
+        .attr("stroke-width", 2)
+        .attr("stroke-dasharray", "4,4");
+</script>
+
+<script>
+    const graph4Data = [
+        {year: "1971", damage: 952559}, 
+        {year: "2021", damage: 958445},
+        {year: "2071", damage: 999544}
+    ];
+
+    const graph4SVG = d3.select("#intro-graph-4")
+    
+    graph4SVG.attr("width", graphContainer.node().offsetWidth * 0.5);
+    graph4SVG.attr("height", 450);
+
+    let graph4Width = graph4SVG.attr("width");
+    let graph4Height = graph4SVG.attr("height");
+
+    const graph4Margin = { top: 10, right: 0, bottom: 50, left: 90 };
+
+    const chart4Width = graph4Width - graph4Margin.left - graph4Margin.right;
+    const chart4Height = graph4Height - graph4Margin.top - graph4Margin.bottom;
+
+    const graph4X = d3.scaleBand()
+        .domain(graph4Data.map(d => d.year))
+        .range([0, chart4Width])
+        .padding(0.3);
+
+    const graph4Y = d3.scaleLinear()
+        .domain([900000, 1010000])
+        .range([chart4Height, 0]);
+
+    const chart4 = graph4SVG.append("g")
+        .attr("transform", `translate(${graph4Margin.left},${graph4Margin.top})`);
+
+    chart4.append("g")
+        .attr("class", "y-axis")
+        .call(d3.axisLeft(graph4Y));
+
+    const yTicks4 = graph4Y.ticks(); 
+
+    yTicks4.forEach((tick, i) => {
+        chart4.append("line")
+            .attr("x1", 0)
+            .attr("x2", chart4Width)
+            .attr("y1", graph4Y(tick))
+            .attr("y2", graph4Y(tick))
+            .attr("stroke", "#e5e3e3")
+            .attr("stroke-width", 1);
+    });
+
+    chart4.append("line")
+        .attr("x1", chart4Width)
+        .attr("y1", 0)
+        .attr("x2", chart4Width)
+        .attr("y2", chart4Height)
+        .attr("stroke", "#e5e3e3")
+        .attr("stroke-width", 1);
+    
+    chart4.append("text")
+        .attr("class", "axis-label")
+        .attr("text-anchor", "middle")
+        .attr("transform", `rotate(-90)`)
+        .attr("x", -chart4Height / 2)
+        .attr("y", -graph4Margin.left + 20)
+        .text("Total Buildings Affected");
+
+    chart4.append("g")
+        .attr("transform", `translate(0,${chart4Height})`)
+        .attr("class", "x-axis")
+        .call(d3.axisBottom(graph4X).tickPadding(10));
+
+    chart4.selectAll(".graph4-bar")
+        .data(graph4Data)
+        .enter()
+        .append("rect")
+        .attr("class", "graph4-bar")
+        .attr("x", d => graph4X(d.year))
+        .attr("y", d => graph4Y(d.damage))
+        .attr("width", graph4X.bandwidth())
+        .attr("height", d => chart4Height - graph4Y(d.damage));
+    
+    chart4.append("line")
+        .attr("x1", chart4Width/2 - graph4X.bandwidth() / 2)
+        .attr("x2", chart4Width)
+        .attr("y1", graph4Y(952559))
+        .attr("y2", graph4Y(952559))
         .attr("stroke", "white")
         .attr("stroke-width", 2)
         .attr("stroke-dasharray", "4,4");
@@ -703,6 +889,8 @@
     let map2Thresholds = {
         "wind_#_": [1, 300, 600, 900, 1200, 1500, 1800, 2100, 2400, 2700],
         "wind_$_": [1, 10000000, 20000000, 30000000, 40000000, 50000000, 60000000, 70000000, 80000000, 90000000]
+        // "wind_$_": [1, 5000000, 10000000, 15000000, 20000000, 25000000, 30000000, 35000000, 40000000, 45000000]
+        // "wind_$_": [1, 1000000, 2000000, 3000000, 4000000, 5000000, 6000000, 7000000, 8000000, 9000000]
     }
 
     let map2LeftYearOptions = {"map2-left-1971": "1971", 
@@ -727,7 +915,7 @@
 
     // ------------ MAP 2: data loading ------------
     async function loadMap2() {
-        data2 = await d3.json("wind_final.geojson", d3.autoType);
+        data2 = await d3.json("wind_revised.geojson", d3.autoType);
         renderMap2GeoJSON(data2);
     }
 
@@ -894,7 +1082,7 @@
         layer.bindPopup(innerContent);
     }
 
-    function updatePopupsOnUserOptionChange() {
+    function updatePopups2OnUserOptionChange() {
         map2.eachLayer(function (layer) {
             if (layer.feature) { 
                 showMap2Popup(layer.feature, layer);
@@ -1036,7 +1224,7 @@
 
             // ------------ MAP 3: data loading ------------
             async function loadMap3() {
-                let filePath = "map3_final.geojson";
+                let filePath = "map3_revised.geojson";
 
                 data3 = await d3.json(filePath, d3.autoType);
                 rendermap3GeoJSON(data3);
@@ -1327,6 +1515,7 @@
                 });
 
                 updatePopupsOnUserOptionChange();
+                updatePopups2OnUserOptionChange();
             }
         });
 

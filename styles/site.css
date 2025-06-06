@@ -85,19 +85,13 @@ blockquote {
 /* -- styles for introduction bar graph -- */
 
 #intro-graph-container {
-    width: calc(100%);
+    width: calc(100% + 10em);
+    transform: translateX(-5em);
 }
 
 #original-intro-graph-container {
     width: calc(100% + 2em);
     display: flex;
-}
-
-#intro-graph-container > p {
-    text-align: center;
-    padding-bottom: 0;
-    margin-bottom: 0;
-    padding-top: 1em;
 }
 
 #intro-graph-title {
@@ -107,17 +101,27 @@ blockquote {
     text-align: center;
 }
 
-#graph-2-title {
-    transform: translateY(1em);
-    margin-left: 4em;
-    margin-top: 1em;
+.graph-row {
+    display: flex;
+    gap: 3em;
+}
+
+#graph-second-row {
+    margin-top: 2em;
+}
+
+.graph-title {
+    font-weight: 600 !important;
+    text-align: center;
+    padding-top: 1em;
+    padding-bottom: 0em;
 }
 
 .bar {
     fill: #084080;
 }
 
-.graph2-bar {
+.graph3-bar, .graph4-bar {
     fill: #276f7c;
 }
 
