@@ -1,9 +1,10 @@
 html, body {
-    width: 100%;
+    width: 100vw;
     height: 100%;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    overflow-x: hidden;
 }
 
 /* -- styles for textbox overlays with image background */
@@ -84,14 +85,14 @@ blockquote {
 
 /* -- styles for introduction bar graph -- */
 
-#intro-graph-container {
-    width: calc(100% + 10em);
-    transform: translateX(-5em);
+#chart-section {
+    width: 100vw;
+    padding-bottom: 5em;
 }
 
-#original-intro-graph-container {
-    width: calc(100% + 2em);
-    display: flex;
+#intro-graph-container {
+    width: 80%;
+    margin: auto;
 }
 
 #intro-graph-title {
@@ -111,10 +112,13 @@ blockquote {
 }
 
 .graph-title {
+    font-family: 'Inter', sans-serif;
     font-weight: 600 !important;
     text-align: center;
     padding-top: 1em;
     padding-bottom: 0em;
+    font-size: 1.25em;
+    line-height: 175%;
 }
 
 .bar {
@@ -174,12 +178,12 @@ blockquote {
 /* -- styles for interactive maps -- */
 .visualization-container {
     width: 100%;
-    height: 100vh;
+    /* height: 100vh; */
 }
 
 .map-container {
     width: 100%;
-    height: 80%;
+    height: 80vh;
     position: relative;
 }
 
@@ -246,6 +250,7 @@ blockquote {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    position: relative;
 }
 
 .visualization-prompt h2 {
@@ -394,7 +399,7 @@ button * {
     }
 }
 
-@media (max-width: 1150px) {
+@media (max-width: 1465px) {
     .force-break::before {
        display: none;
     }
@@ -416,7 +421,7 @@ button * {
     }
 }
 
-@media (max-width: 890px) {
+@media (max-width: 1130px) {
     .visualization-prompt {
         display: flex;
         align-items: center;
@@ -452,7 +457,7 @@ button * {
     }
 }
 
-@media (max-width: 750px) {
+@media (max-width: 950px) {
     .visualization-prompt h2 {
         font-size: 1em;
     }
