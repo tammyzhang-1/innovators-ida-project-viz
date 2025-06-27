@@ -52,7 +52,6 @@
                       <span class="arrow"></span>
                     </button>
                     <div id="map1-environmental-dropdown" class="environmental dropdown-content">
-                        <!-- <span id="map1-wind-damages">wind damages</span> -->
                         <span class="selected-option" id="map1-storm-surge-#">buildings affected by storm surge flooding</span>
                         <span id="map1-storm-surge-$">storm surge flood damages in dollars</span>
                     </div>
@@ -117,7 +116,6 @@
                       <span class="arrow"></span>
                     </button>
                     <div id="map2-environmental-dropdown" class="environmental dropdown-content">
-                        <!-- <span id="map2-wind-damages">wind damages</span> -->
                         <span class="selected-option" id="map2-storm-surge-#">buildings affected by storm surge flooding</span>
                         <span id="map2-storm-surge-$">storm surge flood damages in dollars</span>
                     </div>
@@ -420,7 +418,7 @@
 
     // ------------ MAP 1: data loading ------------
     async function loadMap1() {
-        data1 = await d3.json("storm_tract_map1.geojson", d3.autoType);
+        data1 = await d3.json("data_v1/storm_tract_map1.geojson", d3.autoType);
         renderMap1GeoJSON(data1);
     }
 
@@ -725,7 +723,7 @@
 
             // ------------ MAP 2: data loading ------------
             async function loadMap2() {
-                let filePath = "storm_tract_map2.geojson";
+                let filePath = "data_v1/storm_tract_map2.geojson";
                 data2 = await d3.json(filePath, d3.autoType);
                 renderMap2GeoJSON(data2);
             }

@@ -56,12 +56,12 @@
         <div class="visualization-prompt">
             <h2 class="poppins-light">What might
     
-                <div class="dropdown-1">
+                <div class="dropdown-1 data-change">
                     <button class="dropdown-button">
                       <span id="map1-environmental-value" class="dropdown-value">buildings with at least $5k of damage by storm surge flooding</span>
                       <span class="arrow"></span>
                     </button>
-                    <div id="map1-environmental-dropdown" class="environmental dropdown-content">
+                    <div id="map1-environmental-dropdown" class="map1-dropdown-content environmental dropdown-content">
                         <span class="selected-option" id="map1-storm-surge-#">buildings with at least $5k of damage by storm surge flooding</span>
                         <span id="map1-storm-surge-$">storm surge flood damages in dollars</span>
                     </div>
@@ -76,7 +76,7 @@
                     <span id="map1-left-year-value" class="dropdown-value">1971</span>
                     <span class="arrow"></span>
                     </button>
-                    <div id="map1-left-year-dropdown" class="dropdown-content">
+                    <div id="map1-left-year-dropdown" class="map1-dropdown-content dropdown-content">
                         <span id="map1-left-1971" class="selected-option">1971</span>
                         <span id="map1-left-2021">2021</span>
                         <span id="map1-left-2071">2071</span>
@@ -90,7 +90,7 @@
                     <span id="map1-right-year-value" class="dropdown-value">2021</span>
                     <span class="arrow"></span>
                     </button>
-                    <div id="map1-right-year-dropdown" class="dropdown-content">
+                    <div id="map1-right-year-dropdown" class="map1-dropdown-content dropdown-content">
                         <span id="map1-right-1971">1971</span>
                         <span id="map1-right-2021" class="selected-option">2021</span>
                         <span id="map1-right-2071">2071</span>
@@ -110,12 +110,12 @@
         <div class="visualization-prompt">
             <h2 class="poppins-light">What might
     
-                <div class="dropdown-1">
+                <div class="dropdown-1 data-change">
                     <button class="dropdown-button">
                       <span id="map2-environmental-value" class="dropdown-value">buildings with at least $5k of damage by wind</span>
                       <span class="arrow"></span>
                     </button>
-                    <div id="map2-environmental-dropdown" class="environmental dropdown-content">
+                    <div id="map2-environmental-dropdown" class="map2-dropdown-content environmental dropdown-content">
                         <span class="selected-option" id="map2-wind-#">buildings with at least $5k of damage by wind</span>
                         <span id="map2-wind-$">wind damages in dollars</span>
                     </div>
@@ -130,7 +130,7 @@
                     <span id="map2-left-year-value" class="dropdown-value">1971</span>
                     <span class="arrow"></span>
                     </button>
-                    <div id="map2-left-year-dropdown" class="dropdown-content">
+                    <div id="map2-left-year-dropdown" class="map2-dropdown-content dropdown-content">
                         <span id="map2-left-1971" class="selected-option">1971</span>
                         <span id="map2-left-2021">2021</span>
                         <span id="map2-left-2071">2071</span>
@@ -144,7 +144,7 @@
                     <span id="map2-right-year-value" class="dropdown-value">2021</span>
                     <span class="arrow"></span>
                     </button>
-                    <div id="map2-right-year-dropdown" class="dropdown-content">
+                    <div id="map2-right-year-dropdown" class="map2-dropdown-content dropdown-content">
                         <span id="map2-right-1971">1971</span>
                         <span id="map2-right-2021" class="selected-option">2021</span>
                         <span id="map2-right-2071">2071</span>
@@ -174,12 +174,12 @@
         <div class="visualization-prompt">
             <h2 class="poppins-light">What might 
     
-                <div class="dropdown">
+                <div class="dropdown-3">
                     <button class="dropdown-button">
                       <span id="map3-environmental-dropdown-value" class="dropdown-value">buildings affected by storm surge flooding</span>
                       <span class="arrow"></span>
                     </button>
-                    <div id="map3-environmental-dropdown" class="environmental dropdown-content">
+                    <div id="map3-environmental-dropdown" class="map3-dropdown-content environmental dropdown-content">
                         <span class="selected-option" id="map3-storm-surge-#">buildings affected by storm surge flooding</span>
                         <span id="map3-storm-surge-$">storm surge flood damages in dollars</span>
                         <span id="map3-wind-#">buildings affected by wind</span>
@@ -190,12 +190,12 @@
                 look like for people of different 
             
                 <span class="force-break dropdown-wrapper"></span>
-                <div class="dropdown">
+                <div class="dropdown-3">
                     <button class="dropdown-button">
                     <span id="map3-social-dropdown-value" class="dropdown-value">incomes</span>
                     <span class="arrow"></span>
                     </button>
-                    <div id="map3-social-dropdown" class="social dropdown-content">
+                    <div id="map3-social-dropdown" class="map3-dropdown-content social dropdown-content">
                         <span class="selected-option" id="incomes">incomes</span>
                         <span id="education-levels">education levels</span>
                         <span id="percent-minority">races</span>
@@ -205,12 +205,12 @@
                 
                 in
     
-                <div class="dropdown">
+                <div class="dropdown-3">
                     <button class="dropdown-button">
                     <span id="map3-years-dropdown-value" class="dropdown-value">2021</span>
                     <span class="arrow"></span>
                     </button>
-                    <div id="map3-year-dropdown" class="dropdown-content">
+                    <div id="map3-year-dropdown" class="map3-dropdown-content dropdown-content">
                         <span id="map3-1971">1971</span>
                         <span id="map3-2021" class="selected-option">2021</span>
                         <span id="map3-2071">2071</span>
@@ -672,7 +672,13 @@
 
     // ------------ MAP 1: data loading ------------
     async function loadMap1() {
-        data1 = await d3.json("storm_surge_filtered.geojson", d3.autoType);
+        let data1;
+
+        if (map1UserOptions.map1EnvironmentalValue === "storm_#_") {
+            data1 = await d3.json("data_v3/storm_surge_filtered.geojson");
+        } else {
+            data1 = await d3.json("data_v3/storm_surge.geojson");
+        }
         renderMap1GeoJSON(data1);
     }
 
@@ -902,11 +908,8 @@
                                     "map2-wind-#": "wind_#_"};
 
     let map2Thresholds = {
-        // "wind_#_": [1, 300, 600, 900, 1200, 1500, 1800, 2100, 2400, 2700],
         "wind_#_": [1, 200, 400, 600, 800, 1000, 1200, 1400, 1600, 1800],
-        "wind_$_": [1, 10000000, 20000000, 30000000, 40000000, 50000000, 60000000, 70000000, 80000000, 90000000]
-        // "wind_$_": [1, 5000000, 10000000, 15000000, 20000000, 25000000, 30000000, 35000000, 40000000, 45000000]
-        // "wind_$_": [1, 1000000, 2000000, 3000000, 4000000, 5000000, 6000000, 7000000, 8000000, 9000000]
+        "wind_$_": [1, 5000000, 10000000, 15000000, 20000000, 25000000, 30000000, 35000000, 40000000, 45000000]
     }
 
     let map2LeftYearOptions = {"map2-left-1971": "1971", 
@@ -931,8 +934,15 @@
 
     // ------------ MAP 2: data loading ------------
     async function loadMap2() {
-        data2 = await d3.json("wind_filtered.geojson", d3.autoType);
-        renderMap2GeoJSON(data2);
+        let data2;
+
+        if (map2UserOptions.map2EnvironmentalValue === "wind_#_") {
+            data2 = await d3.json("data_v3/wind_filtered.geojson");
+            renderMap2GeoJSON(data2);
+        } else {
+            data2 = await d3.json("data_v3/wind.geojson");
+            renderMap2GeoJSON(data2);
+        }
     }
 
     function renderMap2GeoJSON(data) {
@@ -1220,6 +1230,7 @@
             };
 
             var data3;
+            var environmentalThresholds;
             var map3EnvironmentalColorScale;
             var map3SocialColorScale;
             var map3LeftLegend;
@@ -1242,7 +1253,7 @@
 
             // ------------ MAP 3: data loading ------------
             async function loadMap3() {
-                let filePath = "map3_revised.geojson";
+                let filePath = "data_v2/map3_revised.geojson";
 
                 data3 = await d3.json(filePath, d3.autoType);
                 rendermap3GeoJSON(data3);
@@ -1255,11 +1266,24 @@
                                     .domain(socialThresholds)
                                     .range(d3.schemeYlOrBr[6]);
 
-                let environmentalThresholds = map3Thresholds[map3UserOptions.map3EnvironmentalValue + map3UserOptions.map3YearValue];
+                environmentalThresholds = map3Thresholds[map3UserOptions.map3EnvironmentalValue + map3UserOptions.map3YearValue];
+
+                const numThresholds = 4;
+                let colorRange;
+
+                if (map3UserOptions.map3EnvironmentalValue === "storm_#_" || map3UserOptions.map3EnvironmentalValue === "storm_$_") {
+                    colorRange = ['#adadad', ...Array.from({ length: numThresholds }, (_, i) =>
+                    d3.interpolateGnBu((i + 1) / (numThresholds))
+                    )];
+                } else {
+                    colorRange = ['#adadad', ...Array.from({ length: numThresholds }, (_, i) =>
+                        d3.interpolateBuPu((i + 1) / (numThresholds))
+                    )];
+                }
 
                 map3EnvironmentalColorScale = d3.scaleThreshold()
                                     .domain(environmentalThresholds)
-                                    .range(['#adadad', '#dff3db', '#a8dcb5', '#4cb3d2', '#2c8cbd', '#084080']);
+                                    .range(colorRange);
 
                 if (map3LeftLayer) {
                     map3.removeLayer(map3LeftLayer);
@@ -1299,6 +1323,9 @@
 
             function getMap3LeftStyle(feature) {
                 let value = feature.properties[map3UserOptions.map3EnvironmentalValue + map3UserOptions.map3YearValue];
+
+                const numThresholds = 4;
+                let colorRange;
                 
                 return {
                     color: 'white', 
@@ -1388,6 +1415,22 @@
             }
 
             function updateMap3UserOptions(newOptions) {
+
+                let numThresholds = 4;
+                if (newOptions.map3EnvironmentalValue === "storm_#_" || newOptions.map3EnvironmentalValue === "storm_$_") {
+                    colorRange = ['#adadad', ...Array.from({ length: numThresholds }, (_, i) =>
+                    d3.interpolateGnBu((i + 1) / (numThresholds))
+                    )];
+                } else {
+                    colorRange = ['#adadad', ...Array.from({ length: numThresholds }, (_, i) =>
+                        d3.interpolateBuPu((i + 1) / (numThresholds))
+                    )];
+                }
+
+                map3EnvironmentalColorScale = d3.scaleThreshold()
+                                    .domain(environmentalThresholds)
+                                    .range(colorRange);
+
                 map3UserOptions = { ...map3UserOptions, ...newOptions };
                 if (map3LeftLegend) {
                     map3LeftLegend.update('left');
@@ -1426,10 +1469,10 @@
             }
             loadMap3();
 
-            document.querySelectorAll('.dropdown').forEach(dropdown => {
+            document.querySelectorAll('.dropdown-3').forEach(dropdown => {
                 const dropdownButton = dropdown.querySelector('.dropdown-button');
-                const dropdownContent = dropdown.querySelector('.dropdown-content');
-                const dropdownOptions = [...dropdown.querySelectorAll('.dropdown-content span')];
+                const dropdownContent = dropdown.querySelector('.map3-dropdown-content');
+                const dropdownOptions = [...dropdown.querySelectorAll('.map3-dropdown-content span')];
                 const dropdownArrow = dropdown.querySelector('.arrow');
                 const dropdownValue = dropdown.querySelector('.dropdown-value');
 
@@ -1514,26 +1557,55 @@
         dropdownContent.addEventListener('click', (event) => {
             const target = event.target;
             if (target.tagName.toLowerCase() === 'span') {
+
+                if (target.classList.contains("selected-option")) {
+                    return; 
+                }
+                
                 let newValue = target.innerHTML;
                 dropdownValue.innerHTML = newValue;
                 dropdownOptions.forEach((option) => option.classList.remove("selected-option"));
                 target.classList.add("selected-option");
                 setDropdownWidth();
-               
-                updateMap1UserOptions({
-                    map1EnvironmentalValue: map1EnvironmentalOptions[map1EnvironmentalDropdown.querySelector('.selected-option').id],
-                    map1LeftYearValue: map1LeftYearOptions[map1LeftYearDropdown.querySelector('.selected-option').id],
-                    map1RightYearValue: map1RightYearOptions[map1RightYearDropdown.querySelector('.selected-option').id],
-                });
 
-                updateMap2UserOptions({
-                    map2EnvironmentalValue: map2EnvironmentalOptions[map2EnvironmentalDropdown.querySelector('.selected-option').id],
-                    map2LeftYearValue: map2LeftYearOptions[map2LeftYearDropdown.querySelector('.selected-option').id],
-                    map2RightYearValue: map2RightYearOptions[map2RightYearDropdown.querySelector('.selected-option').id],
-                });
+                if (dropdownContent.classList.contains("map1-dropdown-content")) {
+                    updateMap1UserOptions({
+                        map1EnvironmentalValue: map1EnvironmentalOptions[map1EnvironmentalDropdown.querySelector('.selected-option').id],
+                        map1LeftYearValue: map1LeftYearOptions[map1LeftYearDropdown.querySelector('.selected-option').id],
+                        map1RightYearValue: map1RightYearOptions[map1RightYearDropdown.querySelector('.selected-option').id],
+                    });
 
-                updatePopupsOnUserOptionChange();
-                updatePopups2OnUserOptionChange();
+                    if (dropdown.classList.contains("data-change")) {
+                        if (map1LeftLayer) {
+                            map1.removeLayer(map1LeftLayer);
+                        }
+                        if (map1RightLayer) {
+                            map1.removeLayer(map1RightLayer);
+                        }
+                        loadMap1();
+                    }
+
+                    updatePopupsOnUserOptionChange();
+
+                } else if (dropdownContent.classList.contains("map2-dropdown-content")) {
+                    updateMap2UserOptions({
+                        map2EnvironmentalValue: map2EnvironmentalOptions[map2EnvironmentalDropdown.querySelector('.selected-option').id],
+                        map2LeftYearValue: map2LeftYearOptions[map2LeftYearDropdown.querySelector('.selected-option').id],
+                        map2RightYearValue: map2RightYearOptions[map2RightYearDropdown.querySelector('.selected-option').id],
+                    });
+
+                    if (dropdown.classList.contains("data-change")) {
+                        if (map2LeftLayer) {
+                            map2.removeLayer(map2LeftLayer);
+                        }
+                        if (map2RightLayer) {
+                            map2.removeLayer(map2RightLayer);
+                        }
+                        loadMap2();
+                    }
+
+                    updatePopups2OnUserOptionChange();
+                }  
             }
         });
 

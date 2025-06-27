@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LSU NCAR Ida Project</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/site.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""></script>
+    <script src="leaflet-side-by-side.js"></script>
+    <script src="d3.v7.min.js"></script>
+</head>
+<body>
+    <div id="landing" class="textbox-background">
+        <img src="images/background-1.jpg" alt="picture of coastal louisiana" />
+        <div class="textbox-overlay">
+            <h1>Hurricane Ida and a Changing Climate</h1>
+        </div>
+    </div>
+
+    <div id="intro" class="textbox-main">
+        <div class="text">
+            <p>Hurricane Ida was one of the United States' ten costliest storms ever and one with deep impacts in south Louisiana. Sometimes, after a storm like Ida, people ask:</p>
+            <blockquote><p>&#8220;Was that storm more severe because of climate change?&#8221;</p></blockquote>
+            <p>Sometimes people also want to know about their future.</p>
+            <blockquote><p>&#8220;Will a storm like Ida be more severe in the future because of climate change?&#8221;</p></blockquote>
+
+            <img id="timeline" src="images/timeline.png" alt="visualization of three time points for hurricane ida: 1971, 2021, and 2071" />
+        </div>
+    </div>
+
+    <div id="chart-section">
+        <div id="intro-graph-container"> 
+            <p id="graph-second-row" class="graph-title">Wind Impacts</p>
+                <div class="graph-row">
+                <svg id="intro-graph-3"></svg>
+                <svg id="intro-graph-4"></svg>
+            </div>
+        </div>
+    </div>
+
+    <div class="visualization-container">
+        <div class="visualization-prompt">
+            <h2 class="poppins-light">What might
+    
+                <div class="dropdown-1 data-change">
+                    <button class="dropdown-button">
+                      <span id="map2-environmental-value" class="dropdown-value">buildings with at least $5k of damage by wind</span>
+                      <span class="arrow"></span>
+                    </button>
+                    <div id="map2-environmental-dropdown" class="environmental dropdown-content">
+                        <span class="selected-option" id="map2-wind-#">buildings with at least $5k of damage by wind</span>
+                        <span id="map2-wind-$">wind damages in dollars</span>
+                    </div>
+                </div>
+                
+                look like in
+
+                <span class="force-break-map2"></span>
+            
+                <div class="dropdown-1">
+                    <button class="dropdown-button">
+                    <span id="map2-left-year-value" class="dropdown-value">1971</span>
+                    <span class="arrow"></span>
+                    </button>
+                    <div id="map2-left-year-dropdown" class="dropdown-content">
+                        <span id="map2-left-1971" class="selected-option">1971</span>
+                        <span id="map2-left-2021">2021</span>
+                        <span id="map2-left-2071">2071</span>
+                    </div>
+                </div>
+                
+                climatological conditions compared to in
+    
+                <div class="dropdown-1">
+                    <button class="dropdown-button">
+                    <span id="map2-right-year-value" class="dropdown-value">2021</span>
+                    <span class="arrow"></span>
+                    </button>
+                    <div id="map2-right-year-dropdown" class="dropdown-content">
+                        <span id="map2-right-1971">1971</span>
+                        <span id="map2-right-2021" class="selected-option">2021</span>
+                        <span id="map2-right-2071">2071</span>
+                    </div>
+                </div>
+                ?
+            </h2>
+        </div>
+
+        <div class="map-container">
+            <div id="map2" class="map">
+            </div>
+        </div>
+    </div>
+
+    <div class="textbox-background">
+        <img src="images/background-4.jpg" alt="picture of coastal louisiana" />
+        <div class="textbox-overlay">
+            <h2>Extreme Weather in a Changing Climate</h2>
+            <p>Thank you for your engagement with this work, and we have a few questions to ask you about this research.</p>
+        </div>
+    </div>
+
+    <div id="appendix-toggle">Appendix <span id="appendix-arrow">&#9660;</span></div>
+
+    <div id="appendix" class="visualization-container">
+        <div class="visualization-prompt">
+            <h2 class="poppins-light">What might 
+    
+                <div class="dropdown">
+                    <button class="dropdown-button">
+                      <span id="map3-environmental-dropdown-value" class="dropdown-value">buildings affected by wind</span>
+                      <span class="arrow"></span>
+                    </button>
+                    <div id="map3-environmental-dropdown" class="environmental dropdown-content">
+                        <span class="selected-option" id="map3-wind-#">buildings affected by wind</span>
+                        <span id="map3-wind-$">wind damages in dollars</span>
+                    </div>
+                </div>
+                
+                look like for people of different 
+            
+                <span class="force-break dropdown-wrapper"></span>
+                <div class="dropdown">
+                    <button class="dropdown-button">
+                    <span id="map3-social-dropdown-value" class="dropdown-value">incomes</span>
+                    <span class="arrow"></span>
+                    </button>
+                    <div id="map3-social-dropdown" class="social dropdown-content">
+                        <span class="selected-option" id="incomes">incomes</span>
+                        <span id="education-levels">education levels</span>
+                        <span id="percent-minority">races</span>
+                        <span id="percent-homeowners">home ownership</span>
+                    </div>
+                </div>
+                
+                in
+    
+                <div class="dropdown">
+                    <button class="dropdown-button">
+                    <span id="map3-years-dropdown-value" class="dropdown-value">2021</span>
+                    <span class="arrow"></span>
+                    </button>
+                    <div id="map3-year-dropdown" class="dropdown-content">
+                        <span id="map3-1971">1971</span>
+                        <span id="map3-2021" class="selected-option">2021</span>
+                        <span id="map3-2071">2071</span>
+                    </div>
+                </div>
+                climatological conditions?
+            </h2>
+        </div>
+        
+        <div class="map-container">
+            <div id="map3" class="map">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    let graphContainer = d3.select("#intro-graph-container");
+    const graph3Data = [
+        {year: "1971", damage: 1744039382}, 
+        {year: "2021", damage: 2235212224},
+        {year: "2071", damage: 4509648017}
+    ];
+
+    const graph3SVG = d3.select("#intro-graph-3")
+    
+    graph3SVG.attr("width", graphContainer.node().offsetWidth * 0.5);
+    graph3SVG.attr("height", 450);
+
+    let graph3Width = graph3SVG.attr("width");
+    let graph3Height = graph3SVG.attr("height");
+
+    function generateChart3() {
+        const graph3Margin = { top: 10, right: 0, bottom: 50, left: 80 };
+
+        const chart3Width = graph3Width - graph3Margin.left - graph3Margin.right;
+        const chart3Height = graph3Height - graph3Margin.top - graph3Margin.bottom;
+
+        const graph3X = d3.scaleBand()
+            .domain(graph3Data.map(d => d.year))
+            .range([0, chart3Width])
+            .padding(0.3);
+
+        const graph3Y = d3.scaleLinear()
+            .domain([1000000000, 5000000000])
+            .range([chart3Height, 0]);
+
+        const chart3 = graph3SVG.append("g")
+            .attr("transform", `translate(${graph3Margin.left},${graph3Margin.top})`);
+
+        chart3.append("g")
+            .attr("class", "y-axis")
+            .call(d3.axisLeft(graph3Y).tickFormat(d => `$${(d / 1e9).toFixed(1)}B`));
+
+        const yTicks3 = graph3Y.ticks(); 
+
+        yTicks3.forEach((tick, i) => {
+            chart3.append("line")
+                .attr("x1", 0)
+                .attr("x2", chart3Width)
+                .attr("y1", graph3Y(tick))
+                .attr("y2", graph3Y(tick))
+                .attr("stroke", "#e5e3e3")
+                .attr("stroke-width", 1);
+        });
+
+        chart3.append("line")
+            .attr("x1", chart3Width)
+            .attr("y1", 0)
+            .attr("x2", chart3Width)
+            .attr("y2", chart3Height)
+            .attr("stroke", "#e5e3e3")
+            .attr("stroke-width", 1);
+        
+        chart3.append("text")
+            .attr("class", "axis-label")
+            .attr("text-anchor", "middle")
+            .attr("transform", `rotate(-90)`)
+            .attr("x", -chart3Height / 2)
+            .attr("y", -graph3Margin.left + 20)
+            .text("Total Damage in USD");
+
+        chart3.append("g")
+            .attr("transform", `translate(0,${chart3Height})`)
+            .attr("class", "x-axis")
+            .call(d3.axisBottom(graph3X).tickPadding(10));
+
+        chart3.selectAll(".graph3-bar")
+            .data(graph3Data)
+            .enter()
+            .append("rect")
+            .attr("class", "graph3-bar")
+            .attr("x", d => graph3X(d.year))
+            .attr("y", d => graph3Y(d.damage))
+            .attr("width", graph3X.bandwidth())
+            .attr("height", d => chart3Height - graph3Y(d.damage));
+        
+        chart3.append("line")
+            .attr("x1", chart3Width/2 - graph3X.bandwidth() / 2)
+            .attr("x2", chart3Width)
+            .attr("y1", graph3Y(1744039382))
+            .attr("y2", graph3Y(1744039382))
+            .attr("stroke", "white")
+            .attr("stroke-width", 2)
+            .attr("stroke-dasharray", "4,4");
+    }
+    generateChart3();
+</script>
+
+<script>
+    const graph4Data = [
+        {year: "1971", damage: 61818}, 
+        {year: "2021", damage: 74677},
+        {year: "2071", damage: 113474}
+    ];
+
+    const graph4SVG = d3.select("#intro-graph-4")
+    
+    graph4SVG.attr("width", graphContainer.node().offsetWidth * 0.5);
+    graph4SVG.attr("height", 450);
+
+    let graph4Width = graph4SVG.attr("width");
+    let graph4Height = graph4SVG.attr("height");
+
+    function generateChart4() {
+        const graph4Margin = { top: 10, right: 0, bottom: 50, left: 90 };
+
+        const chart4Width = graph4Width - graph4Margin.left - graph4Margin.right;
+        const chart4Height = graph4Height - graph4Margin.top - graph4Margin.bottom;
+
+        const graph4X = d3.scaleBand()
+            .domain(graph4Data.map(d => d.year))
+            .range([0, chart4Width])
+            .padding(0.3);
+
+        const graph4Y = d3.scaleLinear()
+            .domain([40000, 120000])
+            .range([chart4Height, 0]);
+
+        const chart4 = graph4SVG.append("g")
+            .attr("transform", `translate(${graph4Margin.left},${graph4Margin.top})`);
+
+        chart4.append("g")
+            .attr("class", "y-axis")
+            .call(d3.axisLeft(graph4Y));
+
+        const yTicks4 = graph4Y.ticks(); 
+
+        yTicks4.forEach((tick, i) => {
+            chart4.append("line")
+                .attr("x1", 0)
+                .attr("x2", chart4Width)
+                .attr("y1", graph4Y(tick))
+                .attr("y2", graph4Y(tick))
+                .attr("stroke", "#e5e3e3")
+                .attr("stroke-width", 1);
+        });
+
+        chart4.append("line")
+            .attr("x1", chart4Width)
+            .attr("y1", 0)
+            .attr("x2", chart4Width)
+            .attr("y2", chart4Height)
+            .attr("stroke", "#e5e3e3")
+            .attr("stroke-width", 1);
+        
+        chart4.append("text")
+            .attr("class", "axis-label")
+            .attr("text-anchor", "middle")
+            .attr("transform", `rotate(-90)`)
+            .attr("x", -chart4Height / 2)
+            .attr("y", -graph4Margin.left + 20)
+            .text("# of Buildings With At Least $5,000 Damage");
+
+        chart4.append("g")
+            .attr("transform", `translate(0,${chart4Height})`)
+            .attr("class", "x-axis")
+            .call(d3.axisBottom(graph4X).tickPadding(10));
+
+        chart4.selectAll(".graph4-bar")
+            .data(graph4Data)
+            .enter()
+            .append("rect")
+            .attr("class", "graph4-bar")
+            .attr("x", d => graph4X(d.year))
+            .attr("y", d => graph4Y(d.damage))
+            .attr("width", graph4X.bandwidth())
+            .attr("height", d => chart4Height - graph4Y(d.damage));
+        
+        chart4.append("line")
+            .attr("x1", chart4Width/2 - graph4X.bandwidth() / 2)
+            .attr("x2", chart4Width)
+            .attr("y1", graph4Y(61818))
+            .attr("y2", graph4Y(61818))
+            .attr("stroke", "white")
+            .attr("stroke-width", 2)
+            .attr("stroke-dasharray", "4,4");
+    }
+    generateChart4();
+</script>
+
+<script>
+    // ------------ SETUP FOR MAP 2: COMPARING ONE ENVIRONMENTAL VARIABLE BETWEEN YEARS ------------
+    // base map
+    var map2 = L.map('map2', {
+        minZoom: 7,
+        maxZoom: 14,
+        maxBounds: [
+        [26, -100.5],
+        [35, -82.5]
+        ],
+        maxBoundsViscosity: 1,
+        bounceAtZoomLimits: false
+    }).setView([30, -91.5], 8);
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd'
+    }).addTo(map2);
+
+    // properly center and expand map tiles on load
+    setTimeout(function () {
+        map2.invalidateSize();
+    }, 100);
+
+    // add comparator
+    map2.createPane("left")
+    map2.createPane("right")
+    map2.createPane("labels")
+
+    // add labels layer on top
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        pane: 'labels'
+    }).addTo(map2);
+
+    // ------------ MAP 2: initializing user options ------------
+    let map2LeftLayer = null;
+    let map2RightLayer = null;
+
+    // referring to the options selected in the first visualization prompt
+    const map2EnvironmentalDropdown = document.querySelector('#map2-environmental-dropdown');
+    const map2LeftYearDropdown = document.querySelector('#map2-left-year-dropdown');
+    const map2RightYearDropdown = document.querySelector('#map2-right-year-dropdown');
+
+    let map2EnvironmentalOptions = {"map2-wind-$": "wind_$_",
+                                    "map2-wind-#": "wind_#_"};
+
+    let map2Thresholds = {
+        // "wind_#_": [1, 300, 600, 900, 1200, 1500, 1800, 2100, 2400, 2700],
+        "wind_#_": [1, 200, 400, 600, 800, 1000, 1200, 1400, 1600, 1800],
+        "wind_$_": [1, 5000000, 10000000, 15000000, 20000000, 25000000, 30000000, 35000000, 40000000, 45000000]
+        // "wind_$_": [1, 5000000, 10000000, 15000000, 20000000, 25000000, 30000000, 35000000, 40000000, 45000000]
+        // "wind_$_": [1, 1000000, 2000000, 3000000, 4000000, 5000000, 6000000, 7000000, 8000000, 9000000]
+    }
+
+    let map2LeftYearOptions = {"map2-left-1971": "1971", 
+                               "map2-left-2021": "2021", 
+                               "map2-left-2071": "2071"};
+
+    let map2RightYearOptions = {"map2-right-1971": "1971", 
+                                "map2-right-2021": "2021", 
+                                "map2-right-2071": "2071"};
+
+    let map2UserOptions = {
+        map2EnvironmentalValue: map2EnvironmentalOptions[map2EnvironmentalDropdown.querySelector('.selected-option').id],
+        map2LeftYearValue: map2LeftYearOptions[map2LeftYearDropdown.querySelector('.selected-option').id],
+        map2RightYearValue: map2RightYearOptions[map2RightYearDropdown.querySelector('.selected-option').id]
+    };
+
+    var data2;
+    var map2ColorScale;
+    var map2LeftLegend;
+    var map2RightLegend;
+    var map2Comparator;
+    const formatCommas = d3.format(",.0f");
+
+    // ------------ MAP 2: data loading ------------
+    async function loadMap2() {
+       let data2;
+
+        if (map2UserOptions.map2EnvironmentalValue === "wind_#_") {
+            data2 = await d3.json("data_v3/wind_filtered.geojson");
+        } else {
+            data2 = await d3.json("data_v3/wind.geojson");
+        }
+        renderMap2GeoJSON(data2);
+    }
+
+    function renderMap2GeoJSON(data) {
+        // handle calls to styling to render the map
+        let leftColumn = map2UserOptions.map2EnvironmentalValue + map2UserOptions.map2LeftYearValue;
+        let rightColumn = map2UserOptions.map2EnvironmentalValue + map2UserOptions.map2RightYearValue;
+
+        let thresholds = map2Thresholds[map2UserOptions.map2EnvironmentalValue];
+
+        const numThresholds = 9;
+
+        const colorRange = ['#adadad', ...Array.from({ length: numThresholds }, (_, i) =>
+            d3.interpolateBuPu((i + 1) / (numThresholds))
+        )];
+
+        map2ColorScale = d3.scaleThreshold()
+                            .domain(thresholds)
+                            .range(colorRange);
+
+        if (map2LeftLayer) {
+            map2.removeLayer(map2LeftLayer);
+        }
+        if (map2RightLayer) {
+            map2.removeLayer(map2RightLayer);
+        }
+        if (map2Comparator) {
+            map2.removeControl(map2Comparator);
+        }
+        if (map2LeftLegend) {
+            map2.removeControl(map2LeftLegend);
+        };
+        if (map2RightLegend) {
+            map2.removeControl(map2RightLegend);
+        };
+
+        map2LeftLayer = L.geoJSON(data, { 
+            style: feature => getMap2LeftStyle(feature),
+            pane: 'left',
+            onEachFeature: showMap2Popup     
+        }).addTo(this.map2);
+
+        map2RightLayer = L.geoJSON(data, { 
+            style: feature => getMap2RightStyle(feature),
+            pane: 'right',
+            onEachFeature: showMap2Popup
+        }).addTo(this.map2);
+
+        map2Comparator = L.control.sideBySide([], []).addTo(this.map2);
+        map2Comparator.setLeftLayers(map2LeftLayer);
+        map2Comparator.setRightLayers(map2RightLayer);  
+
+        map2LeftLegend = createMap2Legends(map2, 'left');
+        map2RightLegend = createMap2Legends(map2, 'right');
+    }
+
+
+    function getMap2LeftStyle(feature) {
+        let value = feature.properties[map2UserOptions.map2EnvironmentalValue + map2UserOptions.map2LeftYearValue];
+
+        return {
+            color: 'white', 
+            weight: 1, 
+            fillOpacity: 0.8,
+            fillColor: map2ColorScale(value)
+        }
+    }
+
+    function getMap2RightStyle(feature) {
+        let value = feature.properties[map2UserOptions.map2EnvironmentalValue + map2UserOptions.map2RightYearValue];
+        
+        return {
+            color: 'white', 
+            weight: 1, 
+            fillOpacity: 0.8,
+            fillColor: map2ColorScale(value)
+        }
+    }
+
+    function createMap2Legends(map, position) {
+        let legendPosition = position === 'left' ? 'bottomleft' : 'bottomright';
+
+        const legend = L.control({ position: legendPosition });
+
+        legend.onAdd = function () {
+            const div = L.DomUtil.create('div', `map2 info legend ${position}`);
+            div.innerHTML = generateMap2LegendHTML(position);
+            return div;
+        };
+
+        legend.update = function (position) {
+            const div = document.querySelector(`.map2.info.legend.${position}`);
+
+            if (div) {
+                div.innerHTML = generateMap2LegendHTML(position);
+            }
+        };
+
+        legend.addTo(map);
+        return legend;
+    }
+
+    function generateMap2LegendHTML(position) {
+        let thresholds = map2Thresholds[map2UserOptions.map2EnvironmentalValue];
+
+        map2ColorScale.domain(thresholds);
+
+        let classes = map2ColorScale.domain(),
+        labels = [];
+
+        let title = map2UserOptions.map2EnvironmentalValue == "wind_#_" ? 
+            "Estimated # of Affected Buildings" : 
+            "Estimated $ Damages";
+
+        let innerContent = position === 'left' ? 
+            `<p class="legend-title">${title} in ${map2UserOptions.map2LeftYearValue} Climate</p>` : 
+            `<p class="legend-title">${title} in ${map2UserOptions.map2RightYearValue} Climate</p>`;
+        
+        if (classes[0] === undefined || classes[1] == 0) {
+            innerContent += `<p>No data available</p>`
+        } else {
+            innerContent += '<i style="background:' + map2ColorScale(0) + '"></i> ' + '0' + '<br>';
+            for (let i = 1; i < 10; i++) {
+                let from = i === 0 ? 0 : classes[i-1];
+                let to = classes[i] !== undefined ? classes[i] : classes[9];
+
+                innerContent += '<i style="background:' + map2ColorScale(from) + '"></i> ' +
+                    formatCommas(from) + (to !== classes[9] ? ' &ndash; ' + formatCommas(to - 1) : '+') + '<br>';
+            }
+        }
+        return innerContent;
+    }
+
+    function updateMap2UserOptions(newOptions) {
+        map2UserOptions = { ...map2UserOptions, ...newOptions };
+        if (map2LeftLegend) {
+            map2LeftLegend.update('left');
+        }
+        if (map2RightLegend) {
+            map2RightLegend.update('right');
+        }
+        if (map2LeftLayer) {
+            map2LeftLayer.setStyle(getMap2LeftStyle);
+        };
+        if (map2RightLayer) {
+            map2RightLayer.setStyle(getMap2RightStyle);
+        };
+    }
+    loadMap2();
+
+    function showMap2Popup(feature, layer) {
+        let label = map2UserOptions.map2EnvironmentalValue === "wind_#_" 
+        ? "Buildings Affected" 
+        : "Estimated $ Damages";
+
+        let prefix = map2UserOptions.map2EnvironmentalValue === "wind_#_" ? "" : "$";
+
+        let leftYearValue = feature.properties[map2UserOptions.map2EnvironmentalValue + map2UserOptions.map2LeftYearValue];
+        let rightYearValue = feature.properties[map2UserOptions.map2EnvironmentalValue + map2UserOptions.map2RightYearValue];
+
+        let innerContent = `
+            <p>${label} in ${map2UserOptions.map2LeftYearValue}: ${prefix + formatCommas(leftYearValue)}</p>
+            <p>${label} in ${map2UserOptions.map2RightYearValue}: ${prefix + formatCommas(rightYearValue)}</p>
+        `;
+
+        layer.bindPopup(innerContent);
+    }
+
+    function updatePopups2OnUserOptionChange() {
+        map2.eachLayer(function (layer) {
+            if (layer.feature) { 
+                showMap2Popup(layer.feature, layer);
+            }
+        });
+    }
+</script>
+
+<script>
+    document.getElementById('appendix-toggle').addEventListener('click', function () {
+        const hiddenDiv = document.getElementById('appendix');
+        const toggleArrow = document.getElementById('appendix-arrow');
+
+        hiddenDiv.classList.toggle('show');
+        toggleArrow.classList.toggle('rotate');
+
+        if(map3) {
+            map3.invalidateSize();
+        }
+        var map3 = null; 
+
+        var isHidden = hiddenDiv.classList.contains('show');
+
+        if (isHidden && !L.DomUtil.get('map3')._leaflet_id) {
+            // ------------ SETUP FOR MAP 3: COMPARING ONE ENVIRONMENTAL VARIABLE AND ONE SOCIAL VARIABLE IN ONE YEAR ------------
+            // base map
+            if (map3) {
+                map3.remove();
+            }
+            map3 = L.map('map3', {
+                minZoom: 7,
+                maxZoom: 14,
+                maxBounds: [
+                [26, -100.5],
+                [35, -82.5]
+                ],
+                maxBoundsViscosity: 1,
+                bounceAtZoomLimits: false,
+                attributionControl: true
+            }).setView([30, -91.5], 8);
+
+            setTimeout(() => {
+                map3.invalidateSize();
+            }, 400);
+
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+                subdomains: 'abcd'
+            }).addTo(map3);
+
+            map3.attributionControl.addAttribution('Social data: U.S. Census 2016-2020 American Community Survey.');
+
+            // properly center and expand map tiles on load
+            setTimeout(function () {
+                map3.invalidateSize();
+            }, 100);
+
+            // add comparator
+            map3.createPane("left")
+            map3.createPane("right")
+            map3.createPane("labels")
+
+            // add labels layer on top
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+                subdomains: 'abcd',
+                pane: 'labels'
+            }).addTo(map3);
+
+            // ------------ MAP 2: initializing user options ------------
+            let map3LeftLayer = null;
+            let map3RightLayer = null;
+
+            // referring to the options selected in the first visualization prompt
+            const map3EnvironmentalDropdown = document.querySelector('#map3-environmental-dropdown');
+            const map3SocialDropdown = document.querySelector('#map3-social-dropdown');
+            const map3YearDropdown = document.querySelector('#map3-year-dropdown');
+
+            let map3EnvironmentalOptions = {
+                                            "map3-wind-$": "wind_$_", 
+                                            "map3-wind-#": "wind_#_"};
+
+            let map3SocialOptions = {"incomes": "median_inc",
+                                    "education-levels": "college_de",
+                                    "percent-minority": "nonwhite_t",
+                                    "percent-homeowners": "owner_occu"};
+            
+            let map3Thresholds = {
+                "storm_#_1971": [1, 350, 700, 1050, 1400, 1750],
+                "storm_#_2021": [1, 350, 700, 1050, 1400, 1750],
+                "storm_#_2071": [1, 350, 700, 1050, 1400, 1750],
+                "storm_$_1971": [1, 25000000, 50000000, 75000000, 100000000, 125000000],
+                "storm_$_2021": [1, 10000000, 20000000, 30000000, 40000000, 50000000],
+                "storm_$_2071": [1, 10000000, 20000000, 30000000, 40000000, 50000000],
+                "wind_#_1971": [1, 350, 700, 1050, 1400, 1750],
+                "wind_#_2021": [1, 350, 700, 1050, 1400, 1750],
+                "wind_#_2071": [1, 350, 700, 1050, 1400, 1750],
+                "wind_$_1971": [1, 5000000, 10000000, 15000000, 20000000, 25000000, 30000000],
+                "wind_$_2021": [1, 5000000, 10000000, 15000000, 20000000, 25000000, 30000000],
+                "wind_$_2071": [1, 5000000, 10000000, 15000000, 20000000, 25000000, 30000000],
+                "median_inc": [5000, 40000, 75000, 110000, 145000],
+                "college_de": [1, 15, 30, 45, 60],
+                "nonwhite_t": [0, 20, 40, 60, 80],
+                "owner_occu": [5, 25, 45, 65, 85]
+            }
+
+
+            let map3YearOptions = {"map3-1971": "1971",
+                                    "map3-2021": "2021",
+                                    "map3-2071": "2071"};
+
+            let map3UserOptions = {
+                map3EnvironmentalValue: map3EnvironmentalOptions[map3EnvironmentalDropdown.querySelector('.selected-option').id],
+                map3SocialValue: map3SocialOptions[map3SocialDropdown.querySelector('.selected-option').id],
+                map3YearValue: map3YearOptions[map3YearDropdown.querySelector('.selected-option').id]
+            };
+
+            var data3;
+            var map3EnvironmentalColorScale;
+            var environmentalThresholds;
+            var map3SocialColorScale;
+            var map3LeftLegend;
+            var map3RightLegend;
+            var map3Comparator;
+
+            let socialTitles = {
+                    "median_inc": "Median Income in $",
+                    "college_de": "% of Population with College Degree",
+                    "nonwhite_t": "% Minority",
+                    "owner_occu": "% Homeowners"
+            };
+
+            let socialPopup = {
+                    "median_inc": "Median Income in $: ",
+                    "college_de": "Percent of Population with College Degree: ",
+                    "nonwhite_t": "Percent Minority: ",
+                    "owner_occu": "Percent Homeowners: "
+            };
+
+            // ------------ MAP 3: data loading ------------
+            async function loadMap3() {
+                let filePath = "data_v2/map3_revised.geojson";
+
+                data3 = await d3.json(filePath, d3.autoType);
+                rendermap3GeoJSON(data3);
+            }
+
+            function rendermap3GeoJSON(data) {
+                let socialThresholds = map3Thresholds[map3UserOptions.map3SocialValue];
+
+                map3SocialColorScale = d3.scaleThreshold()
+                                    .domain(socialThresholds)
+                                    .range(d3.schemeYlOrBr[6]);
+
+                 environmentalThresholds = map3Thresholds[map3UserOptions.map3EnvironmentalValue + map3UserOptions.map3YearValue];
+
+                const numThresholds = 4;
+                let colorRange;
+
+                if (map3UserOptions.map3EnvironmentalValue === "storm_#_" || map3UserOptions.map3EnvironmentalValue === "storm_$_") {
+                    colorRange = ['#adadad', ...Array.from({ length: numThresholds }, (_, i) =>
+                    d3.interpolateGnBu((i + 1) / (numThresholds))
+                    )];
+                } else {
+                    colorRange = ['#adadad', ...Array.from({ length: numThresholds }, (_, i) =>
+                        d3.interpolateBuPu((i + 1) / (numThresholds))
+                    )];
+                }
+
+                map3EnvironmentalColorScale = d3.scaleThreshold()
+                                    .domain(environmentalThresholds)
+                                    .range(colorRange);
+        
+                if (map3LeftLayer) {
+                    map3.removeLayer(map3LeftLayer);
+                }
+                if (map3RightLayer) {
+                    map3.removeLayer(map3RightLayer);
+                }
+                if (map3Comparator) {
+                    map3.removeControl(map3Comparator);
+                }
+                if (map3LeftLegend) {
+                    map3.removeControl(map3LeftLegend);
+                };
+                if (map3RightLegend) {
+                    map3.removeControl(map3RightLegend);
+                };
+
+                map3LeftLayer = L.geoJSON(data, { 
+                    style: feature => getMap3LeftStyle(feature),
+                    pane: 'left',
+                    onEachFeature: showMap3Popup
+                }).addTo(map3);
+
+                map3RightLayer = L.geoJSON(data, { 
+                    style: feature => getMap3RightStyle(feature),
+                    pane: 'right',
+                    onEachFeature: showMap3Popup
+                }).addTo(map3);
+
+                map3Comparator = L.control.sideBySide([], []).addTo(map3);
+                map3Comparator.setLeftLayers(map3LeftLayer);
+                map3Comparator.setRightLayers(map3RightLayer);  
+
+                map3LeftLegend = createMap3Legends(map3, 'left');
+                map3RightLegend = createMap3Legends(map3, 'right');
+            }
+
+            function getMap3LeftStyle(feature) {
+                let value = feature.properties[map3UserOptions.map3EnvironmentalValue + map3UserOptions.map3YearValue];
+                
+                return {
+                    color: 'white', 
+                    weight: 1, 
+                    fillOpacity: 0.8,
+                    fillColor: value == null ? 'transparent' : map2ColorScale(value)
+                }
+            }
+
+            function getMap3RightStyle(feature) {
+                let value = feature.properties[map3UserOptions.map3SocialValue];
+                
+                return {
+                    color: 'white', 
+                    weight: 1, 
+                    fillOpacity: 0.8,
+                    fillColor: value == null ? 'transparent' : map3SocialColorScale(value)
+                }
+            }
+
+            function createMap3Legends(map, position) {
+                let legendPosition = position === 'left' ? 'bottomleft' : 'bottomright';
+
+                const legend = L.control({ position: legendPosition });
+
+                legend.onAdd = function () {
+                    const div = L.DomUtil.create('div', `map3 info legend ${position}`);
+                    div.innerHTML = generateMap3LegendHTML(position);
+                    return div;
+                };
+
+                legend.update = function (position) {
+                    const div = document.querySelector(`.map3.info.legend.${position}`);
+            
+                    if (position === 'left') {
+                        let environmentalThresholds = map3Thresholds[map3UserOptions.map3EnvironmentalValue + map3UserOptions.map3YearValue];
+                        map2ColorScale.domain(environmentalThresholds);
+                    } else {
+                        let socialThresholds = map3Thresholds[map3UserOptions.map3SocialValue];
+                        map3SocialColorScale.domain(socialThresholds)
+                    }
+                    
+                    if (div) {
+                        div.innerHTML = generateMap3LegendHTML(position);
+                    }
+                };
+
+                legend.addTo(map);
+                return legend;
+            }
+
+            function generateMap3LegendHTML(position) {
+                let colorScale = position === 'left' ? map2ColorScale : map3SocialColorScale;
+                
+                let classes = colorScale.domain(),
+                labels = [];
+
+                let column = position === 'left' ? map3UserOptions.map3EnvironmentalValue + map3UserOptions.map3YearValue : map3UserOptions.map3SocialValue;
+
+                let title = map3UserOptions.map3EnvironmentalValue == "storm_#_" || map3UserOptions.map3EnvironmentalValue == "wind_#_" ? 
+                    "Estimated # of Affected Buildings" : 
+                    "Estimated $ Damages";
+
+                let innerContent;
+
+                if (position === 'left') {
+                    innerContent = `<p class="legend-title">${title} in ${map3UserOptions.map3YearValue} Climate</p>`;
+                } else {
+                    innerContent = `<p class="legend-title">${socialTitles[map3UserOptions.map3SocialValue]}</p>`;
+                }
+
+                if (classes[0] === undefined || classes[1] == 0) {
+                    innerContent += `<p>No data available</p>`
+                } else {
+                    if (position === 'left') {
+                        innerContent += '<i style="background:' + colorScale(0) + '"></i> ' + '0' + '<br>';
+                    } 
+                    for (let i = 1; i < 6; i++) {
+                        let from = i === 0 ? classes[0] : classes[i-1];
+                        let to = classes[i] !== undefined ? classes[i] : classes[5];
+
+                        innerContent += '<i style="background:' + colorScale(from) + '"></i> ' +
+                        formatCommas(from) + (to !== classes[5] ? ' &ndash; ' +  formatCommas(to - 1) : '+') + '<br>';
+                    }
+                }
+                return innerContent;
+            }
+
+            function updateMap3UserOptions(newOptions) {
+                let numThresholds = 4;
+                if (newOptions.map3EnvironmentalValue === "storm_#_" || newOptions.map3EnvironmentalValue === "storm_$_") {
+                    colorRange = ['#adadad', ...Array.from({ length: numThresholds }, (_, i) =>
+                    d3.interpolateGnBu((i + 1) / (numThresholds))
+                    )];
+                } else {
+                    colorRange = ['#adadad', ...Array.from({ length: numThresholds }, (_, i) =>
+                        d3.interpolateBuPu((i + 1) / (numThresholds))
+                    )];
+                }
+
+                map3EnvironmentalColorScale = d3.scaleThreshold()
+                                    .domain(environmentalThresholds)
+                                    .range(colorRange);
+
+                map3UserOptions = { ...map3UserOptions, ...newOptions };
+                if (map3LeftLegend) {
+                    map3LeftLegend.update('left');
+                }
+                if (map3RightLegend) {
+                    map3RightLegend.update('right');
+                }
+                if (map3LeftLayer) {
+                    map3LeftLayer.setStyle(getMap3LeftStyle);
+                };
+                if (map3RightLayer) {
+                    map3RightLayer.setStyle(getMap3RightStyle);
+                };
+            }
+
+            function showMap3Popup(feature, layer) {
+                let environmentalLabel = map3UserOptions.map3EnvironmentalValue === "storm_#_" || map3UserOptions.map3EnvironmentalValue === "wind_#_"
+                ? "Buildings Affected"
+                : "Estimated $ Damages";
+                let socialLabel = socialPopup[map3UserOptions.map3SocialValue];
+                let environmentalValue = feature.properties[map3UserOptions.map3EnvironmentalValue + map3UserOptions.map3YearValue];
+                let socialValue = feature.properties[map3UserOptions.map3SocialValue];
+                let innerContent = `
+                    <p>${environmentalLabel} in ${map3UserOptions.map3YearValue}: ${formatCommas(environmentalValue)}</p>
+                    <p>${socialLabel} ${formatCommas(socialValue)}</p>
+                `;
+                layer.bindPopup(innerContent);
+            }
+
+            function updatePopups3OnUserOptionChange() {
+                map3.eachLayer(function (layer) {
+                    if (layer.feature) { 
+                        showMap3Popup(layer.feature, layer);
+                    }
+                });
+            }
+            loadMap3();
+
+            document.querySelectorAll('.dropdown').forEach(dropdown => {
+                const dropdownButton = dropdown.querySelector('.dropdown-button');
+                const dropdownContent = dropdown.querySelector('.dropdown-content');
+                const dropdownOptions = [...dropdown.querySelectorAll('.dropdown-content span')];
+                const dropdownArrow = dropdown.querySelector('.arrow');
+                const dropdownValue = dropdown.querySelector('.dropdown-value');
+
+                // Handling when dropdown filter chip is clicked
+                dropdownButton.addEventListener('click', (event) => {
+                    const isVisible = dropdownContent.style.display === 'block';
+                    dropdownContent.style.display = isVisible ? 'none' : 'block';
+                    dropdownArrow.classList.toggle("active");
+                });
+
+                const setDropdownWidth = () => {
+                    const buttonWidth = dropdownButton.offsetWidth;
+                    dropdownContent.style.minWidth = `${buttonWidth}px`;
+                    dropdownContent.style.width = `${buttonWidth}px`;
+                };
+
+                setDropdownWidth();
+
+                // Handling when a dropdown option is selected
+                dropdownContent.addEventListener('click', (event) => {
+                    const target = event.target;
+                    if (target.tagName.toLowerCase() === 'span') {
+                        let newValue = target.innerHTML;
+                        dropdownValue.innerHTML = newValue;
+                        dropdownOptions.forEach((option) => option.classList.remove("selected-option"));
+                        target.classList.add("selected-option");
+                        setDropdownWidth();
+
+                        updateMap3UserOptions({
+                            map3EnvironmentalValue: map3EnvironmentalOptions[map3EnvironmentalDropdown.querySelector('.selected-option').id],
+                            map3SocialValue: map3SocialOptions[map3SocialDropdown.querySelector('.selected-option').id],
+                            map3YearValue: map3YearOptions[map3YearDropdown.querySelector('.selected-option').id]
+                        });
+
+                        updatePopups3OnUserOptionChange();
+                    }
+                });
+
+                // close dropdown if clicked outside
+                window.addEventListener('click', (event) => {
+                    if (!dropdown.contains(event.target)) {
+                        if (dropdownContent.style.display === 'block') {
+                            dropdownContent.style.display = 'none';
+                            dropdownArrow.classList.remove("active");
+                        }
+                    }
+                });
+            });
+    
+        } 
+    });
+</script>
+
+<script>
+    // handling dropdowns
+    // ------------ DROPDOWN INTERACTION SETUP ------------
+    document.querySelectorAll('.dropdown-1').forEach(dropdown => {
+        const dropdownButton = dropdown.querySelector('.dropdown-button');
+        const dropdownContent = dropdown.querySelector('.dropdown-content');
+        const dropdownOptions = [...dropdown.querySelectorAll('.dropdown-content span')];
+        const dropdownArrow = dropdown.querySelector('.arrow');
+        const dropdownValue = dropdown.querySelector('.dropdown-value');
+
+        // Handling when dropdown filter chip is clicked
+        dropdownButton.addEventListener('click', (event) => {
+            const isVisible = dropdownContent.style.display === 'block';
+            dropdownContent.style.display = isVisible ? 'none' : 'block';
+            dropdownArrow.classList.toggle("active");
+        });
+
+        const setDropdownWidth = () => {
+            const buttonWidth = dropdownButton.offsetWidth;
+            dropdownContent.style.minWidth = `${buttonWidth}px`;
+            dropdownContent.style.width = `${buttonWidth}px`;
+        };
+
+        addEventListener("load", function () {
+            setDropdownWidth();
+        })
+       
+        // Handling when a dropdown option is selected
+        dropdownContent.addEventListener('click', (event) => {
+            const target = event.target;
+            if (target.tagName.toLowerCase() === 'span') {
+                let newValue = target.innerHTML;
+                dropdownValue.innerHTML = newValue;
+                dropdownOptions.forEach((option) => option.classList.remove("selected-option"));
+                target.classList.add("selected-option");
+                setDropdownWidth();
+
+                updateMap2UserOptions({
+                    map2EnvironmentalValue: map2EnvironmentalOptions[map2EnvironmentalDropdown.querySelector('.selected-option').id],
+                    map2LeftYearValue: map2LeftYearOptions[map2LeftYearDropdown.querySelector('.selected-option').id],
+                    map2RightYearValue: map2RightYearOptions[map2RightYearDropdown.querySelector('.selected-option').id],
+                });
+
+                if (dropdown.classList.contains("data-change")) {
+                    if (map2LeftLayer) {
+                        map2.removeLayer(map2LeftLayer);
+                    }
+                    if (map2RightLayer) {
+                        map2.removeLayer(map2RightLayer);
+                    }
+                    loadMap2();
+                }
+
+                updatePopups2OnUserOptionChange();
+            }
+        });
+
+        // close dropdown if clicked outside
+        window.addEventListener('click', (event) => {
+            if (!dropdown.contains(event.target)) {
+                if (dropdownContent.style.display === 'block') {
+                    dropdownContent.style.display = 'none';
+                    dropdownArrow.classList.remove("active");
+                }
+            }
+        });
+    });
+</script>
+
+<script>
+    let resizeTimer;
+
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        graphContainer = d3.select("#intro-graph-container");
+
+        let newWidth = graphContainer.node().offsetWidth;
+
+        graph3SVG.selectAll("*").remove();
+        graph4SVG.selectAll("*").remove();
+
+        graph3SVG.attr("width", newWidth * 0.5);
+        graph3Width = graph3SVG.attr("width");
+
+        graph4SVG.attr("width", newWidth * 0.5);
+        graph4Width = graph4SVG.attr("width");
+
+        generateChart3();
+        generateChart4();
+      }, 250); 
+    });
+</script>
