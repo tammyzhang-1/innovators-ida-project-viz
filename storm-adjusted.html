@@ -231,9 +231,9 @@
 <script>
     // ------------ SETUP FOR INTRO GRAPHS ------------
     const graph1Data = [
-        {year: "1971", damage: 4105417009}, 
-        {year: "2021", damage: 4328088370},
-        {year: "2071", damage: 5240759336}
+        {year: "1971", damage: 2484010046}, 
+        {year: "2021", damage: 2655337709},
+        {year: "2071", damage: 3387251770}
     ];
 
     let graphContainer = d3.select("#intro-graph-container");
@@ -256,7 +256,7 @@
             .padding(0.3);
 
         const graph1Y = d3.scaleLinear()
-            .domain([3000000000, 5400000000])
+            .domain([2000000000, 3500000000])
             .range([chart1Height, 0]);
 
         const chart1 = graph1SVG.append("g")
@@ -312,8 +312,8 @@
         chart1.append("line")
             .attr("x1", chart1Width/2 - graph1X.bandwidth() / 2)
             .attr("x2", chart1Width)
-            .attr("y1", graph1Y(4105417009))
-            .attr("y2", graph1Y(4105417009))
+            .attr("y1", graph1Y(2484010046))
+            .attr("y2", graph1Y(2484010046))
             .attr("stroke", "white")
             .attr("stroke-width", 2)
             .attr("stroke-dasharray", "4,4");
@@ -347,7 +347,7 @@
             .padding(0.3);
 
         const graph2Y = d3.scaleLinear()
-            .domain([15000, 27000])
+            .domain([15000, 28000])
             .range([chart2Height, 0]);
 
         const chart2 = graph2SVG.append("g")
