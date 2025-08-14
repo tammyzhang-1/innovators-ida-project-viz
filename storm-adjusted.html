@@ -414,9 +414,9 @@
 
 <script>
     const graph3Data = [
-        {year: "1971", damage: 1744039382}, 
-        {year: "2021", damage: 2235212224},
-        {year: "2071", damage: 4509648017}
+        {year: "1971", damage: 2455556375.00}, 
+        {year: "2021", damage: 3224658633.00},
+        {year: "2071", damage: 6950671589.00}
     ];
 
     const graph3SVG = d3.select("#intro-graph-3")
@@ -439,7 +439,7 @@
             .padding(0.3);
 
         const graph3Y = d3.scaleLinear()
-            .domain([1000000000, 5000000000])
+            .domain([1500000000, 7000000000])
             .range([chart3Height, 0]);
 
         const chart3 = graph3SVG.append("g")
@@ -495,8 +495,8 @@
         chart3.append("line")
             .attr("x1", chart3Width/2 - graph3X.bandwidth() / 2)
             .attr("x2", chart3Width)
-            .attr("y1", graph3Y(1744039382))
-            .attr("y2", graph3Y(1744039382))
+            .attr("y1", graph3Y(2455556375.00))
+            .attr("y2", graph3Y(2455556375.00))
             .attr("stroke", "white")
             .attr("stroke-width", 2)
             .attr("stroke-dasharray", "4,4");
